@@ -35,6 +35,8 @@ export class InicioPage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    this.storage.set("tarjetaRegaloMonto",'no')
+    this.storage.set("tarjetaRegaloproducto",'no')
     await this.showLoading2();
     this.iniciar(null)
   }
