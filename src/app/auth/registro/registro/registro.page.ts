@@ -65,10 +65,11 @@ export class RegistroPage implements OnInit {
       'apellido': form.apellido,
       'email': form.email,
       'contrasena': form.contrasena,
-      'confirmar': form.confirmar
+      'confirmar': form.confirmar,
+      'telefono': form.telefono
     }
     console.log(formR)
-    if (form.cedula == '' || form.nombre == '' || form.apellido == '' || form.correo == "" || form.contrasena == "" || form.confirmar == "") {
+    if (form.cedula == '' || form.nombre == '' || form.apellido == '' || form.correo == "" || form.contrasena == "" || form.confirmar == "" || form.telefono == "") {
       this.mensajeIncorrecto("Campos Incompletos", "Por favor complete los campos");
     } else {
       if (isNaN(cedula) == false) {
@@ -82,11 +83,13 @@ export class RegistroPage implements OnInit {
           this.mensajeIncorrecto("Revisar correo", "Escriba de su correo de manera correcta");
         }else if (contra != conf) {
           this.mensajeIncorrecto("Registro Fallido", "Las contraseñas no coinciden, verifique que las contraseñas sean iguales");
+        }else if(!this.validarTelefono(form.telefono)){
+          this.mensajeIncorrecto("Registro Fallido", "El numero de teléfono no es válido");
         }
         console.log("voy a comparar");
         console.log(this.isEqual(form.nombre, form.apellido));
 
-        if (contra == conf && (this.validarCedula(cedula) || int_length == 13) && this.validarEmail(form.email)) {
+        if (contra == conf && (this.validarCedula(cedula) || int_length == 13) && this.validarEmail(form.email) && this.validarTelefono(form.telefono)) {
           if (isNaN(form.nombre) && isNaN(form.apellido)) {
             console.log("voy a comparar");
             console.log(this.isEqual(form.nombre, form.apellido));
@@ -129,6 +132,7 @@ export class RegistroPage implements OnInit {
         this.storage.set('apellido', apellido);
         this.storage.set('correo', formR.email);
         this.storage.set('number', "");
+        this.storage.set('telefono', formR.telefono);
         this.component.name=nombre;
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
@@ -329,6 +333,10 @@ export class RegistroPage implements OnInit {
 
   validarEmail(valor) {
     var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(valor) ? true : false;
+  }
+  validarTelefono(valor) {
+    var regex = /^0+[0-9]{9}$/;
     return regex.test(valor) ? true : false;
   }
 
