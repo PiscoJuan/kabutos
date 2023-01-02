@@ -9,7 +9,6 @@ import { Auth } from  './auth';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { auth } from 'firebase';
 import * as firebase from 'firebase/app';
 
 const httpOptions = {
@@ -55,13 +54,6 @@ export class AuthService {
     const body = JSON.stringify(auth);
     console.log(body)
     return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/login/`,body,{'headers':headers})
-  }
-
-  loginwithFacebook(){
-    return this.fb.login(['email','public_profile']).then((response: FacebookLoginResponse)=>{
-      const credencial_fb = auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
-      return this.AFauth.signInWithCredential(credencial_fb);
-    })
   }
 
   enviarCorreo(correo:String):Observable<any>{

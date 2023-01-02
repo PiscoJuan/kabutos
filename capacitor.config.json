@@ -1,4 +1,5 @@
 {
+  "linuxAndroidStudioPath": "/var/lib/snapd/snap/bin/android-studio",
   "appId": "io.cabutos.starter.v1",
   "appName": "Cabutos",
   "bundledWebRuntime": false,
