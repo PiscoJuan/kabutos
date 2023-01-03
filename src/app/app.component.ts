@@ -15,6 +15,7 @@ import { FooterPage } from 'src/app/footer/footer.page'
 import { FcmService } from './servicios/fcm.service';
 import { NotificacionesService } from './servicios/notificaciones.service';
 
+import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
 declare var window;
 
 @Component({
@@ -102,9 +103,34 @@ export class AppComponent {
         console.error(error);
       });
 
+      this.addListeners();
     });
+    
   }
 
+  addListeners(){
+    
+
+    PushNotifications.addListener('registration', 
+    (token: Token)=>{
+      console.log('The token is: '+ token.value)
+    });
+
+    PushNotifications.addListener('registrationError', 
+		(error: any) => { 
+			alert('No se ha podido activar las notificaciones. Verifique las configuraciones de su dispositivo.'); 
+		}); 
+
+    PushNotifications.addListener('pushNotificationReceived', 
+    (notification:PushNotificationSchema) => {
+      console.log('Push notification received: '+ notification);
+    });
+    
+    PushNotifications.addListener('pushNotificationActionPerformed', 
+    (notification:ActionPerformed) => {
+      console.log('Push notification action performed', notification.actionId, notification.inputValue);
+    });
+  }
 
   imagen(data: any) {
     this.notificacionesService.getNotificacion(data.titulo).subscribe((res: any) => {
@@ -273,6 +299,7 @@ export class AppComponent {
     });
     return await modal.present();
   }
+
   async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: CorrectoPage,
