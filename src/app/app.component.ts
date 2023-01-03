@@ -140,7 +140,7 @@ export class AppComponent {
       console.log('Push notification received: '+ notification);
       alert('Se ha RECIBIDO UNA NOTIFICACION.');
     });
-    
+     
     PushNotifications.addListener('pushNotificationActionPerformed', 
     (notification:ActionPerformed) => {
       console.log('Push notification action performed', notification.actionId, notification.inputValue);
