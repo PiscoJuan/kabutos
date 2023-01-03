@@ -18,6 +18,8 @@ import { NotificacionesService } from './servicios/notificaciones.service';
 import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
 declare var window;
 
+import { FCM } from "@capacitor-community/fcm"; 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -109,7 +111,19 @@ export class AppComponent {
   }
 
   addListeners(){
+    PushNotifications.requestPermissions().then(result => { 
+			if (result.receive === 'granted') { 
+				// Register with Apple / Google to receive push via APNS/FCM 
+				PushNotifications.register(); 
+			} else { 
+				// Show some error 
+				alert('No se ha podido activar las notificaciones. Verifique las configuraciones de su dispositivo.'); 
+			} 
+		}); 
     
+    FCM.subscribeTo({ topic: "masive" }) 
+      .then((r) => {}) 
+      .catch((err) => console.log(err)); 
 
     PushNotifications.addListener('registration', 
     (token: Token)=>{
@@ -124,11 +138,13 @@ export class AppComponent {
     PushNotifications.addListener('pushNotificationReceived', 
     (notification:PushNotificationSchema) => {
       console.log('Push notification received: '+ notification);
+      alert('Se ha RECIBIDO UNA NOTIFICACION.');
     });
     
     PushNotifications.addListener('pushNotificationActionPerformed', 
     (notification:ActionPerformed) => {
       console.log('Push notification action performed', notification.actionId, notification.inputValue);
+      alert('Se ha RECIBIDO UNA NOTIFICACION.');
     });
   }
 
