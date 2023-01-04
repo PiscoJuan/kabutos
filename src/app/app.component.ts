@@ -137,8 +137,26 @@ export class AppComponent {
 
     PushNotifications.addListener('pushNotificationReceived', 
     (notification:PushNotificationSchema) => {
-      console.log('Push notification received: '+ notification);
+      console.log('Push notification received: '+ JSON.stringify(notification));
       alert('Se ha RECIBIDO UNA NOTIFICACION.');
+      const modal = this.modalCtrl.create({
+        component: DetalleNotificacionPage,
+        cssClass: 'DetalleNoti',
+        componentProps: {
+          'titulo': notification.title,
+          'mensaje': notification.body
+        }
+      });
+
+      /*LocalNotifications.shedule({
+        notifications:[
+          {
+            title: notification.title,
+            body: notification.body 
+          }
+        ]
+      })*/
+      
     });
      
     PushNotifications.addListener('pushNotificationActionPerformed', 

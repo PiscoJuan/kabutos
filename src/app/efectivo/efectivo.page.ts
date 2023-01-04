@@ -373,6 +373,7 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (data.valid == "ok") {
+            console.log("AAAAAAAAA", data.enviarnotificacion);
             if (this.tipoPago == "Tarjeta") {
               this.pagado(data.pedido, transaccion, autorizacion);
             }
