@@ -14,6 +14,7 @@ import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
 import { PoliticasPage } from 'src/app/politicas/politicas.page';
 import { AnimationOptions} from '@ionic/angular/providers/nav-controller';
 
+import { FCM } from "@capacitor-community/fcm"; 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -137,6 +138,11 @@ export class RegistroPage implements OnInit {
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
         this.perfilS(formR.email)
+
+        FCM.subscribeTo({ topic: "pruebaLogin" }) 
+          .then((r) => {}) 
+          .catch((err) => console.log(err)); 
+
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,

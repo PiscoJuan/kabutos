@@ -15,7 +15,7 @@ import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
-
+import { FCM } from "@capacitor-community/fcm"; 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -94,6 +94,10 @@ export class LoginPage implements OnInit {
           'correo': form.correo,
           'contrasena': 'xxxxx'
         };
+
+        FCM.subscribeTo({ topic: "pruebaLogin" }) 
+          .then((r) => {}) 
+          .catch((err) => console.log(err)); 
 
         this.shoppingService.showCart(info)
           .subscribe(data => {
