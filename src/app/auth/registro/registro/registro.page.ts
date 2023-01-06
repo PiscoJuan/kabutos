@@ -13,6 +13,7 @@ import { CorrectoPage } from '../../../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
 import { PoliticasPage } from 'src/app/politicas/politicas.page';
 import { AnimationOptions} from '@ionic/angular/providers/nav-controller';
+import { HistorialService } from "../../../servicios/historial.service";
 
 import { FCM } from "@capacitor-community/fcm"; 
 @Component({
@@ -39,6 +40,7 @@ export class RegistroPage implements OnInit {
     private firebase: FirebaseX,
     private perfilService: PerfilService,
     private storage: Storage,
+    private HistorialService:HistorialService,
     private component: AppComponent,) { }
 
   ngOnInit() {
@@ -139,9 +141,13 @@ export class RegistroPage implements OnInit {
         this.component.action="Cerrar Sesión";
         this.perfilS(formR.email)
 
-        FCM.subscribeTo({ topic: "pruebaLogin" }) 
-          .then((r) => {}) 
-          .catch((err) => console.log(err)); 
+        this.storage.get('token').then((val) => {
+          let info = {
+            id: id,
+            token: val
+          };
+          this.HistorialService.addToken(info);
+        });
 
         this.firebase.getToken().then(token => {
           var registro={

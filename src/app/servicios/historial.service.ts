@@ -97,4 +97,13 @@ export class HistorialService {
     const body = JSON.stringify(infoTarjeta);
     return this.http.post(this.baseUrl+'crearTarjetaRegaloproducto/',infoTarjeta,{'headers': headers});
   }
+  
+  addToken(info):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(info);
+    return this.http.post(this.baseUrl+'addToken/',info,{'headers': headers});
+  }
 }

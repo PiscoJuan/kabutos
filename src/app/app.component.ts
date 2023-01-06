@@ -14,6 +14,7 @@ import { IonContent } from '@ionic/angular';
 import { FooterPage } from 'src/app/footer/footer.page'
 import { FcmService } from './servicios/fcm.service';
 import { NotificacionesService } from './servicios/notificaciones.service';
+import { HistorialService } from "./servicios/historial.service";
 
 import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
 declare var window;
@@ -40,6 +41,7 @@ export class AppComponent {
     private firebase: FirebaseX,
     private footer: FooterPage,
     private notificacionesService: NotificacionesService,
+    private HistorialService:HistorialService,
   ) {
     this.initializeApp();
   }
@@ -117,7 +119,7 @@ export class AppComponent {
 				PushNotifications.register(); 
 			} else { 
 				// Show some error 
-				alert('No se ha podido activar las notificaciones. Verifique las configuraciones de su dispositivo.'); 
+				//alert('No se ha podido activar las notificaciones. Verifique las configuraciones de su dispositivo.'); 
 			} 
 		}); 
     
@@ -128,17 +130,22 @@ export class AppComponent {
     PushNotifications.addListener('registration', 
     (token: Token)=>{
       console.log('The token is: '+ token.value)
+      this.storage.get('id').then((val) => {
+        let info = {
+          id: val,
+          token: token.value
+        };
+        this.HistorialService.addToken(info);
+      });
+      
     });
 
     PushNotifications.addListener('registrationError', 
 		(error: any) => { 
-			alert('No se ha podido activar las notificaciones. Verifique las configuraciones de su dispositivo.'); 
 		}); 
 
     PushNotifications.addListener('pushNotificationReceived', 
     (notification:PushNotificationSchema) => {
-      console.log('Push notification received: '+ JSON.stringify(notification));
-      alert('Se ha RECIBIDO UNA NOTIFICACION.');
       const modal = this.modalCtrl.create({
         component: DetalleNotificacionPage,
         cssClass: 'DetalleNoti',
@@ -161,8 +168,7 @@ export class AppComponent {
      
     PushNotifications.addListener('pushNotificationActionPerformed', 
     (notification:ActionPerformed) => {
-      console.log('Push notification action performed', notification.actionId, notification.inputValue);
-      alert('Se ha RECIBIDO UNA NOTIFICACION.');
+      
     });
   }
 
