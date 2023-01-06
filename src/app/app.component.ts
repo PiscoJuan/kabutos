@@ -130,6 +130,7 @@ export class AppComponent {
     PushNotifications.addListener('registration', 
     (token: Token)=>{
       console.log('The token is: '+ token.value)
+      this.storage.set('token', token.value);
       this.storage.get('id').then((val) => {
         let info = {
           id: val,
