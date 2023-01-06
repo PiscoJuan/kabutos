@@ -17,6 +17,7 @@ import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { FCM } from "@capacitor-community/fcm"; 
 import { HistorialService } from "../../../servicios/historial.service";
+import { PushNotifications, Token } from '@capacitor/push-notifications';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -129,10 +130,13 @@ export class LoginPage implements OnInit {
         this.component.action="Cerrar Sesión";
         this.perfilS(form.correo);
 
-        this.storage.get('token').then((val) => {
+        PushNotifications.addListener('registration', 
+        (token: Token)=>{
+          console.log('The token is: '+ token.value)
+          this.storage.set('token', token.value);
           let info = {
             id: id,
-            token: val
+            token: token.value
           };
           console.log("infoToken es:", info);
           this.HistorialService.addToken(info).subscribe(
@@ -141,12 +145,10 @@ export class LoginPage implements OnInit {
                 console.log("AAAAAAAAA");
               } else {
                 console.log("EEEEEEEE");
-                this.mensajeIncorrecto("Error", "y tal");
               }
             },
             (err) => {
               console.log("IIIIIII");
-              this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
             }
           );
         });

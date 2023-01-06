@@ -14,7 +14,7 @@ import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
 import { PoliticasPage } from 'src/app/politicas/politicas.page';
 import { AnimationOptions} from '@ionic/angular/providers/nav-controller';
 import { HistorialService } from "../../../servicios/historial.service";
-
+import { PushNotifications, Token } from '@capacitor/push-notifications';
 import { FCM } from "@capacitor-community/fcm"; 
 @Component({
   selector: 'app-registro',
@@ -141,28 +141,28 @@ export class RegistroPage implements OnInit {
         this.component.action="Cerrar Sesión";
         this.perfilS(formR.email)
 
-        this.storage.get('token').then((val) => {
+        PushNotifications.addListener('registration', 
+        (token: Token)=>{
+          console.log('The token is: '+ token.value)
+          this.storage.set('token', token.value);
           let info = {
             id: id,
-            token: val
+            token: token.value
           };
           console.log("infoToken es:", info);
           this.HistorialService.addToken(info).subscribe(
             (data) => {
               if (data.valid == "Ok") {
-                console.log("AAAAAAAAA", data.enviarnotificacion);
+                console.log("AAAAAAAAA");
               } else {
                 console.log("EEEEEEEE");
-                this.mensajeIncorrecto("Error", "y tal");
               }
             },
             (err) => {
               console.log("IIIIIII");
-              this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
             }
           );
         });
-
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,
