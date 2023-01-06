@@ -136,15 +136,18 @@ export class AppComponent {
           id: val,
           token: token.value
         };
+        console.log("infoToken es:", info);
         this.HistorialService.addToken(info).subscribe(
           (data) => {
             if (data.valid == "Ok") {
-              console.log("AAAAAAAAA", data.enviarnotificacion);
+              console.log("AAAAAAAAA");
             } else {
+              console.log("EEEEEEEE");
               this.mensajeIncorrecto("Error", "y tal");
             }
           },
           (err) => {
+            console.log("IIIIIII");
             this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
           }
         );

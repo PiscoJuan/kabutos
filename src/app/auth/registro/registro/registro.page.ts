@@ -146,15 +146,18 @@ export class RegistroPage implements OnInit {
             id: id,
             token: val
           };
+          console.log("infoToken es:", info);
           this.HistorialService.addToken(info).subscribe(
             (data) => {
               if (data.valid == "Ok") {
                 console.log("AAAAAAAAA", data.enviarnotificacion);
               } else {
+                console.log("EEEEEEEE");
                 this.mensajeIncorrecto("Error", "y tal");
               }
             },
             (err) => {
+              console.log("IIIIIII");
               this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
             }
           );
