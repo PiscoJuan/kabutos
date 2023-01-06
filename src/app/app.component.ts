@@ -136,9 +136,19 @@ export class AppComponent {
           id: val,
           token: token.value
         };
-        this.HistorialService.addToken(info);
+        this.HistorialService.addToken(info).subscribe(
+          (data) => {
+            if (data.valid == "Ok") {
+              console.log("AAAAAAAAA", data.enviarnotificacion);
+            } else {
+              this.mensajeIncorrecto("Error", "y tal");
+            }
+          },
+          (err) => {
+            this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+          }
+        );
       });
-      
     });
 
     PushNotifications.addListener('registrationError', 
