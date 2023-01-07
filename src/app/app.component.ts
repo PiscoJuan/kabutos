@@ -42,6 +42,7 @@ export class AppComponent {
     private footer: FooterPage,
     private notificacionesService: NotificacionesService,
     private HistorialService:HistorialService,
+    private token:String
   ) {
     this.initializeApp();
   }
@@ -267,10 +268,18 @@ export class AppComponent {
 
 
   logout() {
+    this.storage.get("token").then((val) => {
+      if (val != null) {
+        this.token = val;
+      }else{
+        this.token='0000';
+      }
+    });
     this.storage.clear()
       .then(
         data => {
           login.login = false;
+          this.storage.set('token', this.token);
           //this.ngOnInit()
           this.name = "";
           this.lastname = "";
