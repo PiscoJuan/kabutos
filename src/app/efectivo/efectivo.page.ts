@@ -330,11 +330,11 @@ export class EfectivoPage implements OnInit {
       }
     });
 
-    /*if (this.tipoPago == "Tarjeta") {
+    if (this.tipoPago == "Tarjeta") {
       this.pagar(form);
-    } else {*/
+    } else {
       this.guardarPedido(form, null, null);
-    //}
+    }
   }
 
   async pagar(form) {
@@ -384,14 +384,15 @@ export class EfectivoPage implements OnInit {
             this.storage.set("tarjetaRegaloproducto",'no')
             this.storage.get("tipoEntrega").then((val) => {
               if (val != null) {
-                if (val === "Local") {
+                if (this.tarjetaRegalo=='si') {
+                  this.mensajeCorrecto("Su regalo se ha enviado", "");
+                } else if (val === "Local" ){
                   this.mensajeCorrecto("Estaremos esperando por Usted", "");
-                } else {
+                }else {
                   this.mensajeCorrecto("Su pedido será enviado en breve", "");
                 }
               }
             });
-
             this.router.navigate([""]);
           } else {
             this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
