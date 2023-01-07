@@ -28,6 +28,7 @@ import { FCM } from "@capacitor-community/fcm";
 })
 export class AppComponent {
   inicio = login.login
+  token:String
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -42,7 +43,6 @@ export class AppComponent {
     private footer: FooterPage,
     private notificacionesService: NotificacionesService,
     private HistorialService:HistorialService,
-    private token:String
   ) {
     this.initializeApp();
   }
