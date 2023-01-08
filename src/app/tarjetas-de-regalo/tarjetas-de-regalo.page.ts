@@ -12,6 +12,7 @@ import { ShoppingCartService } from "../servicios/shopping-cart.service";
 import { Storage } from "@ionic/storage";
 import { finalize } from "rxjs/operators";
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
+import { database } from "firebase";
 declare var window;
 @Component({
   selector: "app-tarjetas-de-regalo",

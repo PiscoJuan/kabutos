@@ -5,11 +5,16 @@
   <div class="precio">${{precio}}</div>
   <div class="contener-columna">
     <div class="producto-carrito">
-      <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
-        (click)=quitar(nombre)>
+      <div class="tocable" (click)=quitar(nombre)>
+        <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos">
+      </div>
+      
       <div id="{{nombre}}" class="cantidad estilo-cantidad">0</div>
-      <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
-        (click)=agregar(nombre)>
+
+      <div class="tocable" (click)=agregar(nombre)>
+        <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas">
+      </div>
+      
     </div>
     <div class="carrito">
       <img src="../assets/img/carrito_activo.png" width="25" height="25" (click)=carrito(nombre)>

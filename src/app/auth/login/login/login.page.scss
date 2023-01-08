@@ -24,6 +24,23 @@ ion-toolbar{
     --background: var(--ion-color-naranja-oscuro);
 }
 
+.apple_login {
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    width:70%;
+    height: 55px;
+
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+}
+
+
 .fb_login{
     position: relative;
     bottom: 20%;
@@ -120,9 +137,10 @@ div.ion-text-center{
     font-size: 0.8rem;
 }
 
- .button{
+.button{
     margin: 0 auto;
     width:80%;
+    
 }
 
 

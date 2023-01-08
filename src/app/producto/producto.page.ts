@@ -172,13 +172,11 @@ export class ProductoPage implements OnInit {
   }
 
 
-
   cargaPantalla() {
     this.loadingCtrl.create({
       message: 'Loading.....'
     }).then((loading) => {
       loading.present(); {
-
         this.ionViewWillEnter();
       }
       setTimeout(() => {

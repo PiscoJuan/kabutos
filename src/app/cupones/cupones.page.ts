@@ -21,12 +21,8 @@ export class CuponesPage implements OnInit {
   url= '' ;
   valor = 0;
   private correo:String="";
-
-
   productoNecesario: any;
   totalProductoNecesario: any;
-  
-  
   constructor(public cuponesService: CuponesService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
@@ -247,5 +243,4 @@ export class CuponesPage implements OnInit {
   historial(){
     this.router.navigateByUrl('/footer/cupones-carrito', { replaceUrl: true });
   }
-  
 }

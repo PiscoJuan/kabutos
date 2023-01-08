@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:535520824503:android:2bd9590883c1e09137d132",
         "android_client_info": {
-          "package_name": "io.cabutos.starter.v1"
+          "package_name": "io.cabutos.starter.v2"
         }
       },
       "oauth_client": [

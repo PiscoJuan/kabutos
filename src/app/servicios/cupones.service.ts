@@ -28,33 +28,30 @@ export class CuponesService {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-
-   return this.http.get(this.baseUrl+'cupones/',{headers:headers})      
-
- }
- getCuponesPersonales( id: number) {
-  const headers = {
-    'Accept': 'application/json, text/plain',
-    'Content-Type': 'application/json'
+    return this.http.get(this.baseUrl+'cupones/',{headers:headers})      
   }
 
-   return this.http.get(this.baseUrl+'cupones/' + id,{headers:headers})
+  getCuponesPersonales( id: number) {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'cupones/' + id,{headers:headers})
   }
-
+  
   getCuponesHistorial( id: number) {
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-  
-     return this.http.get(this.baseUrl+'cuponesH/' + id,{headers:headers})
-    }
+    return this.http.get(this.baseUrl+'cuponesH/' + id,{headers:headers})
+  }
+
   getDatosCupones( name: string) {
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-  
-     return this.http.get(this.baseUrl+'cuponesDatos/' + name,{headers:headers})
-    }
+    return this.http.get(this.baseUrl+'cuponesDatos/' + name,{headers:headers})
+  }
 }

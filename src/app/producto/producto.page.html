@@ -1,6 +1,3 @@
-<style>
-
-</style>
 <ion-content>
     <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
         <ion-refresher-content></ion-refresher-content>
@@ -42,19 +39,20 @@
                                 <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
                             </div>
                             <div class="producto-carrito">
-                                <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto"
-                                id="menos" (click)=quitar(productos.id_unico)>
+                                <div class="tocable" (click)=quitar(productos.id_unico)>
+                                    <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos" (click)=quitar(productos.id_unico)>
+                                </div>
                                 <div id="{{productos.id_unico}}" class="cantidad estilo-cantidad">0</div>
-                                <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto"
-                                id="mas" (click)=agregar(productos.id_unico,productos.suma)>
+
+                                <div class="tocable" (click)=agregar(productos.id_unico,productos.suma)>
+                                    <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto"
+                                    id="mas">
+                                </div>
                             </div>
                         </div>
                         <div class="contener-columna-centrar">
                             <div class="precio">
-                                <h4 name="precio">${{productos.precio}} AQUI</h4>
-                            </div>
-                            <div class="favorito">
-                                
+                                <h4 name="precio">${{productos.precio}}</h4>
                             </div>
                             <div class="carrito">
                                 <img src="../assets/img/carrito_activo.png" height="23"

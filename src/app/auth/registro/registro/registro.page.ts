@@ -13,9 +13,7 @@ import { CorrectoPage } from '../../../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
 import { PoliticasPage } from 'src/app/politicas/politicas.page';
 import { AnimationOptions} from '@ionic/angular/providers/nav-controller';
-import { HistorialService } from "../../../servicios/historial.service";
-import { PushNotifications, Token } from '@capacitor/push-notifications';
-import { FCM } from "@capacitor-community/fcm"; 
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -40,7 +38,6 @@ export class RegistroPage implements OnInit {
     private firebase: FirebaseX,
     private perfilService: PerfilService,
     private storage: Storage,
-    private HistorialService:HistorialService,
     private component: AppComponent,) { }
 
   ngOnInit() {
@@ -62,6 +59,7 @@ export class RegistroPage implements OnInit {
     const foto = {
       'url': this.formData.getAll('file')
     }
+    
     const formR = {
       'cedula': form.cedula,
       'nombre': form.nombre,
@@ -140,29 +138,6 @@ export class RegistroPage implements OnInit {
         this.component.lastname = apellido;
         this.component.action="Cerrar Sesión";
         this.perfilS(formR.email)
-
-        PushNotifications.addListener('registration', 
-        (token: Token)=>{
-          console.log('The token is: '+ token.value)
-          this.storage.set('token', token.value);
-          let info = {
-            id: id,
-            token: token.value
-          };
-          console.log("infoToken es:", info);
-          this.HistorialService.addToken(info).subscribe(
-            (data) => {
-              if (data.valid == "Ok") {
-                console.log("AAAAAAAAA");
-              } else {
-                console.log("EEEEEEEE");
-              }
-            },
-            (err) => {
-              console.log("IIIIIII");
-            }
-          );
-        });
         this.firebase.getToken().then(token => {
           var registro={
             usuario : id,
@@ -361,6 +336,7 @@ export class RegistroPage implements OnInit {
     var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(valor) ? true : false;
   }
+
   validarTelefono(valor) {
     var regex = /^0+[0-9]{9}$/;
     return regex.test(valor) ? true : false;

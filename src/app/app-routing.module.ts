@@ -58,11 +58,11 @@ const routes: Routes = [
   {
     path: 'calificar',
     loadChildren: () => import('./calificar/calificar.module').then( m => m.CalificarPageModule)
-  },  {
+  },
+  {
     path: 'codigounico',
     loadChildren: () => import('./codigounico/codigounico.module').then( m => m.CodigounicoPageModule)
   },
-
   
   
 ];

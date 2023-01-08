@@ -29,6 +29,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
+import { SignInWithApple } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,8 +52,9 @@ driverOrder: ['indexeddb', 'sqlite', 'websql']
     FirebaseX,
     NativeStorage,
     HTTP,
+    SignInWithApple,
     SocialSharing,
-
+    
     FooterPage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
