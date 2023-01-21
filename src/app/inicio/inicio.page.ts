@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProductoService } from '../servicios/producto.service';
+import { PublicidadService } from '../servicios/publicidad.service';
 import { finalize } from 'rxjs/operators';
 import { DetalleInicioPage } from './detalle-inicio/detalle-inicio.page';
 
@@ -13,6 +14,7 @@ import { DetalleInicioPage } from './detalle-inicio/detalle-inicio.page';
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
+
 export class InicioPage implements OnInit {
 
   loading;
@@ -20,9 +22,11 @@ export class InicioPage implements OnInit {
   categorias: any;
   ofertas: any;
   textInput;
-
+  superior: any;
+  inferior: any;
   constructor(
     public productoService: ProductoService,
+    public publicidadService: PublicidadService,
     public modalController: ModalController,
     private router: Router,
     private alert: AlertController,
@@ -50,6 +54,45 @@ export class InicioPage implements OnInit {
       this.producto = data['productos'];
       this.categorias = data['categorias'];
       this.ofertas = data['ofertas'];
+      if (event)
+      event.target.complete();
+    }, (error) => {
+      console.error(error);
+      if (event)
+      event.target.complete();
+    });
+
+    this.publicidadService.getSuperior()
+    .subscribe((data: any) => {
+      this.superior = data;
+      if(data.length == 0) {
+        this.superior = [ {
+          nombre: "default",
+          img: "../assets/img/publicidad-ej1.jpg",
+        }];
+        
+        console.log("inf", this.inferior);
+      }
+      console.log("sup", this.superior);
+      if (event)
+      event.target.complete();
+    }, (error) => {
+      console.error(error);
+      if (event)
+      event.target.complete();
+    });
+  
+    this.publicidadService.getInferior()
+    .subscribe((data: any) => {
+      this.inferior = data;
+        if(data.length == 0) {
+          this.inferior = [ {
+            nombre: "default",
+            img: "../assets/img/publicidad-ej1.jpg",
+          }];
+
+          console.log("inf", this.inferior);
+        }
       if (event)
       event.target.complete();
     }, (error) => {

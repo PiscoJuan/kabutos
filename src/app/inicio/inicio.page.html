@@ -7,13 +7,13 @@
       <ion-input placeholder="    ¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
       <img src="../assets/img/buscar.png" class="icono" (click)="buscar()">
     </div>
-    <div class="contenedor-publicidad">
-      <img src="../assets/img/publicidad-ej1.jpg" >
-    </div>
-    <div class="contenedor-titulo" *ngIf="categorias.length >0">
-      <ion-label class="titulo">Categorías</ion-label>
-      <a class="todos" (click)="categoriasPage()">Ver todo</a>
-    </div>
+    
+    <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
+      <ion-slide *ngFor="let publicidad of superior">
+        <a href="//google.com"><img src="http://cabutoshop.pythonanywhere.com/{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
+      </ion-slide>
+    </ion-slides>
+    
     <div class="contenedor contenedor-c" *ngIf="categorias.length >0">
       <div class="contener-categoria" *ngFor="let categoria of categorias">
         <div class="div-categoria" (click)="mostrar(categoria.nombre)">
@@ -61,8 +61,23 @@
         </div>
       </div>
     </div>
-    <div class="contenedor-publicidad">
-      <img src="../assets/img/publicidad-ej1.jpg" >
-    </div>
+    
+    <!--
+    <ion-slides class="contenedor-publicidad" pager="true">
+      <ion-slide>
+        <a href="//google.com"><img src="../assets/img/publicidad-ej1.jpg"></a>
+      </ion-slide>
+      <ion-slide>
+        <img src="../assets/img/publicidad-ej1.jpg" >
+      </ion-slide>
+    </ion-slides>
+    -->
+
+    <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
+      <ion-slide *ngFor="let publicidad of inferior">
+        <a href="//google.com"><img src="{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
+      </ion-slide>
+    </ion-slides>
+
   </div>
 </ion-content>
