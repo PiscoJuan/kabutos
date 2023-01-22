@@ -10,7 +10,7 @@
     
     <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
       <ion-slide *ngFor="let publicidad of superior">
-        <a href="//google.com"><img src="http://cabutoshop.pythonanywhere.com/{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
+        <a href="{{publicidad.link}}"><img src="http://cabutoshop.pythonanywhere.com/{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
       </ion-slide>
     </ion-slides>
     
@@ -75,7 +75,7 @@
 
     <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
       <ion-slide *ngFor="let publicidad of inferior">
-        <a href="//google.com"><img src="{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
+        <a href="{{publicidad.link}}"><img src="{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
       </ion-slide>
     </ion-slides>
 
