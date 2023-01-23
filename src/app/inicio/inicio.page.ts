@@ -69,9 +69,9 @@ export class InicioPage implements OnInit {
         this.superior = [ {
           nombre: "default",
           img: "../assets/img/publicidad-ej1.jpg",
-        }];
-        
-        console.log("inf", this.inferior);
+        }];        
+      } else {
+        this.superior.map((x) => x.img = "http://cabutoshop.pythonanywhere.com/"+x.img);
       }
       console.log("sup", this.superior);
       if (event)
@@ -90,8 +90,8 @@ export class InicioPage implements OnInit {
             nombre: "default",
             img: "../assets/img/publicidad-ej1.jpg",
           }];
-
-          console.log("inf", this.inferior);
+        } else {
+          this.inferior.map((x) => x.img = "http://cabutoshop.pythonanywhere.com/"+x.img);
         }
       if (event)
       event.target.complete();
