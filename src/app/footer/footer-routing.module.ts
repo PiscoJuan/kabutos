@@ -161,6 +161,10 @@ const routes: Routes = [
         path: 'cupones-carrito',
         loadChildren: () => import('../cupones-carrito/cupones-carrito.module').then( m => m.CuponesCarritoPageModule)
       },
+      {
+        path: 'premios',
+        loadChildren: () => import('../premios/premios.module').then( m => m.PremiosPageModule)
+      },
     ]
   },
   {

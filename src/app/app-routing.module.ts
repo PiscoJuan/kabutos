@@ -62,6 +62,10 @@ const routes: Routes = [
     path: 'codigounico',
     loadChildren: () => import('./codigounico/codigounico.module').then( m => m.CodigounicoPageModule)
   },
+  {
+    path: 'premios',
+    loadChildren: () => import('./premios/premios.module').then( m => m.PremiosPageModule)
+  },
 
   
   

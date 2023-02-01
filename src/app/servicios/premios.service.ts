@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Observable } from 'rxjs';
+@Injectable({
+  providedIn: 'root'
+})
+export class PremiosService {
+  //baseUrl :string= "http://127.0.0.1:8000/movil/";
+  baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  getPremios() {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl + 'premios/', {headers: headers})
+  }
+
+  getPremiosPersonales(id:number){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl + 'misPremios/'+id, {headers: headers})
+  }
+
+  getPuntos(id:number){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl + 'misPuntos/'+id, {headers: headers})
+  }
+
+  getPremiosUtlizados(id:number){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl + 'getPremiosUtlizados/'+id, {headers: headers})
+  }
+}
