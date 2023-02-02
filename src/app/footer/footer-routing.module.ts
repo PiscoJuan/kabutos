@@ -165,6 +165,14 @@ const routes: Routes = [
         path: 'premios',
         loadChildren: () => import('../premios/premios.module').then( m => m.PremiosPageModule)
       },
+      {
+        path: 'puntos',
+        loadChildren: () => import('../puntos/puntos.module').then( m => m.PuntosPageModule)
+      },
+      {
+        path: 'catalogo',
+        loadChildren: () => import('../catalogo/catalogo.module').then( m => m.CatalogoPageModule)
+      },
     ]
   },
   {

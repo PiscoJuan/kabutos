@@ -4,11 +4,11 @@ import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 @Component({
-  selector: 'app-premios',
-  templateUrl: './premios.page.html',
-  styleUrls: ['./premios.page.scss'],
+  selector: 'app-puntos',
+  templateUrl: './puntos.page.html',
+  styleUrls: ['./puntos.page.scss'],
 })
-export class PremiosPage implements OnInit {
+export class PuntosPage implements OnInit {
   premios: any;
   puntos: any;
   valorTarjeta: any;

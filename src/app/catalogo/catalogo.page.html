@@ -6,7 +6,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="contenedor-page">
-    <ion-label class="titulo">Mis Premios</ion-label>
+    <ion-label class="titulo">Catalogo de Premios</ion-label>
     <br>
     <div class="franja">
       <a class="iconos" href="/footer/catalogo">
@@ -22,45 +22,22 @@
         Mis Premios
       </a>
     </div>
-
+    
     <div class="contenedor">
-
-      <div>
-        <ion-label class="titulo">Por Utilizar</ion-label>
-
-        <div class="contener-producto" *ngFor="let premio of misPremios">
-          <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
-          <div class="div-producto" (onload)="cargarNum(premio.nombre)">
-            <div class="contener-columnaI">
-              <div class="producto">
-                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
-              </div>
-              <h6 class="detalle" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
-                Ver detalle</h6>
-            </div>
-            <div class="contener-columna">
-              <div class="nombre">
-                <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-              </div>
-
-            </div>
-            <div class="contener-columna-centrar">
-              <div class="precio">
-                <h4 name="precio">PTS {{premio.puntos}}</h4>
-              </div>
-              <div class="favorito">
-
-              </div>
-              <div class="carrito">
-                <img src="../assets/img/carrito_activo.png" height="23" (click)=carrito(productos.id_unico)>
-              </div>
-            </div>
-          </div>
+      <div class="contenedor-filtro">
+        <div class="contenedor-selector">
+          <ion-label class="subtitulo">Filtrar por:</ion-label>
+          <select [(ngModel)]="opcion" class="selector" (change)="showLoading3()">
+            <option value="vendidos">Más vendidos</option>
+            <option value="menor">Precio: más bajo</option>
+            <option value="mayor">Precio: más alto</option>
+            <option value="ascendente">A a Z</option>
+            <option value="descendente">Z a A</option>
+          </select>
         </div>
-
-        <ion-label class="titulo">Utilizados</ion-label>
-
-        <div class="contener-producto" *ngFor="let premio of historial">
+      </div>
+      <div>
+        <div class="contener-producto" *ngFor="let premio of premios">
           <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
           <div class="div-producto" (onload)="cargarNum(premio.nombre)">
             <div class="contener-columnaI">

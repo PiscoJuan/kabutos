@@ -25,6 +25,17 @@
     }
   }
 
+  .DetallesPremios .modal-wrapper{
+    top: 25%;
+    width: 80%;
+    position: absolute;
+    height: 35%;
+    border-radius: 20px;
+    *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+  }
+
   ion-modal.DetalleNoti {
     &.bottom {
         align-items: flex-end;

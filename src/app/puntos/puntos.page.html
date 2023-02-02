@@ -1,0 +1,60 @@
+<style>
+
+</style>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="contenedor-page">
+    <ion-label class="titulo">Puntos</ion-label>
+    <br>
+    <div class="franja">
+      <a class="iconos" href="/footer/catalogo">
+        <img src="../assets/img/wgift.png" width="40" height="40">
+        Catalogo
+      </a>
+      <a class="iconos" href="/footer/puntos">
+        <img src="../assets/img/wgift.png" width="40" height="40">
+        Mis Puntos
+      </a>
+      <a class="iconos" href="/footer/premios">
+        <img src="../assets/img/wgift.png" width="40" height="40">
+        Mis Premios
+      </a>
+    </div>
+    <br>
+    <div class="contenedor azul">
+      <!--<ion-label class="titulo">Consumos para sumar puntos</ion-label>
+      <br>-->
+      <div class="division">
+        <div>
+          <ion-label>Saldo disponible:</ion-label>
+        </div>
+        <div class="columna">
+          <ion-label>Puntos Acumulados:</ion-label>
+        </div>
+      </div>
+      <div class="division2">
+        <ion-label class="valores"> ${{valorTarjeta}} </ion-label>
+        <ion-label class="valores"> = </ion-label>
+        <ion-label class="valores"> p: {{puntos}} </ion-label>
+      </div>
+      <div class="btns2">
+        <button class="espacio" ion-button size="large" (click)="cupones()">
+          Canjear por tarjeta de regalo
+        </button>
+      </div>
+      <ion-label>{{puntos}} puntos equivalen a ${{valorTarjeta}}</ion-label>
+    </div>
+
+    <div class="contenedor">
+
+    </div>
+
+
+  </div>
+  <ion-infinite-scroll *ngIf="flag==true" threshold="100px" (ionInfinite)="cargandoSiguientes($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
