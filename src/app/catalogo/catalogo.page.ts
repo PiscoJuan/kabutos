@@ -48,18 +48,20 @@ export class CatalogoPage implements OnInit {
 
   }
 
-  async detalle(imagen: string, nombre: string, descripcion: string, precio: string) {
-    const modal = await this.modalCtrl.create({
-      component: DetallesPremiosPage,
-      cssClass: 'DetallesPremios',
-      componentProps: {
-        'imagen': imagen,
-        'nombre': nombre,
-        'descripcion': descripcion,
-        'precio': precio
-      }
-    });
-    return await modal.present();
+  async detalle(imagen: string, nombre: string, descripcion: string, precio: string, cantidad:number) {
+    if(cantidad>0){
+      const modal = await this.modalCtrl.create({
+        component: DetallesPremiosPage,
+        cssClass: 'DetallesPremios',
+        componentProps: {
+          'imagen': imagen,
+          'nombre': nombre,
+          'descripcion': descripcion,
+          'precio': precio
+        }
+      });
+      return await modal.present();
+    }
   }
 
 }

@@ -149,6 +149,17 @@ vertical-align: middle;
             font-size: 40px;
         }
     }
+    .division3{
+        display: flex;
+        justify-content: center;
+        .columna{
+            display: flex;
+            flex-direction: column;
+        }
+        .valores{
+            font-size: 40px;
+        }
+    }
 }
 
 .franja{
@@ -156,6 +167,18 @@ vertical-align: middle;
     background-color: #C8C8CA;
     display: flex;
     justify-content: space-evenly;
+    .iconos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.col_home{
+    background-color: #C8C8CA;
+    display: flex;
+    justify-content: space-evenly;
+    color:white;
     .iconos{
         display: flex;
         flex-direction: column;

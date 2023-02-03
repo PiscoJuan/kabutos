@@ -9,18 +9,18 @@
     <ion-label class="titulo">Mis Premios</ion-label>
     <br>
     <div class="franja">
-      <a class="iconos" href="/footer/catalogo">
-        <img src="../assets/img/wgift.png" width="40" height="40">
+      <ion-tab-button class="col_home" tab="catalogo">
+        <img src="../assets/img/catalogo05.png" width="40" height="40">
         Catalogo
-      </a>
-      <a class="iconos" href="/footer/puntos">
-        <img src="../assets/img/wgift.png" width="40" height="40">
+      </ion-tab-button>
+      <ion-tab-button class="col_home" tab="puntos">
+        <img src="../assets/img/mispuntos01.png" width="40" height="40">
         Mis Puntos
-      </a>
-      <a class="iconos" href="/footer/premios">
-        <img src="../assets/img/wgift.png" width="40" height="40">
-        Mis Premios
-      </a>
+      </ion-tab-button>
+      <ion-tab-button class="col_home" tab="premios">
+        <img src="../assets/img/mispremios06.png" width="40" height="40">
+        <span style="color:yellow">Mis Premios</span>
+      </ion-tab-button>
     </div>
 
     <div class="contenedor">
@@ -41,18 +41,17 @@
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
+                <p class="fecha">{{premio.fecha_canje}}</p>
               </div>
 
             </div>
             <div class="contener-columna-centrar">
               <div class="precio">
-                <h4 name="precio">PTS {{premio.puntos}}</h4>
+                <img class="puntos" src="../assets/img/puntos.png" width="25" height="25"> 
+                <h4 name="precio">{{premio.puntos}}</h4>
               </div>
               <div class="favorito">
 
-              </div>
-              <div class="carrito">
-                <img src="../assets/img/carrito_activo.png" height="23" (click)=carrito(productos.id_unico)>
               </div>
             </div>
           </div>
@@ -73,18 +72,17 @@
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
+                <p class="fecha">{{premio.fecha_canje}}</p>
               </div>
 
             </div>
             <div class="contener-columna-centrar">
               <div class="precio">
-                <h4 name="precio">PTS {{premio.puntos}}</h4>
+                <img class="puntos"  src="../assets/img/puntos.png" width="25" height="25">
+                <h4 name="precio"> {{premio.puntos}}</h4>
               </div>
               <div class="favorito">
 
-              </div>
-              <div class="carrito">
-                <img src="../assets/img/carrito_activo.png" height="23" (click)=carrito(productos.id_unico)>
               </div>
             </div>
           </div>

@@ -163,6 +163,18 @@ vertical-align: middle;
     }
 }
 
+.col_home{
+    background-color: #C8C8CA;
+    display: flex;
+    justify-content: space-evenly;
+    color:white;
+    .iconos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .btns2{
     justify-content: flex-end;
     display: flex;
@@ -281,7 +293,11 @@ button{
     padding-left: 0px;
     padding-right: 30px;
     text-align: right;
-    
+    display: flex;
+}
+
+.puntos{
+    margin-top: 10px;
 }
 
 div.precio h4{
@@ -315,8 +331,8 @@ div.carrito img{
 .contener-columna-centrar{
     float: right;
     position: relative;
-    width: 30%;
-    padding: 0px 0px 0px 0px;
+    width: 100%;
+    right: 30px;
     text-align: right;
     justify-content: flex-end;
 }
@@ -331,4 +347,8 @@ div.carrito img{
 .carrito{
     padding-left: 0px;
     padding-right: 30px;
+}
+
+.fecha{
+    margin-top: 25px;
 }

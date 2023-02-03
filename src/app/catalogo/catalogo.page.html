@@ -9,20 +9,20 @@
     <ion-label class="titulo">Catalogo de Premios</ion-label>
     <br>
     <div class="franja">
-      <a class="iconos" href="/footer/catalogo">
-        <img src="../assets/img/wgift.png" width="40" height="40">
-        Catalogo
-      </a>
-      <a class="iconos" href="/footer/puntos">
-        <img src="../assets/img/wgift.png" width="40" height="40">
+      <ion-tab-button class="col_home" tab="catalogo">
+        <img src="../assets/img/catalogo055.png" width="40" height="40">
+        <span style="color:yellow">Catalogo</span>
+      </ion-tab-button>
+      <ion-tab-button class="col_home" tab="puntos">
+        <img src="../assets/img/mispuntos01.png" width="40" height="40">
         Mis Puntos
-      </a>
-      <a class="iconos" href="/footer/premios">
-        <img src="../assets/img/wgift.png" width="40" height="40">
+      </ion-tab-button>
+      <ion-tab-button class="col_home" tab="premios">
+        <img src="../assets/img/mispremios066.png" width="40" height="40">
         Mis Premios
-      </a>
+      </ion-tab-button>
     </div>
-    
+
     <div class="contenedor">
       <div class="contenedor-filtro">
         <div class="contenedor-selector">
@@ -36,44 +36,28 @@
           </select>
         </div>
       </div>
-      <div>
-        <div class="contener-producto" *ngFor="let premio of premios">
+      <div class="colProds">
+        <div class="contener-producto" *ngFor="let premio of premios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos,premio.cantidad)>
           <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
-          <div class="div-producto" (onload)="cargarNum(premio.nombre)">
-            <div class="contener-columnaI">
-              <div class="producto">
-                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
-              </div>
-              <h6 class="detalle" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
-                Ver detalle</h6>
-            </div>
+          <div class="div-producto">
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
               </div>
-
-            </div>
-            <div class="contener-columna-centrar">
               <div class="precio">
-                <h4 name="precio">PTS {{premio.puntos}}</h4>
+                <img class="puntos" src="../assets/img/puntos.png" width="25" height="25">
+                <h4 name="precio"> {{premio.puntos}}</h4>
               </div>
-              <div class="favorito">
+            </div>
 
-              </div>
-              <div class="carrito">
-                <img src="../assets/img/carrito_activo.png" height="23" (click)=carrito(productos.id_unico)>
+            <div class="contener-columnaI">
+              <div class="producto">
+                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
-
   </div>
-  <ion-infinite-scroll *ngIf="flag==true" threshold="100px" (ionInfinite)="cargandoSiguientes($event)">
-    <ion-infinite-scroll-content>
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

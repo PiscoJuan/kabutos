@@ -9,18 +9,18 @@
     <ion-label class="titulo">Puntos</ion-label>
     <br>
     <div class="franja">
-      <a class="iconos" href="/footer/catalogo">
-        <img src="../assets/img/wgift.png" width="40" height="40">
+      <ion-tab-button class="col_home" tab="catalogo">
+        <img src="../assets/img/catalogo05.png" width="40" height="40">
         Catalogo
-      </a>
-      <a class="iconos" href="/footer/puntos">
-        <img src="../assets/img/wgift.png" width="40" height="40">
-        Mis Puntos
-      </a>
-      <a class="iconos" href="/footer/premios">
-        <img src="../assets/img/wgift.png" width="40" height="40">
+      </ion-tab-button>
+      <ion-tab-button class="col_home" tab="puntos">
+        <img src="../assets/img/mispuntos044.png" width="40" height="40">
+        <span style="color:yellow">Mis Puntos</span>
+      </ion-tab-button>
+      <ion-tab-button class="col_home" tab="premios">
+        <img src="../assets/img/mispremios066.png" width="40" height="40">
         Mis Premios
-      </a>
+      </ion-tab-button>
     </div>
     <br>
     <div class="contenedor azul">
@@ -37,7 +37,12 @@
       <div class="division2">
         <ion-label class="valores"> ${{valorTarjeta}} </ion-label>
         <ion-label class="valores"> = </ion-label>
-        <ion-label class="valores"> p: {{puntos}} </ion-label>
+        <div class="division3">
+          <img src="../assets/img/puntos033.png" width="40" height="40">
+          <ion-label class="valores">  {{puntos}} </ion-label>
+
+        </div>
+        
       </div>
       <div class="btns2">
         <button class="espacio" ion-button size="large" (click)="cupones()">
