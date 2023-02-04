@@ -23,12 +23,34 @@
     color:#87868A !important;
 }
 
+
 .precio{
     text-align: right !important;
     color:#FE3A00 !important;
-    padding-right: 30px;
     font-size: 1.5rem;
     display:flex;
-    justify-content: end;
+    justify-content: space-evenly;
+
 }
 
+.punto{
+    text-align: right !important;
+    color:#FE3A00 !important;
+    font-size: 1.5rem;
+    display:flex;
+    justify-content: space-evenly;
+
+}
+
+button{
+    font-size: 1.1rem;
+    padding: 0 10px;
+    height: 1.7rem;
+    width: 4.5rem;
+    background: var(--ion-color-naranja-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color:white;
+}

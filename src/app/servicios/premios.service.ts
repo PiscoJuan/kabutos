@@ -42,4 +42,13 @@ export class PremiosService {
     }
     return this.http.get(this.baseUrl + 'getPremiosUtlizados/'+id, {headers: headers})
   }
+
+  reclamarPremio(data):Observable<any> {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(data);
+    return this.http.post(this.baseUrl+'reclamarPremio/',body,{'headers':headers})            
+  }
 }

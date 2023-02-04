@@ -20,7 +20,12 @@ export class PuntosPage implements OnInit {
     public modalCtrl: ModalController,
   ) {}
 
-  ngOnInit() {
+
+  ngOnInit(): void {
+    
+  }
+
+  ionViewWillEnter() {
     this.data()
   }
 

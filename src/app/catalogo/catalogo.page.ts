@@ -20,7 +20,11 @@ export class CatalogoPage implements OnInit {
     public modalCtrl: ModalController,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    
+  }
+
+  ionViewWillEnter() {
     this.data()
   }
 
