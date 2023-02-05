@@ -3,6 +3,7 @@ import { PremiosService } from '../servicios/premios.service';
 import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.page.html',
@@ -14,10 +15,13 @@ export class CatalogoPage implements OnInit {
   valorTarjeta: any;
   misPremios: any;
   historial: any;
+  opcion: string = '0';
+  public filtro: String = "vendidos";
   constructor(
     private premiosService: PremiosService,
     private storage: Storage,
     public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +42,6 @@ export class CatalogoPage implements OnInit {
         this.puntos = data.puntos
         this.valorTarjeta = data.puntos * (data.tarjetaAPuntos / data.puntosATarjeta)
         this.valorTarjeta = this.valorTarjeta.toFixed(2)
-        console.log(data)
       })
 
       this.premiosService.getPremiosPersonales(dato.id).subscribe(data => {
@@ -61,11 +64,60 @@ export class CatalogoPage implements OnInit {
           'imagen': imagen,
           'nombre': nombre,
           'descripcion': descripcion,
-          'precio': precio
+          'precio': precio,
+          "button": true
         }
       });
       return await modal.present();
     }
   }
 
+  showLoading3() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.capturar();
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
+
+  capturar() {
+    let data = JSON.parse(JSON.stringify(this.premios));
+    console.log(this.opcion)
+    console.log(data)
+    if (this.opcion.localeCompare("descendente") == 0) {
+      this.filtro = "descendente";
+      this.premios = data.sort(
+        function(a,b){
+          a = a.nombre.toLowerCase();
+          b = b.nombre.toLowerCase();
+          return a > b ? -1 : a < b ? 1 : 0;
+        })
+    }
+    else if (this.opcion.localeCompare("ascendente") == 0) {
+      this.filtro = "ascendente";
+      this.premios = data.sort(
+        function(a,b){
+          a = a.nombre.toLowerCase();
+          b = b.nombre.toLowerCase();
+          return a < b ? -1 : a > b ? 1 : 0;
+        })
+    }
+    else if (this.opcion.localeCompare("menor") == 0) {
+      this.filtro = "menor";
+      this.premios = data.sort(function(a,b){return a.puntos - b.puntos})
+    }
+    else if (this.opcion.localeCompare("mayor") == 0) {
+      this.filtro = "mayor";
+      this.premios = data.sort(function(a,b){return b.puntos - a.puntos})
+
+    }
+    else if (this.opcion.localeCompare("vendidos") == 0) {
+      this.filtro = "vendidos";
+    }
+  }
 }
