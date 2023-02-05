@@ -3,6 +3,7 @@ import { PremiosService } from '../servicios/premios.service';
 import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-puntos',
   templateUrl: './puntos.page.html',
@@ -18,6 +19,7 @@ export class PuntosPage implements OnInit {
     private premiosService: PremiosService,
     private storage: Storage,
     public modalCtrl: ModalController,
+    private router: Router
   ) {}
 
 
@@ -67,4 +69,7 @@ export class PuntosPage implements OnInit {
     return await modal.present();
   }
 
+  monto() {
+    this.router.navigate(["/footer/hacer-regalo-puntos"]);
+  }
 }

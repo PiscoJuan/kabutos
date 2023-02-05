@@ -154,6 +154,10 @@ const routes: Routes = [
         loadChildren: () => import('../hacer-regalo-monto/hacer-regalo-monto.module').then( m => m.HacerRegaloMontoPageModule)
       },
       {
+        path: 'hacer-regalo-puntos',
+        loadChildren: () => import('../hacer-regalo-puntos/hacer-regalo-puntos.module').then( m => m.HacerRegaloPuntosPageModule)
+      },
+      {
         path: 'hacer-regalo-producto',
         loadChildren: () => import('../hacer-regalo-producto/hacer-regalo-producto.module').then( m => m.HacerRegaloProductoPageModule)
       },

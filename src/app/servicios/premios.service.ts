@@ -51,4 +51,13 @@ export class PremiosService {
     const body = JSON.stringify(data);
     return this.http.post(this.baseUrl+'reclamarPremio/',body,{'headers':headers})            
   }
+
+  restarPuntos(data):Observable<any> {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(data);
+    return this.http.post(this.baseUrl+'restarPuntos/',body,{'headers':headers})            
+  }
 }
