@@ -5,7 +5,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="contenedor-page">
+  
     <ion-label class="titulo">Puntos</ion-label>
     <br>
     <div class="franja">
@@ -23,6 +23,7 @@
       </ion-tab-button>
     </div>
     <br>
+    <div class="contenedor-page">
     <div class="contenedor azul">
       <!--<ion-label class="titulo">Consumos para sumar puntos</ion-label>
       <br>-->
@@ -50,22 +51,24 @@
       <ion-label>{{puntos}} puntos equivalen a ${{valorTarjeta}}</ion-label>
     </div>
     <br>
-    <ion-label class="titulo">Historial de puntos</ion-label>
-    <div class="contenedor">
-      <ion-grid class="tabla">
-        <ion-row class="titulo">
-          <ion-col>Fecha</ion-col>
-          <ion-col>Total</ion-col>
-          <ion-col>Puntos</ion-col>
-        </ion-row>
-        <ion-row *ngFor="let historial of historiales">
-          <ion-col>{{ historial.fecha | date:'dd/MM/yyyy' }}</ion-col>
-          <ion-col>${{ historial.total | number : '1.2-2' }}</ion-col>
-          <ion-col>{{ historial.puntos | number : '1.2-2' }} pts</ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+    
+    
 
+  </div>
+  <ion-label class="titulo">Historial de puntos</ion-label>
+  <div >
+    <ion-grid class="tabla">
+      <ion-row class="title">
+        <ion-col><h3>Fecha</h3></ion-col>
+        <ion-col><h3>Puntos</h3></ion-col>
+        <ion-col><h3>Saldo</h3></ion-col>
+      </ion-row>
+      <ion-row *ngFor="let historial of historiales" class="row">
+        <ion-col>{{ historial.fecha | date:'dd/MM/yyyy' }}</ion-col>
+        <ion-col>{{ historial.puntos}} pts</ion-col>
+        <ion-col>${{ historial.total | number : '1.2-2' }}</ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <ion-infinite-scroll *ngIf="flag==true" threshold="100px" (ionInfinite)="cargandoSiguientes($event)">
     <ion-infinite-scroll-content>

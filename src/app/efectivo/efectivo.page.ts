@@ -358,11 +358,7 @@ export class EfectivoPage implements OnInit {
 
   
   async guardarPedido(form, transaccion, autorizacion) {
-    
     await this.showLoading2();
-    
-    
-
     this.pedidoService
       .nuevoPedido(form)
       .pipe(

@@ -13,6 +13,7 @@ ion-header{
     font-size: larger;
     color: var(--ion-color-azul-oscuro);
     font-size: 1.7rem;
+    padding: 20px 30px;
 }
 
 
@@ -357,10 +358,20 @@ div.carrito img{
 }
 
 .tabla{
-    border: solid 2px #000000;
-    .titulo{
-        background-color: var(--ion-color-naranja-oscuro);
-        border: solid 2px #000000;
-        color: #fff;
+    width: 100%;
+    .title{
+        background-color: #E9E7EA;
+        border: solid 2px #E9E7EA;
+        font-family: var(--ion-font-family);
+        font-weight: bold;
+        font-size: larger;
+        color: var(--ion-color-azul-oscuro);
+        font-size: 1.7rem;
+    }
+    .row{        
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: solid 1px #E9E7EA;
+        color: var(--ion-color-azul-oscuro);
     }
 }
