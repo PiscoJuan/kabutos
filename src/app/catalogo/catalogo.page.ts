@@ -4,6 +4,9 @@ import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
+import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
+import { BaneoService } from '../servicios/baneo.service';
+
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.page.html',
@@ -22,6 +25,8 @@ export class CatalogoPage implements OnInit {
     private storage: Storage,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
+    public modalController: ModalController,
+    private baneoService: BaneoService,
   ) {}
 
   ngOnInit(): void {
@@ -56,20 +61,41 @@ export class CatalogoPage implements OnInit {
   }
 
   async detalle(imagen: string, nombre: string, descripcion: string, precio: string, cantidad:number) {
-    if(cantidad>0){
-      const modal = await this.modalCtrl.create({
-        component: DetallesPremiosPage,
-        cssClass: 'DetallesPremios',
-        componentProps: {
-          'imagen': imagen,
-          'nombre': nombre,
-          'descripcion': descripcion,
-          'precio': precio,
-          "button": true
+    this.storage.get("perfil").then((dato) => {
+      this.baneoService.revisarBan(dato.id).subscribe(async (data:any) => {
+        if (data.valid == "OK"){
+          if(cantidad>0){
+            const modal = await this.modalCtrl.create({
+              component: DetallesPremiosPage,
+              cssClass: 'DetallesPremios',
+              componentProps: {
+                'imagen': imagen,
+                'nombre': nombre,
+                'descripcion': descripcion,
+                'precio': precio,
+                "button": true
+              }
+            });
+            return await modal.present();
+          }
+          
+        } else {
+          this.mensajeIncorrecto("Canje porhibido", "No puedes canjear premios");
+        }
+      })
+    })
+    
+  }
+  async mensajeIncorrecto(titulo:string,mensaje:string){
+    const modal = await this.modalController.create({
+      component: IncorrectoPage,
+      cssClass: 'IncorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
         }
       });
       return await modal.present();
-    }
   }
 
   showLoading3() {
