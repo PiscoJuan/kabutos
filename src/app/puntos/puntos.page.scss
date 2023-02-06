@@ -355,3 +355,12 @@ div.carrito img{
     padding-left: 0px;
     padding-right: 30px;
 }
+
+.tabla{
+    border: solid 2px #000000;
+    .titulo{
+        background-color: var(--ion-color-naranja-oscuro);
+        border: solid 2px #000000;
+        color: #fff;
+    }
+}

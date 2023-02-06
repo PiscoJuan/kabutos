@@ -13,6 +13,7 @@ import { Router } from "@angular/router";
 })
 export class PuntosPage implements OnInit {
   premios: any;
+  historiales:any;
   puntos: any;
   valorTarjeta: any;
   misPremios: any;
@@ -77,19 +78,24 @@ export class PuntosPage implements OnInit {
 
     });
   }
+
   buscarHistorial(id): Observable<object> {
     
     return this.historialService.getHistorial(id);
   }
+
   async buscar(id) {
     this.buscarHistorial(id).subscribe(
         (data: any) => {
           let historiales = data.filter(pedidos => pedidos.puntos != 0);
 
           if (Object.keys(historiales).length === 0) {
+            
           }
           else {
+            console.log("AAAAAAAAAAAAAAAA")
             console.log(historiales)
+            this.historiales = historiales;
           }
         }
       );
