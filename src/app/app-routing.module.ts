@@ -58,7 +58,8 @@ const routes: Routes = [
   {
     path: 'calificar',
     loadChildren: () => import('./calificar/calificar.module').then( m => m.CalificarPageModule)
-  },  {
+  },
+  {
     path: 'codigounico',
     loadChildren: () => import('./codigounico/codigounico.module').then( m => m.CodigounicoPageModule)
   },
@@ -77,6 +78,13 @@ const routes: Routes = [
   {
     path: 'detalles-premios',
     loadChildren: () => import('./detalles-premios/detalles-premios.module').then( m => m.DetallesPremiosPageModule)
+  },  {
+    path: 'historial-mensajes',
+    loadChildren: () => import('./chat/historial-mensajes/historial-mensajes.module').then( m => m.HistorialMensajesPageModule)
+  },
+  {
+    path: 'mensajes',
+    loadChildren: () => import('./chat/mensajes/mensajes.module').then( m => m.MensajesPageModule)
   },
 
   

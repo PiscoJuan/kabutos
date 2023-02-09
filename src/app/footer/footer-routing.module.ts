@@ -173,6 +173,15 @@ const routes: Routes = [
         path: 'catalogo',
         loadChildren: () => import('../catalogo/catalogo.module').then( m => m.CatalogoPageModule)
       },
+      {
+        path: 'historial-mensajes',
+        loadChildren: () => import('../chat/historial-mensajes/historial-mensajes.module').then( m => m.HistorialMensajesPageModule)
+      },
+      {
+        path: 'mensajes',
+        loadChildren: () => import('../chat/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+      },
+    
     ]
   },
   {
