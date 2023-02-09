@@ -28,15 +28,15 @@
     </div>
     <div class="contenedor contenedor-p" *ngIf="producto.length >0">
       <div class="contener-producto" *ngFor="let productos of producto">
-        <div class="div-producto" (click)="detalle('Producto',productos.nombre,productos.image,productos.precio,productos.suma)">
+        <div class="div-producto" (click)="detalle('Producto',productos.id_producto__nombre,productos.id_producto__image,productos.id_producto__precio,productos.suma)">
           <div class="producto">
-            <img name="imagen" src="http://cabutoshop.pythonanywhere.com/media/{{productos.image}}">
+            <img name="imagen" src="http://cabutoshop.pythonanywhere.com/media/{{productos.id_producto__image}}">
           </div>
           <div class="nombre">
-            <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
+            <h6 class="nombre-producto" name="nombre">{{productos.id_producto__nombre}}</h6>
           </div>
           <div class="precio">
-            <h4 name="precio">${{productos.precio| number : '1.2-2'}}</h4>
+            <h4 name="precio">${{productos.id_producto__precio| number : '1.2-2'}}</h4>
           </div>
         </div>
       </div>

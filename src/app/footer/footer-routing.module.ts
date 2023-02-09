@@ -177,11 +177,15 @@ const routes: Routes = [
         path: 'catalogo',
         loadChildren: () => import('../catalogo/catalogo.module').then( m => m.CatalogoPageModule)
       },
+      {
+        path: 'elegir-estab',
+        loadChildren: () => import('../elegir-estab/elegir-estab.module').then( m => m.ElegirEstabPageModule)
+      },
     ]
   },
   {
     path: '',
-    redirectTo: '/footer/inicio',
+    redirectTo: '/elegir-estab',
     pathMatch: 'full'
   }
 ];
