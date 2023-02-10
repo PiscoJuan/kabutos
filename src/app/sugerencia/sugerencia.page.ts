@@ -20,7 +20,7 @@ export class SugerenciaPage implements OnInit {
   url = "";
   descripcion = "";
   loading;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   constructor(
     private storage: Storage,
     public loadingCtrl: LoadingController,
@@ -28,6 +28,11 @@ export class SugerenciaPage implements OnInit {
     public reclamoService: ReclamoService) { }
 
   ngOnInit() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+      }
+    });
   }
   
   changeFile(event) {

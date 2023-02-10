@@ -11,9 +11,9 @@
 
 <ion-content>
   <div class="contenedor">
-      <div class="contenedor-cupones" *ngFor="let cupones of cupon">
+      <div class="contenedor-cupones" *ngFor="let cupones of cupon" style="background: {{colorBack}};">
         <div class="agregar-imagen" id="Cupon{{cupones.id}}">
-          <img name="agregar" src="../assets/img/agregar_2.png" (click)=agregar(cupones.nombre,cupones.id)>
+          <img name="agregar" src={{imagenedit}} (click)=agregar(cupones.nombre,cupones.id)>
         </div>
         <div class="interior">
           <div class="nombre"><h2>{{cupones.nombre}}</h2></div>
@@ -30,12 +30,9 @@
 <div class="divv">
   <div class="contenedor2">
     <div class="btns">
-      <button ion-button size="large" (click)="historial()">
+      <button ion-button size="large" (click)="historial()" style="background: {{colorBack}};">
         Historial de Canje
       </button>
     </div>
   </div>
 </div>
-
-
-<!--<img name="imagen" src="../assets/img/cupon1.png"  >-->

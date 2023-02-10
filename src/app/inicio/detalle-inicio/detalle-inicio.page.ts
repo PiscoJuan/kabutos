@@ -20,6 +20,8 @@ export class DetalleInicioPage implements OnInit {
   @Input() public precio: number;  
   @Input() public max: number; 
   private correo: String = "";
+  elegirEstab: number = 3;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
 
   constructor(
     public loadingCtrl: LoadingController,
@@ -31,6 +33,12 @@ export class DetalleInicioPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+      }
+    });
   }
 
   agregar(id: string) {

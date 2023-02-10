@@ -26,8 +26,8 @@ export class CuponesPage implements OnInit {
 
   productoNecesario: any;
   totalProductoNecesario: any;
-  
-  
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  imagenedit:any = "../assets/img/agregar_2.png";
   constructor(public cuponesService: CuponesService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
@@ -42,8 +42,10 @@ export class CuponesPage implements OnInit {
   ionViewWillEnter(){
     this.storage.get("elegirEstab").then((val) => {
       this.elegirEstab = Number(val);
-      console.log("aaaaaaaaaaaaa")
-      console.log(this.elegirEstab)
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.imagenedit = "../assets/img/agregar_2black.png";
+      }
       this.cargaPantalla()
     });
     

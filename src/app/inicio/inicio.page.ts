@@ -25,6 +25,7 @@ export class InicioPage implements OnInit {
   superior: any;
   inferior: any;
   elegirEstab: number = 3;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   constructor(
     public productoService: ProductoService,
     public publicidadService: PublicidadService,
@@ -43,32 +44,34 @@ export class InicioPage implements OnInit {
     this.storage.set("tarjetaRegaloMonto",'no')
     this.storage.set("tarjetaRegaloproducto",'no')
     await this.showLoading2();
-    this.storage.get("elegirEstab").then((val) => {
-      this.elegirEstab = Number(val);
-      console.log("aaaaaaaaaaaaa")
-      console.log(this.elegirEstab)
-      this.iniciar(null)
-    });
     
+    this.iniciar(null)
   }
 
   async iniciar(event){
-    this.productoService.getInicio(this.elegirEstab).pipe(
-      finalize(async () => {
-        await this.loading.dismiss();
-      })
-    ).subscribe(data => {
-      this.producto = data['productos'];
-      console.log(this.producto)
-      this.categorias = data['categorias'];
-      this.ofertas = data['ofertas'];
-      if (event)
-      event.target.complete();
-    }, (error) => {
-      console.error(error);
-      if (event)
-      event.target.complete();
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+      }
+      this.productoService.getInicio(Number(val)).pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      ).subscribe(data => {
+        this.producto = data['productos'];
+        console.log(this.producto)
+        this.categorias = data['categorias'];
+        this.ofertas = data['ofertas'];
+        if (event)
+        event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+        event.target.complete();
+      });
     });
+    
 
     this.publicidadService.getSuperior()
     .subscribe((data: any) => {

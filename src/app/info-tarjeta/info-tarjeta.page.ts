@@ -19,6 +19,7 @@ export class InfoTarjetaPage implements OnInit {
   id;
   loading: any;
   tarjetas: any;
+  imgAdd:any = "../assets/img/agregar_2.png";
   constructor(
     private alertCtrl: AlertController,
     private storage: Storage,
@@ -31,7 +32,11 @@ export class InfoTarjetaPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    //console.log("didEnter");
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.imgAdd= "../assets/img/agregar_2black.png"
+      }
+    });
     this.storage.get('id').then((val) => {
       console.log(val);
       if (val != null) {

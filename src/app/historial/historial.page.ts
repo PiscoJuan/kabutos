@@ -17,6 +17,7 @@ export class HistorialPage implements OnInit {
 
   historiales:any;
   loading: any;
+  image:any = "../assets/img/carrito_naranja.png";
 
   constructor(
     public loadingCtrl: LoadingController,
@@ -30,6 +31,11 @@ export class HistorialPage implements OnInit {
   }
   
   ionViewDidEnter(){
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.image= "../assets/img/carrito_negro.png"
+      }
+    });
     this.historiales = null;
     this.storage.get('id').then((val)=>{
       if(val!=null){
