@@ -39,58 +39,52 @@ export class FooterPage implements OnInit {
         this.rutalogo= "../assets/img/licorlogo02.png";
         this.colorBack="#000000"
       }
-      this.router.events.subscribe((event: RouterEvent) => {
-        if (event instanceof NavigationEnd) {
-  
-          this.datos();
-          if(event && event.url){
-            this.selectedPath = event.url;
-            
-  
-          }
-  
-          this.storage.get('cosas').then((valor)=>{
-  
-            if(valor!= null){
-              this.cosas=valor;
-            }else{
-              this.cosas=0;
-            }
-          })
-          this.storage.get('name').then((nombre) => {
-  
-            if(login.login ==false && nombre == null ){
-              this.tab="login";
-              this.tab_carrito="login";
-            }else{
-              this.tab="perfil";
-              this.tab_carrito="shopping-cart";
-            }
-          });
-          if(event.url=="/footer/shopping-cart"){
-            this.carrito="../assets/img/carrito_activo.png";
-          }else{
-            this.carrito="../assets/img/carrito.png";
-          }
-          if(event.url=="/footer/perfil"){
-            this.usuario="../assets/img/avatar_perfil2.png";
-            this.notificacion="../assets/img/notificaciones.png";
-            this.home="../assets/img/home.png";
-          }else if(event.url=="/footer/notificacion"){
-            this.usuario="../assets/img/avatar.png";
-            this.notificacion="../assets/img/notificaciones_activo.png";
-            this.home="../assets/img/home.png";
-          }else if(event.url=="/footer/inicio" || event.url=="/"){
-            this.usuario="../assets/img/avatar.png";
-            this.home="../assets/img/home_activo.png";
-            this.notificacion="../assets/img/notificaciones.png";
-          }else{
-            this.usuario="../assets/img/avatar.png";
-            this.home="../assets/img/home.png";
-            this.notificacion="../assets/img/notificaciones.png";
-          }
+    });
+    this.router.events.subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd) {
+        this.datos();
+        if(event && event.url){
+          this.selectedPath = event.url;
         }
-      });
+        this.storage.get('cosas').then((valor)=>{
+          if(valor!= null){
+            this.cosas=valor;
+          }else{
+            this.cosas=0;
+          }
+        })
+        this.storage.get('name').then((nombre) => {
+          if(login.login ==false && nombre == null ){
+            this.tab="login";
+            this.tab_carrito="login";
+          }else{
+            this.tab="perfil";
+            this.tab_carrito="shopping-cart";
+          }
+        });
+        if(event.url=="/footer/shopping-cart"){
+          this.carrito="../assets/img/carrito_activo.png";
+        }else{
+          this.carrito="../assets/img/carrito.png";
+        }
+        if(event.url=="/footer/perfil"){
+          this.usuario="../assets/img/avatar_perfil2.png";
+          this.notificacion="../assets/img/notificaciones.png";
+          this.home="../assets/img/home.png";
+        }else if(event.url=="/footer/notificacion"){
+          this.usuario="../assets/img/avatar.png";
+          this.notificacion="../assets/img/notificaciones_activo.png";
+          this.home="../assets/img/home.png";
+        }else if(event.url=="/footer/inicio" || event.url=="/"){
+          this.usuario="../assets/img/avatar.png";
+          this.home="../assets/img/home_activo.png";
+          this.notificacion="../assets/img/notificaciones.png";
+        }else{
+          this.usuario="../assets/img/avatar.png";
+          this.home="../assets/img/home.png";
+          this.notificacion="../assets/img/notificaciones.png";
+        }
+      }
     });
   }
 

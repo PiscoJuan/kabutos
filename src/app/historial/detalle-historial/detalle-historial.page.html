@@ -4,7 +4,7 @@
     <div class="contener-historial">
       <div class="div-historial">
         <div class="contener-columnaI">
-          <img src="../assets/img/atras.png" (click)="regresar()">
+          <img src={{image}} (click)="regresar()">
         </div>
         <div class="contener-columna">
           <h6 class="nombre-historial">Compra</h6>
@@ -18,7 +18,7 @@
 <ion-content>
   <div class="contenedor-page">
     <div *ngIf="historial">
-      <div class="contener-datos">
+      <div class="contener-datos" >
         <div class="campos" *ngIf="perfil">
           <ion-label class="left">Nombres: </ion-label>
           <ion-label class="right">{{perfil.nombre}} {{perfil.apellido}}</ion-label>
@@ -100,19 +100,19 @@
           </div>
         </div>
         <div class="valores">
-          <ion-label class="left">Subtotal: </ion-label>
+          <ion-label class="left" style="color={{colorBack}}">Subtotal: </ion-label>
           <ion-label class="right">${{historial.subtotal | number : '1.2-2'}} </ion-label>
         </div>
         <div class="valores">
-          <ion-label class="left">Delivery: </ion-label>
+          <ion-label class="left" style="color={{colorBack}}">Delivery: </ion-label>
           <ion-label class="right">${{historial.envio | number : '1.2-2'}}</ion-label>
         </div>
         <div class="valores">
-          <ion-label class="left">Impuestos: </ion-label>
+          <ion-label class="left"style="color={{colorBack}}">Impuestos: </ion-label>
           <ion-label class="right">${{historial.iva | number : '1.2-2'}}</ion-label>
         </div>
         <div class="valores">
-          <ion-label class="left">Total: </ion-label>
+          <ion-label class="left"style="color={{colorBack}}">Total: </ion-label>
           <ion-label class="right">${{ historial.total | number : '1.2-2' }}</ion-label>
         </div>
       </div>

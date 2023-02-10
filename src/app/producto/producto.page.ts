@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { login } from './../global'
 import 'rxjs/add/operator/map';
 import { ChildActivationStart, Router } from '@angular/router';
-import { AlertController, IonToggle, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, IonToggle, LoadingController, ModalController, NumericValueAccessor } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
@@ -38,6 +38,7 @@ export class ProductoPage implements OnInit {
   loaderToShow: any;
   almacenado: {};
   elegirEstab: number = 3;
+  colorBack: any = "color: var(--ion-color-naranja-oscuro)"
   private correo: String = "";
   public cantidad: string = "0";
   public page: number = 0;
@@ -61,8 +62,9 @@ export class ProductoPage implements OnInit {
   ngOnInit() {
     this.storage.get("elegirEstab").then((val) => {
       this.elegirEstab = Number(val);
-      console.log("aaaaaaaaaaaaa")
-      console.log(this.elegirEstab)
+      if(Number(val)==2){
+        this.colorBack="color: black"
+      }
       this.cargaPantalla();
       this.getCorreo();
     });

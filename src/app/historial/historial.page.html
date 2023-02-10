@@ -6,7 +6,7 @@
       <div class="contener-historial" *ngFor="let historial of historiales">
         <div class="div-historial" (click)="detalle(historial.id_pedido)">
           <div class="contener-columnaI">
-            <img src="../assets/img/carrito_naranja.png">
+            <img src={{image}}>
           </div>        
           <div class="contener-columna">
             <h6 class="nombre-historial">Compra</h6>

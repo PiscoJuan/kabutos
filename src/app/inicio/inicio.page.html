@@ -36,7 +36,7 @@
             <h6 class="nombre-producto" name="nombre">{{productos.id_producto__nombre}}</h6>
           </div>
           <div class="precio">
-            <h4 name="precio">${{productos.id_producto__precio| number : '1.2-2'}}</h4>
+            <h4 name="precio" style="color: {{colorBack}};">${{productos.id_producto__precio| number : '1.2-2'}}</h4>
           </div>
         </div>
       </div>
@@ -55,22 +55,11 @@
             <h6 class="nombre-producto" name="nombre">{{oferta.nombre}}</h6>
           </div>
           <div class="precio">
-            <h4 name="precio">${{oferta.precio| number : '1.2-2'}}</h4>
+            <h4 name="precio" style="color: {{colorBack}};">${{oferta.precio| number : '1.2-2'}}</h4>
           </div>
         </div>
       </div>
     </div>
-    
-    <!--
-    <ion-slides class="contenedor-publicidad" pager="true">
-      <ion-slide>
-        <a href="//google.com"><img src="../assets/img/publicidad-ej1.jpg"></a>
-      </ion-slide>
-      <ion-slide>
-        <img src="../assets/img/publicidad-ej1.jpg" >
-      </ion-slide>
-    </ion-slides>
-    -->
 
     <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
       <ion-slide *ngFor="let publicidad of inferior">

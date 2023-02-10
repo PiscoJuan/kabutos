@@ -191,5 +191,7 @@ vertical-align: middle;
 .contne{
     height: 100%;
     background-color: white;
-    z-index: -6;
+    background-image: url("/assets/img/pantalla-cabutos.png");
+    background-repeat: no-repeat;
+    background-size:  cover, contain;
 }

@@ -27,7 +27,8 @@ export class CodigosPage implements OnInit {
   perfil:any;
   codigo: any;
   loading: any;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
 
   constructor(
     private storage: Storage,
@@ -47,7 +48,12 @@ export class CodigosPage implements OnInit {
 
   }
   ngOnInit() {
-    
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
   }
 
   atras(){
@@ -57,8 +63,6 @@ export class CodigosPage implements OnInit {
     }
     this.navCtrlr.back(animations)
   }
-
-  
 
   async showLoading2() {
     this.loading = await this.loadingCtrl.create({

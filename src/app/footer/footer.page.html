@@ -16,7 +16,7 @@
       <div class= "home"> <ion-img [src]="home" ></ion-img></div>
     </ion-tab-button>
     <ion-tab-button class= "col_notifications" [class.active-item]="selectedPath.includes('notificacion')" tab="notificacion" size= 4 >
-      <div class = "valor"><span>{{number}}</span></div>
+      <div class = "valor" style="background: {{colorBack}};"><span>{{number}}</span></div>
       <div class= "notifications"> <ion-img [src]="notificacion" ></ion-img></div> 
     </ion-tab-button>
     <ion-tab-button class= "col_perfil" [class.active-item]="selectedPath.includes('perfil') "  tab="perfil" size=4 >        

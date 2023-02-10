@@ -26,7 +26,7 @@ export class PerfilPage implements OnInit {
   url;
   date = "";
   id;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
 
   constructor(
     private storage: Storage,
@@ -42,6 +42,11 @@ export class PerfilPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+      }
+    });
     this.storage.get('id').then((val) => {
       if (val != null) {
         this.id = val;

@@ -46,7 +46,7 @@
 
 
         <div class="button-content" (click)="eliminar_credenciales()">
-          <ion-button class="btn-registro" size="large">
+          <ion-button class="btn-registro" size="large" style="--background: {{colorBack}};">
             <p class="registro">Eliminar cuenta</p>
           </ion-button>
         </div>
@@ -54,7 +54,7 @@
 
       <div class="contener-perfil"  *ngIf="!perfil"  >
         <div class="button-content" (click)="login_page()">
-          <ion-button class="btn-registro" size="large" >
+          <ion-button class="btn-registro" size="large" style="--background: {{colorBack}};">
             <p class="registro">Iniciar Sesión</p>
           </ion-button>
         </div>

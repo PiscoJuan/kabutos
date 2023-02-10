@@ -19,6 +19,9 @@ export class TarjetaPage implements OnInit {
   id;
   loading: any;
   tarjetas: any;
+  butAtras:any = "../assets/img/atras_naranja.png";
+  imgAdd:any = "../assets/img/agregar_2.png";
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   constructor(
     private router: Router,
     private storage: Storage,
@@ -32,6 +35,13 @@ export class TarjetaPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.imgAdd= "../assets/img/agregar_2black.png"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     console.log("didEnter");
     this.storage.get('total').then((val) => {
       console.log(val);

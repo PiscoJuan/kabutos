@@ -1,17 +1,17 @@
 <ion-content>
   <div class="contenedor-page">
     <div class="titulo_atras">
-      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
         <ion-label class="titulo">Pagar</ion-label>
     </div>
     <div class="total" >
       <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
       <div style="display: flex;">
-        <ion-label style="color:#FE3A00;font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
-        <div class="A_pagar" id="A_pagar" *ngIf="total">{{total}}</div>
+        <ion-label style="color:{{colorBack}};font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
+        <div class="A_pagar" id="A_pagar" *ngIf="total"><span style="color:{{colorBack}}">{{total}}</span></div>
       </div>
     </div>
-    <div class="datos">Opción de pago</div>
+    <div class="datos"><span style="color:{{colorBack}}">Opción de pago</span></div>
     <div class="confirmar">Seleccione tarjeta</div>
     <div class="contener-tarjeta" *ngFor="let tarjeta of tarjetas">
       <div class="div-tarjeta" (click)="pagar(tarjeta.token, tarjeta.type, tarjeta.number)">
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="button-content">
-      <div class="btn_regresar"> <img src="../assets/img/agregar_2.png" class="agregar" (click)="agregar()"> </div>
+      <div class="btn_regresar"> <img src={{imgAdd}} class="agregar" (click)="agregar()"> </div>
     </div>
   </div>  
 </ion-content>

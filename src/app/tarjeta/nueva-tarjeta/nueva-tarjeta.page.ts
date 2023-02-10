@@ -21,6 +21,9 @@ export class NuevaTarjetaPage implements OnInit {
   loading: any;
   nombre; apellido;
   card;
+  butAtras:any = "../assets/img/atras_naranja.png";
+  imgAdd:any = "../assets/img/agregar_2.png";
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   @ViewChild('myCard', { static: true }) cardForm;
 
   constructor(
@@ -51,6 +54,13 @@ export class NuevaTarjetaPage implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.imgAdd= "../assets/img/agregar_2black.png"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
   }
 
   dismiss() {
