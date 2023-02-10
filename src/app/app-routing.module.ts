@@ -78,13 +78,19 @@ const routes: Routes = [
   {
     path: 'detalles-premios',
     loadChildren: () => import('./detalles-premios/detalles-premios.module').then( m => m.DetallesPremiosPageModule)
-  },  {
+  },
+  {
     path: 'historial-mensajes',
     loadChildren: () => import('./chat/historial-mensajes/historial-mensajes.module').then( m => m.HistorialMensajesPageModule)
   },
   {
     path: 'mensajes',
     loadChildren: () => import('./chat/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+  },
+
+  {
+    path: 'elegir-estab',
+    loadChildren: () => import('./elegir-estab/elegir-estab.module').then( m => m.ElegirEstabPageModule)
   },
 
   

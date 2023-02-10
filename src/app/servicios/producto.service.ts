@@ -23,12 +23,12 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
     return this.http.get(this.baseUrl+'producto/',{'headers':headers})
   }
 
-  getInicio() {
+  getInicio(estab:number) {
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    return this.http.get(this.baseUrl+'inicio/',{'headers':headers})      
+    return this.http.get(this.baseUrl+'inicio2/'+estab,{'headers':headers})      
   }
 
   getProductosParciales(page) {
@@ -38,13 +38,13 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
     }
     return this.http.get(this.baseUrl+'producto/'+ page,{'headers':headers})
   }
-  getInicioBuscar(busqueda) {
+  getInicioBuscar(busqueda,estab) {
     let parametro= new HttpParams().set('nombre',busqueda);
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    return this.http.get(this.baseUrl+'inicio/',{'headers':headers,params:parametro})      
+    return this.http.get(this.baseUrl+'inicio2/'+estab,{'headers':headers,params:parametro})      
   }
 
   getCategoria() {
@@ -55,20 +55,23 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
     return this.http.get(this.baseUrl+'categorias/',{'headers':headers})      
   }
 
-  getProductosCategoria(id) {
+  getProductosCategoria(id,estab) {
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    return this.http.get(this.baseUrl+'categorias/?id='+id,{'headers':headers})      
+    console.log(this.baseUrl+'categorias/?id='+id+"&?establecimiento="+estab)
+    return this.http.get(this.baseUrl+'categorias/?id='+id+"&establecimiento="+estab,{'headers':headers})      
   }
 
-  getOferta() {
+  getOferta(estab:number) {
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-   return this.http.get(this.baseUrl+'ofertasData/',{'headers':headers})      
+    console.log('ESTAAAAAAAAB')
+    console.log(this.baseUrl+'ofertasData/'+"?establecimiento="+estab,{'headers':headers})
+   return this.http.get(this.baseUrl+'ofertasData/'+"?establecimiento="+estab,{'headers':headers})      
          
      
  }
@@ -82,25 +85,26 @@ baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
  }
 
 
-  getProductosByFiltro(filtro: String, page: number){
+  getProductosByFiltro(filtro: String, page: number, estab:number){
     switch (filtro) {
       case "vendidos":
-        return this.http.get(this.baseUrl+'producto/'+page)      
+        console.log(this.baseUrl+'producto/'+page+"?establecimiento="+estab)
+        return this.http.get(this.baseUrl+'producto/'+page+"?establecimiento="+estab)      
         break;
       case "menor":
-      return this.http.get(this.baseUrl+'producto/precioMayor/'+page)      
+      return this.http.get(this.baseUrl+'producto/precioMayor/'+page+"?establecimiento="+estab)      
         break;
       case "mayor":
-      return this.http.get(this.baseUrl+'producto/precioMenor/'+page)      
+      return this.http.get(this.baseUrl+'producto/precioMenor/'+page+"?establecimiento="+estab)      
         break;
       case "ascendente":
-      return this.http.get(this.baseUrl+'producto/orderAsc/'+page)
+      return this.http.get(this.baseUrl+'producto/orderAsc/'+page+"?establecimiento="+estab)
         break;
       case "descendente":
-      return this.http.get(this.baseUrl+'producto/orderDesc/'+page)      
+      return this.http.get(this.baseUrl+'producto/orderDesc/'+page+"?establecimiento="+estab)      
         break;
       default:
-       return this.http.get(this.baseUrl+'producto/')      
+       return this.http.get(this.baseUrl+'producto/'+"?establecimiento="+estab)      
         break;
     }
   }

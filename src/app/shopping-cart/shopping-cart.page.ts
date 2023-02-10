@@ -14,6 +14,8 @@ import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { exit } from 'process';
 import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { BaneoService } from '../servicios/baneo.service';
+
 //import { Console } from 'console';
 declare var window;
 
@@ -53,6 +55,7 @@ export class ShoppingCartPage implements OnInit {
   open = false;
   politecnico=false;
   constructor(private modalCtrl: ModalController, private router: Router,
+    private baneoService: BaneoService,
     private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
     private storage: Storage,
     private navCtrlr: NavController, private navParamsService: NavParamsService) {
@@ -662,11 +665,17 @@ export class ShoppingCartPage implements OnInit {
     /*if (this.cupLen > 0){
       this.revisionCupon();
     }*/
-    this.actualizarCarrito()
-    this.horario();
+    this.storage.get("perfil").then((dato) => {
+      this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
+        if (data.valid == "OK"){
+          this.actualizarCarrito()
+          this.horario();
+        } else {
+          this.mensajeIncorrecto("Compra porhibida", "No puede comprar");
+        }
+      })
+    })
     
-
-
   }
 
   async revisionCupon() {

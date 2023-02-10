@@ -7,15 +7,14 @@ import { Storage } from '@ionic/storage';
 import { ProductoService } from '../servicios/producto.service';
 import { PublicidadService } from '../servicios/publicidad.service';
 import { finalize } from 'rxjs/operators';
-import { DetalleInicioPage } from './detalle-inicio/detalle-inicio.page';
 
 @Component({
   selector: 'app-inicio',
-  templateUrl: './inicio.page.html',
-  styleUrls: ['./inicio.page.scss'],
+  templateUrl: './elegir-estab.page.html',
+  styleUrls: ['./elegir-estab.page.scss'],
 })
 
-export class InicioPage implements OnInit {
+export class ElegirEstabPage implements OnInit {
 
   loading;
   producto;
@@ -49,7 +48,6 @@ export class InicioPage implements OnInit {
       console.log(this.elegirEstab)
       this.iniciar(null)
     });
-    
   }
 
   async iniciar(event){
@@ -59,7 +57,6 @@ export class InicioPage implements OnInit {
       })
     ).subscribe(data => {
       this.producto = data['productos'];
-      console.log(this.producto)
       this.categorias = data['categorias'];
       this.ofertas = data['ofertas'];
       if (event)
@@ -110,26 +107,6 @@ export class InicioPage implements OnInit {
     });
   }
 
-  async buscar(){
-    console.log(this.textInput)
-    await this.showLoading2();
-    this.productoService.getInicioBuscar(this.textInput,this.elegirEstab)
-    .pipe(
-      finalize(async () => {
-        await this.loading.dismiss();
-      })
-    )
-    .subscribe(data => {
-      this.producto = data['productos'];
-      this.categorias = data['categorias'];
-      this.ofertas = data['ofertas'];
-
-    },
-    err => {
-      this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-    });
-  }
-
   async showLoading2() {
     this.loading = await this.loadingCtrl.create({
       message: 'Loading.....'
@@ -150,30 +127,13 @@ export class InicioPage implements OnInit {
     return await modal.present();
   }
 
-  async detalle(tipo,nombre, imagen, precio,max){
-    const modal = await this.modalController.create({
-      component: DetalleInicioPage,
-      cssClass: 'IncorrectoProducto',
-      componentProps: { tipo,nombre, imagen, precio,max }, 
-    });
-    return await modal.present();
+  cabutosPage() {
+    this.storage.set("elegirEstab",1)
+    this.router.navigateByUrl('/footer/inicio');
   }
 
-  ofertasPage() {
-    this.router.navigateByUrl('/footer/ofertas');
+  licoreriaPage() {
+    this.storage.set("elegirEstab",2)
+    this.router.navigateByUrl('/footer/inicio');
   }
-
-  productosPage() {
-    this.router.navigateByUrl('/footer/producto');
-  }
-
-  categoriasPage() {
-    this.router.navigateByUrl('/footer/categorias');
-  }
-
-  mostrar(id) {
-    this.storage.set('categoria',id);
-    this.router.navigateByUrl('/footer/categorias/detalle-categoria');
-  }
-
 }

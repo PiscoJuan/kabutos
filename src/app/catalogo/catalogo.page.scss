@@ -13,6 +13,7 @@ ion-header{
     font-size: larger;
     color: var(--ion-color-azul-oscuro);
     font-size: 1.7rem;
+    padding: 20px 30px;
 }
 
 
@@ -151,7 +152,7 @@ vertical-align: middle;
 
 .franja{
     padding-top: 10px;
-    background-color: #C8C8CA;
+    background-color: #142a8f;
     display: flex;
     justify-content: space-evenly;
     .iconos{
@@ -161,7 +162,7 @@ vertical-align: middle;
     }
 }
 .col_home{
-    background-color: #C8C8CA;
+    background-color: #142a8f;
     display: flex;
     justify-content: space-evenly;
     color:white;
@@ -315,7 +316,7 @@ div.carrito img{
     position: absolute;
     box-shadow: none;
     z-index: 1;
-    width: 50%;
+    width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;

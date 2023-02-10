@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
 export class MensajeriaService {
   @ViewChild(IonContent) content: IonContent;
 
-  url_base :string= "http://localhost:8000/";
+  url_base :string= "http://localhost:8000/movil/";
   //url_base_admins:string="http://127.0.0.1:8000/obtenerAdmin";
   
   usuario_logeado = localStorage.getItem("usuario_logeado")
@@ -41,14 +41,15 @@ export class MensajeriaService {
     console.log(this.usuario_admin)
     console.log(this.usuario_cliente)
     //console.log(this.url_chat + this.num_servicio_actual + "/" + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado, "ruta")
-    console.log(this.url_base+"api/chat/" + this.usuario_admin + "/" + this.usuario_cliente+"/")
+    console.log(this.url_base+"api/chat/" + this.usuario_cliente+"/"+ this.usuario_admin +"/")
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
-    this.http.get<any[]>(this.url_base+"api/chat/" + this.usuario_admin + "/" + this.usuario_cliente+"/",{'headers':headers})
+    this.http.get<any[]>(this.url_base+"api/chat/" + this.usuario_cliente + "/" + this.usuario_admin+"/",{'headers':headers})
       .subscribe(res => {
         console.log("entro")
+        console.log(res)
         console.log(res['canal'])
         let mensajes = res['mensajes']
         this.canal_actual = res['canal']

@@ -20,6 +20,7 @@ export class CuponesPage implements OnInit {
   cupon : {};
   url= '' ;
   valor = 0;
+  elegirEstab: number = 1;
   private correo:String="";
 
 
@@ -35,10 +36,17 @@ export class CuponesPage implements OnInit {
     }
 
   ngOnInit() {
+    
   }
   
   ionViewWillEnter(){
-    this.cargaPantalla()
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      console.log("aaaaaaaaaaaaa")
+      console.log(this.elegirEstab)
+      this.cargaPantalla()
+    });
+    
   }
 
   pantalla(event){
@@ -46,7 +54,7 @@ export class CuponesPage implements OnInit {
     this.storage.get('perfil').then((val)=>{
       if(val!=null){
         this.perfil=val;
-        this.cuponesService.getCuponesPersonales(this.perfil.id).subscribe(data => {
+        this.cuponesService.getCuponesPersonales(this.perfil.id, this.elegirEstab).subscribe(data => {
           console.log("esta es la data "+data["nombre"])
           this.cupon=data;
           var tol =Object.entries(this.cupon).length

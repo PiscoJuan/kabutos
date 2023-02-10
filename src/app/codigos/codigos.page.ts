@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
+import { BaneoService } from '../servicios/baneo.service';
 
 
 
@@ -34,7 +35,7 @@ export class CodigosPage implements OnInit {
     public codigosService: CodigosService,
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
-    
+    private baneoService: BaneoService,
     private navCtrlr: NavController, private router: Router
   ) {
 
@@ -90,7 +91,7 @@ export class CodigosPage implements OnInit {
       return await modal.present();
   }
 
-  canjear(form){
+  canjearCodigo(form){
     let Data = {"codigo": form.value.codigo, "id_cliente":this.perfil.id}
     this.codigosService.getCodigos(Data).subscribe(
       data => {
@@ -106,5 +107,20 @@ export class CodigosPage implements OnInit {
         }
       })
     //this.enviarForm(formData)
+  }
+
+  canjear(form) {
+    /*if (this.cupLen > 0){
+      this.revisionCupon();
+    }*/
+    this.storage.get("perfil").then((dato) => {
+      this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
+        if (data.valid == "OK"){
+          this.canjearCodigo(form)
+        } else {
+          this.mensajeIncorrecto("Canje porhibido", "No puedes canjear códigos");
+        }
+      })
+    })
   }
 }

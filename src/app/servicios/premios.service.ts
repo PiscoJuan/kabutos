@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PremiosService {
-  //baseUrl :string= "http://127.0.0.1:8000/movil/";
+  
   baseUrl :string= "https://cabutoshop.pythonanywhere.com/movil/";
   constructor(
     private http: HttpClient
@@ -50,5 +50,14 @@ export class PremiosService {
     }
     const body = JSON.stringify(data);
     return this.http.post(this.baseUrl+'reclamarPremio/',body,{'headers':headers})            
+  }
+
+  restarPuntos(data):Observable<any> {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(data);
+    return this.http.post(this.baseUrl+'restarPuntos/',body,{'headers':headers})            
   }
 }

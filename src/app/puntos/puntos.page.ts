@@ -3,6 +3,9 @@ import { PremiosService } from '../servicios/premios.service';
 import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
+import { HistorialService } from '../servicios/historial.service';
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-puntos',
   templateUrl: './puntos.page.html',
@@ -10,6 +13,7 @@ import { Storage } from '@ionic/storage';
 })
 export class PuntosPage implements OnInit {
   premios: any;
+  historiales:any;
   puntos: any;
   valorTarjeta: any;
   misPremios: any;
@@ -18,6 +22,8 @@ export class PuntosPage implements OnInit {
     private premiosService: PremiosService,
     private storage: Storage,
     public modalCtrl: ModalController,
+    private router: Router,
+    public historialService: HistorialService,
   ) {}
 
 
@@ -27,6 +33,7 @@ export class PuntosPage implements OnInit {
 
   ionViewWillEnter() {
     this.data()
+    this.histo()
   }
 
   data(){
@@ -40,14 +47,6 @@ export class PuntosPage implements OnInit {
         this.valorTarjeta = data.puntos * (data.tarjetaAPuntos / data.puntosATarjeta)
         this.valorTarjeta = this.valorTarjeta.toFixed(2)
         console.log(data)
-      })
-
-      this.premiosService.getPremiosPersonales(dato.id).subscribe(data => {
-        this.misPremios = data;
-      })
-
-      this.premiosService.getPremiosUtlizados(dato.id).subscribe(data => {
-        this.historial = data;
       })
     });
 
@@ -67,4 +66,38 @@ export class PuntosPage implements OnInit {
     return await modal.present();
   }
 
+  monto() {
+    this.router.navigate(["/footer/hacer-regalo-puntos"]);
+  }
+
+  histo() {
+    this.storage.get('id').then((val)=>{
+      if(val!=null){
+        this.buscar(val);
+      }
+
+    });
+  }
+
+  buscarHistorial(id): Observable<object> {
+    
+    return this.historialService.getHistorial(id);
+  }
+
+  async buscar(id) {
+    this.buscarHistorial(id).subscribe(
+        (data: any) => {
+          let historiales = data.filter(pedidos => pedidos.puntos != 0);
+
+          if (Object.keys(historiales).length === 0) {
+            
+          }
+          else {
+            console.log("AAAAAAAAAAAAAAAA")
+            console.log(historiales)
+            this.historiales = historiales;
+          }
+        }
+      );
+  }
 }
