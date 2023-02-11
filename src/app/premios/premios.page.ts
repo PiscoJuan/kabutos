@@ -45,6 +45,17 @@ export class PremiosPage implements OnInit {
 
       this.premiosService.getPremiosPersonales(dato.id).subscribe(data => {
         this.misPremios = data;
+        console.log("porcanjear", this.misPremios)
+
+        let d = JSON.parse(JSON.stringify(this.misPremios));
+        d = d.map(function(a){
+          let f = a.fecha_canje.split('-')
+          let fecha = new Date(f[0], f[1], f[2])
+          a.fecha_entrega = fecha
+          return a
+          })
+        this.misPremios = d
+        console.log("dat", this.premios)
       })
 
       this.premiosService.getPremiosUtlizados(dato.id).subscribe(data => {
