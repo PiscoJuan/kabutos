@@ -32,6 +32,8 @@ export class DomicilioPage implements OnInit {
   direccion = ""; envio = "";
   id: any;
   colorPrincipal;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     private geolocation: Geolocation,
@@ -47,6 +49,12 @@ export class DomicilioPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     //this.showLoading2();
     this.storage.get('id').then((val) => {
       if (val != null) {

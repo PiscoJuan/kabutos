@@ -15,6 +15,7 @@ import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 export class DireccionPage implements OnInit {
   loading:any;
   direcciones:any;
+  agregarImg:any ="../assets/img/agregar_2.png"
   constructor(public modalController: ModalController,
     public storage: Storage,
     public loadingCtrl: LoadingController,
@@ -24,6 +25,11 @@ export class DireccionPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.agregarImg= "../assets/img/agregar_2black.png"
+      }
+    });
     this.storage.get('id').then((val)=>{
       if(val!=null){
         this.datos(val);

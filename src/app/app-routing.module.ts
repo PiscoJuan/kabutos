@@ -1,3 +1,5 @@
+
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -87,11 +89,15 @@ const routes: Routes = [
     path: 'mensajes',
     loadChildren: () => import('./chat/mensajes/mensajes.module').then( m => m.MensajesPageModule)
   },
-
   {
     path: 'elegir-estab',
     loadChildren: () => import('./elegir-estab/elegir-estab.module').then( m => m.ElegirEstabPageModule)
   },
+  {
+    path: 'premios-inicio',
+    loadChildren: () => import('./premios-inicio/premios-inicio.module').then( m => m.PremiosInicioPageModule)
+  },
+
 
   
   
@@ -106,3 +112,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

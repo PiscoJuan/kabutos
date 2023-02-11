@@ -187,6 +187,10 @@ const routes: Routes = [
       },
     
       {
+        path: 'premios-inicio',
+        loadChildren: () => import('../premios-inicio/premios-inicio.module').then( m => m.PremiosInicioPageModule)
+      },
+      {
         path: 'elegir-estab',
         loadChildren: () => import('../elegir-estab/elegir-estab.module').then( m => m.ElegirEstabPageModule)
       },
