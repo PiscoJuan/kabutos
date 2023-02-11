@@ -20,6 +20,7 @@ import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } fro
 declare var window;
 
 import { FCM } from "@capacitor-community/fcm"; 
+import { MensajeriaService } from './servicios/mensajeria.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import { FCM } from "@capacitor-community/fcm";
 export class AppComponent {
   inicio = login.login
   token:String
+  chek_sms_no_leidos:boolean
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -45,6 +47,10 @@ export class AppComponent {
     private HistorialService:HistorialService,
   ) {
     this.initializeApp();
+    /*console.log(this.storage.get("perfil").then(data=>{
+      this.mensajeriaService.usuario_cliente=data.cedula
+      this.chek_sms_no_leidos=this.mensajeriaService.existen_no_leidos
+    }))*/
   }
 
 
@@ -385,4 +391,9 @@ export class AppComponent {
     });
     return await modal.present();
   }
+
+  abrirMenu(){
+    
+  }
+  
 }

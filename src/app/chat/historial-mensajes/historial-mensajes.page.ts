@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MensajeriaService } from 'src/app/servicios/mensajeria.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-historial-mensajes',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialMensajesPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private mensajeriaService:MensajeriaService,
+    private storage: Storage,
+
+
+  ) { 
+   
+
+  }
 
   ngOnInit() {
+
   }
 
 }

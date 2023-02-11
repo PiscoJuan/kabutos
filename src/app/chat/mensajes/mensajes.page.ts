@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { interval } from 'rxjs';
 import { MensajeriaService } from 'src/app/servicios/mensajeria.service';
 
 @Component({
@@ -13,7 +14,10 @@ export class MensajesPage implements OnInit {
   textSms = "";
   cliente:string
   admin: any;
+  admin_seleccionado:string
+  tiene_mensajes:boolean=false
 
+  interval
   constructor(
     private navCtrl:NavController,
     private storage: Storage,
@@ -24,33 +28,43 @@ export class MensajesPage implements OnInit {
   ngOnInit() {
     this.mensajeriaService.obtenerAdmin()
     console.log(this.storage.get("perfil").then(data=>{
-      console.log(data.cedula)
       this.cliente=data.cedula
       this.mensajeriaService.usuario_cliente=data.cedula
       this.mensajeriaService.obtenerListaMensajes(this.content)
-  
     }))
+
+    this.interval = setInterval(() => {
+      this.mensajeriaService.obtenerListaMensajes(this.content)
+      this.tiene_mensajes=true
+      }, 2000); 
+
+   
   }
+  ionViewWillLeave(){
+    clearInterval(this.interval);
 
-
+}
+  
   ionViewDidEnter(){
     this.mensajeriaService.obtenerAdmin()
     this.mensajeriaService.obtenerListaMensajes(this.content)
+    this.admin_seleccionado=this.mensajeriaService.usuarios_admin[0].nombre+" "+this.mensajeriaService.usuarios_admin[0].apellido
+
   }
 
+
+  
+
   sendMessage() {
-    //console.log(this.mensajeriaService.contactosMensajes)
     if (this.textSms.length > 0) {
       console.log(this.storage.get("perfil").then(data=>{
-        console.log(data)
         data={
           cliente:this.cliente,
           admin:this.admin,
           texto:this.textSms
         }
         this.mensajeriaService.sendMessage(data,this.content)
-        //this.scrollToBottom()
-        //this.mensajeriaService.enviar()
+
         this.textSms = "";
       }))
       
@@ -61,16 +75,13 @@ export class MensajesPage implements OnInit {
     this.navCtrl.back()
   }
 
-
   manejarAdmin(event){
-    console.log("manejar admin")
+
     this.admin=event.detail.value.cedula
-    console.log(this.admin)
-    console.log(event.detail.value)
     this.mensajeriaService.usuario_admin=event.detail.value.cedula
-    //document.getElementById('mensajes').innerHTML = '';
-    this.mensajeriaService.contactosMensajes=[]
+    //this.mensajeriaService.contactosMensajes=[]
     this.mensajeriaService.obtenerListaMensajes(this.content)
+    this.mensajeriaService.marcar_leido()
 
   }
   

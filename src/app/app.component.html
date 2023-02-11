@@ -1,5 +1,5 @@
 <ion-app style="--background: #2153FF !important;">
-  <ion-menu style="--background: #2153FF !important;" menuId="main-menu" side="start" contentId="principal"
+  <ion-menu (ionWillOpen)="abrirMenu()"  style="--background: #2153FF !important;" menuId="main-menu" side="start" contentId="principal"
     class="menu"  (ionClose)="closingNavCallback()">
     <div class="header-content">
       <img [src]="image ? image : '../assets/img/avatar.png'" alt="">
@@ -54,7 +54,7 @@
           <ion-item routerLink="/footer/contacto">Contáctanos</ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/mensajes">Chatea con Administrador</ion-item>
+        <ion-item routerLink="/footer/mensajes">Chatea con Administrador </ion-item>
         </ion-menu-toggle>
       </ion-list>
       <div class="social-media" style="background: #2153FF !important; ">

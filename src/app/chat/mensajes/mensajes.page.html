@@ -6,12 +6,13 @@
    <div  >
     <br>
     Administrador:
+
     <ion-select 
     interface="popover" 
-    placeholder="Administradores disposibles..."
+    placeholder="{{admin_seleccionado}}"
     (ionChange)="manejarAdmin($event)" >
-
-      <ion-select-option *ngFor="let admin of mensajeriaService.usuarios_admin" [value]="admin">{{admin.nombre}} {{admin.apellido}}</ion-select-option>
+    <div class="no-leido"></div>
+      <ion-select-option *ngFor="let admin of mensajeriaService.usuarios_admin" [value]="admin">{{admin.nombre}} {{admin.apellido}}  </ion-select-option>
     </ion-select>
   </div>
   

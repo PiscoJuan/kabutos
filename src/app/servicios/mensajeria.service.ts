@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, ViewChild } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { IonContent, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
@@ -14,16 +14,14 @@ export class MensajeriaService {
   url_base :string= "http://localhost:8000/movil/";
   //url_base_admins:string="http://127.0.0.1:8000/obtenerAdmin";
   
-  usuario_logeado = localStorage.getItem("usuario_logeado")
   usuarios_admin:any=[]
   usuario_cliente:string
   usuario_admin:string
-  usuario_receptor: string
-  nombre_usuario_receptor = ""
   canal_actual = ""
-  chats: smsInfo2[] = [];
-  contactosMensajes: smsInfo2[];
-  check_leido: ""
+  contactosMensajes: any[];
+  chats: any[]=[];
+  
+  existen_no_leidos:boolean=false
 
 
   constructor(
@@ -35,36 +33,27 @@ export class MensajeriaService {
     console.log(this.usuario_cliente)
   }
 
-  obtenerListaMensajes(content) {
-    this.contactosMensajes=[]
-    console.log("lista")
-    console.log(this.usuario_admin)
-    console.log(this.usuario_cliente)
-    //console.log(this.url_chat + this.num_servicio_actual + "/" + this.servicio_actual + "/" + this.usuario_receptor + "/" + this.usuario_logeado, "ruta")
-    console.log(this.url_base+"api/chat/" + this.usuario_cliente+"/"+ this.usuario_admin +"/")
+  obtenerListaMensajes(content){
+
     const headers = {
       'Accept': 'application/json, text/plain',
       'Content-Type': 'application/json'
     }
     this.http.get<any[]>(this.url_base+"api/chat/" + this.usuario_cliente + "/" + this.usuario_admin+"/",{'headers':headers})
       .subscribe(res => {
-        console.log("entro")
-        console.log(res)
-        console.log(res['canal'])
+
         let mensajes = res['mensajes']
         this.canal_actual = res['canal']
-        
         this.contactosMensajes = mensajes
         content.scrollToBottom()
-        console.log(this.canal_actual)
 
       })
-  console.log("fuera de lista")
   }
 
+
+  
   sendMessage(data: any,content) {
-    //this.marcar_leido()
-    
+ 
 
     let sms_info: smsInfo1 = {
       texto: data.texto,
@@ -75,8 +64,7 @@ export class MensajeriaService {
       esAdmin:false
 
     }
-    console.log(sms_info)
-    console.log(data)
+
     const headers = {
       'Accept': 'application/json,application/x-www-form-urlencoded',
       'Content-Type':'application/x-www-form-urlencoded'
@@ -88,7 +76,8 @@ export class MensajeriaService {
         this.obtenerListaMensajes(content)
         //this.obtenerMensajesPorUsuarioLogeado()
         this.scrollToBottom(content)
-        
+        this.marcar_leido()
+
       })
   }
   scrollToBottom(content) {
@@ -97,8 +86,9 @@ export class MensajeriaService {
 
   marcar_leido() {
     this.contactosMensajes.forEach(sms => {
-      if(sms.check_leido==false && sms.usuario__correo!=this.usuario_logeado){
-        this.http.get<any[]>(this.url_base+"api/chat/" + "sms_update/" + sms.id + "/")
+      console.log("marcando leido")
+      if(sms.check_leido==false && sms.esAdmin==false){
+        this.http.get<any[]>(this.url_base+"sms_update/" + sms.id + "/")
           .subscribe(res => {
             let data = JSON.stringify(res)
           })
@@ -107,6 +97,53 @@ export class MensajeriaService {
     })
 
   }
+
+   verificar_leidos_todo_admin(){
+    this.existen_no_leidos=false
+
+    this.http.get<any[]>(this.url_base+ "obtenerAdmin")
+          .subscribe(res => {
+            
+            //this.usuarios_admin=res['data']
+            //this.usuario_admin=this.usuarios_admin[0].cedula
+            for (let admin of res['data']) {
+              console.log("entro")
+              const headers = {
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json'
+              }
+               this.http.get<any[]>(this.url_base+"api/chat/" + this.usuario_cliente + "/" + admin.cedula+"/",{'headers':headers})
+                .subscribe(res => {
+          
+                  let mensajes = res['mensajes']
+                  console.log("ENTRO A VERIFIcar admin")
+                  console.log(mensajes)
+                  
+                  this.existen_no_leidos= this.existen_no_leidos || this.verificar_leidos(mensajes).length>0
+                  console.log(this.existen_no_leidos)
+                  if(this.existen_no_leidos==true) {
+                    console.log("es true")
+                    return 
+                    
+                  }
+                  console.log("PARA PROBARAAAAAA")
+                })
+             
+            }
+
+          })
+      
+  }
+
+  
+
+  verificar_leidos(lista){
+    let no_leidos=lista.filter(res=>res.check_leido==false && res.esAdmin==false)
+    //console.log(no_leidos)  
+    //this.verificar_leidos_todo_admin()
+    console.log("verificar leido_",no_leidos)
+    return no_leidos
+   }
 
 
   obtenerAdmin(){
@@ -118,6 +155,7 @@ export class MensajeriaService {
             this.usuarios_admin=res['data']
             this.usuario_admin=this.usuarios_admin[0].cedula
             console.log(this.usuario_admin)
+
           })
   }
  
@@ -140,7 +178,7 @@ export interface smsInfoCanal {
 
 export interface smsInfo2 {
   id: string
-  canal__servicio: string
+  canal: string
   texto: string
   tiempo: string
   usuario: string
