@@ -54,6 +54,8 @@ export class ShoppingCartPage implements OnInit {
   currentTimeHours: any;
   open = false;
   politecnico=false;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(private modalCtrl: ModalController, private router: Router,
     private baneoService: BaneoService,
     private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
@@ -65,6 +67,12 @@ export class ShoppingCartPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.modificado = false
     this.getCorreo();
     this.storage.get('name').then((nombre) => {

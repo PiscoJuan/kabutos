@@ -39,6 +39,8 @@ export class EfectivoPage implements OnInit {
   cvc: any;
   receptor: any;
   tarjetaRegalo= "no";
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -55,6 +57,12 @@ export class EfectivoPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.envio = false;
     this.tarjetaRegalo='no        '
     //console.log("didEnter");

@@ -18,6 +18,8 @@ export class InfoLocalPage implements OnInit {
   total:number;
   loading:any;
   direccion;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   @ViewChild('mapaUbicacion', { static: true }) mapElement;
   map;
 
@@ -34,6 +36,12 @@ export class InfoLocalPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.storage.get('total').then((val) => {
       this.total=val;
     });

@@ -16,7 +16,8 @@ export class RecogerPedidoPage implements OnInit {
   total:number;
   locales: {};
   loading:any;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     public establecimientoService: EstablecimientoService,
     public loadingCtrl: LoadingController,
@@ -31,6 +32,12 @@ export class RecogerPedidoPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     console.log("didEnter");
     this.storage.get('total').then((val) => {
       console.log(val);

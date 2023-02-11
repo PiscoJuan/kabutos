@@ -3,6 +3,7 @@ import { NavController, Platform } from "@ionic/angular";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { CoberturaService } from "../servicios/cobertura.service";
 import { ContactoService } from "../servicios/contacto.service";
+import { Storage } from '@ionic/storage';
 
 declare var google;
 @Component({
@@ -17,7 +18,9 @@ export class ContactoPage implements OnInit {
   marker;
   direccion = "";
   envio = "";
+  termino="";
   constructor(
+    private storage: Storage,
     private contactoService: ContactoService,
     private platform: Platform,
     public coberturaService: CoberturaService,
@@ -27,6 +30,11 @@ export class ContactoPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.termino="black"
+      }
+    });
     this.contactoService.getContacto().subscribe(
       (data) => {
         this.contactos = data;

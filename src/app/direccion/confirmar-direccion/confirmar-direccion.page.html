@@ -8,7 +8,7 @@
   <div class="contenedor-page">
     
     <div class="contenedor">
-      <div class="datos">Confirmar dirección</div>
+      <div class="datos" style="color:{{colorBack}}">Confirmar dirección</div>
       <div *ngIf="direccion" >
         <div class="campos">
           <ion-label class="left">Dirección: </ion-label>
@@ -24,7 +24,7 @@
         <ion-button class="btn-cancelar" size="large" (click)="dismiss()">
           <p class="registro">Cancelar</p>
         </ion-button>
-        <ion-button class="btn-registro" size="large" (click)="confirmar()">
+        <ion-button class="btn-registro" size="large" (click)="confirmar()" style="--background:{{colorBack}};">
           <p class="registro">Confirmar</p>
         </ion-button>
       </div>
