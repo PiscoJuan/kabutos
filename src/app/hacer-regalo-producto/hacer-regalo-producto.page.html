@@ -8,7 +8,7 @@
     
     <div class="contenedor-page">
         <div class="titulo_atras">
-            <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+            <img class="atras" src={{butAtras}} size=12 (click)="atras()">
         </div>
       <ion-label class="titulo">Escoja el producto que va a regalar</ion-label>
 
@@ -56,7 +56,7 @@
                         </div>
                         <div class="contener-columna-centrar">
                             <div class="precio">
-                                <h4 name="precio">${{productos.precio}} AQUI</h4>
+                                <h4 name="precio" style="color:{{colorBack}}">${{productos.precio}} AQUI</h4>
                             </div>
                             <div class="favorito">
                                 

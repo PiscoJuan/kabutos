@@ -41,6 +41,8 @@ export class HacerRegaloProductoPage implements OnInit {
   num: any = 0;
   loaderToShow: any;
   almacenado: {};
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   private correo: String = "";
   public cantidad: string = "0";
   public page: number = 0;
@@ -68,11 +70,17 @@ export class HacerRegaloProductoPage implements OnInit {
 
 
   ngOnInit() {
-    this.cargaPantalla();
-    this.getCorreo();
     this.storage.get("elegirEstab").then((val) => {
-      this.elegirEstab = Number(val);
-      console.log(val)
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+      this.cargaPantalla();
+      this.getCorreo();
+      this.storage.get("elegirEstab").then((val) => {
+        this.elegirEstab = Number(val);
+        console.log(val)
+      });
     });
   }
 

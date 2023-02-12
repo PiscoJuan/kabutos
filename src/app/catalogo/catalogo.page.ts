@@ -6,7 +6,9 @@ import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { BaneoService } from '../servicios/baneo.service';
-
+import { NavController } from '@ionic/angular';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-catalogo',
   templateUrl: './catalogo.page.html',
@@ -18,14 +20,18 @@ export class CatalogoPage implements OnInit {
   valorTarjeta: any;
   misPremios: any;
   historial: any;
-  opcion: string = '0';
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
+  opcion: string = 'none';
   public filtro: String = "vendidos";
   constructor(
     private premiosService: PremiosService,
     private storage: Storage,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
+    private navCtrlr: NavController,
     public modalController: ModalController,
+    private router: Router,
     private baneoService: BaneoService,
   ) {}
 
@@ -34,7 +40,13 @@ export class CatalogoPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.data()
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+      this.data()
+    });
   }
 
   data(){
@@ -80,7 +92,7 @@ export class CatalogoPage implements OnInit {
           }
           
         } else {
-          this.mensajeIncorrecto("Canje porhibido", "No puedes canjear premios");
+          this.mensajeIncorrecto("Canje prohibido", "No puedes canjear premios");
         }
       })
     })
@@ -146,4 +158,13 @@ export class CatalogoPage implements OnInit {
       this.filtro = "vendidos";
     }
   }
+
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.router.navigate(["/footer/premios-inicio"])
+  }
 }
+

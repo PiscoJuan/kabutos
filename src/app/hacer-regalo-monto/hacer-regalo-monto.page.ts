@@ -22,7 +22,8 @@ export class HacerRegaloMontoPage implements OnInit {
   monto: any;
   public id: any;
   public idCarrito: any;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -36,7 +37,13 @@ export class HacerRegaloMontoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.cargaPantalla();
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+      this.cargaPantalla();
+    });
   }
 
   cargaPantalla() {

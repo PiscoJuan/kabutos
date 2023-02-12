@@ -2,7 +2,7 @@
 <ion-content>
   <div class="contenedor-page">
     <div class="titulo_atras">
-      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
     </div>
     <div class="contenedor-titulo">
       <ion-label class="titulo">Inserte el monto a regalar a </ion-label>
@@ -16,7 +16,7 @@
         </ion-item>
       </div>
       <div class="button-content">
-        <ion-button class="btn-registro" size="large" type="submit">
+        <ion-button class="btn-registro" size="large" type="submit" style="--background:{{colorBack}};">
           <p class="registro">Aceptar</p>
         </ion-button>
       </div>

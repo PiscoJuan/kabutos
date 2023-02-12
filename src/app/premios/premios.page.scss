@@ -6,7 +6,9 @@ ion-header{
 *{
     font-family: 'MyriadProSemibold' !important;
 }
-
+p{
+    margin-top: 0;
+}
 .titulo{
     font-family: var(--ion-font-family);
     font-weight: bold;
@@ -26,6 +28,17 @@ ion-header{
     padding: 20px 15px;
     margin: 0px 5px;
 }
+
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.atras{
+    height: 25px;
+}
+
 .icono{
     position: relative;
     right: 10px;
@@ -58,7 +71,7 @@ ion-input{
 }
 
 .contenedor-page{
-    padding: 20px 30px;
+    padding: 0px 30px
 }
 
 .contenedor-filtro{
@@ -100,14 +113,11 @@ ion-input{
 
 .div-producto{
     display: flex;
-     flex-flow: row nowrap; /* Align on the same line */
   justify-content: space-around; 
 vertical-align: middle;
 box-shadow: 5px 5px 5px 5px #c2c2c2;
     border-radius: 20px;
-    height: 130px;
-
-
+    height: 140px;
 }
 .producto-carrito{
     position: absolute;
@@ -138,6 +148,7 @@ vertical-align: middle;
     background-color: #142a8f;
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 10px;
     .iconos{
         display: flex;
         flex-direction: column;
@@ -235,16 +246,13 @@ button{
 }
 
 .producto{
-    position: relative;
-    bottom: 20px;
-    height: 5rem;
     width: 8rem;
 }
 
 .producto >img {
     height:120px!important ;
     width: 150px!important;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
 }
 
 .detalle{
@@ -261,32 +269,22 @@ button{
     height: 80px;
     padding-left: 25px;
     font-size: 0.9rem;
-    padding-top: 0px;
 }
-
-.nombre h6{
-    padding-top: 0px;
-}
-
 
 .precio{
     color: var(--ion-color-naranja-oscuro);
     font-weight: bolder;
-    position: relative;
-    padding-left: 0px;
-    padding-right: 30px;
-    text-align: right;
+    text-align: left;
     display: flex;
 }
 
 .puntos{
     margin-top: 10px;
+    max-width: 20px;
+    max-height: 20px;
 }
 
 div.precio h4{
-    position: relative;
-    padding-left: 0px;
-    text-align: right;
     font-size: 1rem;
 }
 
@@ -321,9 +319,6 @@ div.carrito img{
 }
 
 .contener-columnaI{
-    float: right;
-    position: relative;
-    padding-left: 0px;
     text-align: right;
     justify-content: flex-end;
 }
@@ -338,4 +333,13 @@ div.carrito img{
 
 .expira{
     color: red;
+    margin-top: 0;
+}
+
+.borde{
+    padding: 19px 15px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+
 }

@@ -14,7 +14,8 @@
 }
 
 .nombre{
-    padding-top: 10px;
+    padding: 0 15px 10px 15px;
+    font-size: 1.3rem;
     color:#0F195E !important;
 }
 
@@ -27,6 +28,7 @@
 .precio{
     text-align: right !important;
     color:#FE3A00 !important;
+    padding-top: 10px;
     font-size: 1.5rem;
     display:flex;
     justify-content: space-evenly;
@@ -47,6 +49,7 @@ button{
     padding: 0 10px;
     height: 1.7rem;
     width: 4.5rem;
+    padding: 15px 25px;
     background: var(--ion-color-naranja-oscuro);
     display: flex;
     align-items: center;

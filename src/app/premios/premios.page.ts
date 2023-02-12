@@ -4,6 +4,7 @@ import { DetallesPremiosPage } from '../detalles-premios/detalles-premios.page';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from "@angular/router";
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 @Component({
   selector: 'app-premios',
   templateUrl: './premios.page.html',
@@ -14,6 +15,8 @@ export class PremiosPage implements OnInit {
   valorTarjeta: any;
   misPremios: any;
   historial: any;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private premiosService: PremiosService,
     private storage: Storage,
@@ -27,7 +30,13 @@ export class PremiosPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+    if(Number(val) == 2){
+      this.colorBack="#000000"
+      this.butAtras= "../assets/img/atras_negro.png"
+    }
     this.data()
+  });
   }
 
 
@@ -76,6 +85,13 @@ export class PremiosPage implements OnInit {
 
   utilizados() {
     this.router.navigate(["/footer/premios-utilizados"]);
+  }
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.router.navigate(["/footer/premios-inicio"])
   }
 
 }

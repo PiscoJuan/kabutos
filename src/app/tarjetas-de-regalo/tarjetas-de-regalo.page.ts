@@ -25,6 +25,8 @@ export class TarjetasDeRegaloPage implements OnInit {
   url = "";
   loader: any;
   valor = 0;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   private correo: String = "";
 
   constructor(
@@ -47,6 +49,12 @@ export class TarjetasDeRegaloPage implements OnInit {
     
   }
   ionViewDidEnter(){
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.mostrarTarjetas();
   }
 

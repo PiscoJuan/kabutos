@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 import { HistorialService } from '../servicios/historial.service';
 import { Router } from "@angular/router";
+import { NavController } from '@ionic/angular';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 @Component({
   selector: 'app-puntos',
   templateUrl: './puntos.page.html',
@@ -18,12 +20,15 @@ export class PuntosPage implements OnInit {
   valorTarjeta: any;
   misPremios: any;
   historial: any;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private premiosService: PremiosService,
     private storage: Storage,
     public modalCtrl: ModalController,
     private router: Router,
     public historialService: HistorialService,
+    private navCtrlr: NavController,
   ) {}
 
 
@@ -32,8 +37,15 @@ export class PuntosPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.data()
-    this.histo()
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+      this.data()
+      this.histo()
+    });
+    
   }
 
   data(){
@@ -99,5 +111,17 @@ export class PuntosPage implements OnInit {
           }
         }
       );
+  }
+
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.router.navigate(["/footer/premios-inicio"])
+  }
+
+  catalogo() {
+    this.router.navigate(["/footer/catalogo"]);
   }
 }
