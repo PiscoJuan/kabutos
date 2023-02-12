@@ -122,7 +122,7 @@ export class CodigosPage implements OnInit {
         if (data.valid == "OK"){
           this.canjearCodigo(form)
         } else {
-          this.mensajeIncorrecto("Canje porhibido", "No puedes canjear códigos");
+          this.mensajeIncorrecto("Canje prohibido", "No puedes canjear códigos");
         }
       })
     })

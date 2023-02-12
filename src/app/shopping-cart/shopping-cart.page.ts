@@ -679,7 +679,7 @@ export class ShoppingCartPage implements OnInit {
           this.actualizarCarrito()
           this.horario();
         } else {
-          this.mensajeIncorrecto("Compra porhibida", "No puede comprar");
+          this.mensajeIncorrecto("Compra prohibida", "No puede comprar");
         }
       })
     })

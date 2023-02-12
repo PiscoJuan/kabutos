@@ -96,7 +96,7 @@ export class PremiosInicioPage implements OnInit {
           
           
         } else {
-          this.mensajeIncorrecto("Canje porhibido", "No puedes canjear premios");
+          this.mensajeIncorrecto("Canje prohibido", "No puedes canjear premios");
         }
       })
     })
