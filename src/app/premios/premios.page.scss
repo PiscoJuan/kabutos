@@ -6,7 +6,9 @@ ion-header{
 *{
     font-family: 'MyriadProSemibold' !important;
 }
-
+p{
+    margin-top: 0;
+}
 .titulo{
     font-family: var(--ion-font-family);
     font-weight: bold;
@@ -244,7 +246,7 @@ button{
 .producto >img {
     height:120px!important ;
     width: 150px!important;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
 }
 
 .detalle{
@@ -338,4 +340,13 @@ div.carrito img{
 
 .expira{
     color: red;
+    margin-top: 0;
+}
+
+.borde{
+    padding: 19px 15px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+
 }

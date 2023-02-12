@@ -41,7 +41,7 @@ ion-toolbar{
 }
 
 .contenedor{
-    padding: 20px 0px;
+    padding: 7px 0px;
 }
 
 ion-input{
@@ -49,11 +49,11 @@ ion-input{
 }
 
 .contenedor-page{
-    padding: 20px 30px;
+    padding: 0px 30px;
 }
 
 .contenedor-filtro{
-    padding: 20px 0px 40px 0px;
+    padding: 20px 0px 7px 0px;
     display: flex;
     justify-content: flex-end;
     font-size: 1rem;
@@ -65,7 +65,7 @@ ion-input{
     font-size: medium;
     color: var(--ion-color-azul-oscuro);
     background: var(--ion-color-gris-claro);
-    padding: 5px 20px 5px 20px;
+    padding: 5px 10px 5px 10px;
     border-radius: 5px;  
     vertical-align: middle;
     height: 40px;
@@ -82,9 +82,9 @@ ion-input{
 
 .subtitulo{
     color: var(--ion-color-gris-oscuro);
-    font-weight: lighter;
+    font-weight:bold;
     padding: 10px 0px 0px 10px;
-    font-size: 0.8rem!important;
+    font-size: 0.9rem!important;
     padding-right: 5px;
     vertical-align: middle;
 }

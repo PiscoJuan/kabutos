@@ -6,6 +6,9 @@ ion-header{
 *{
     font-family: 'MyriadProSemibold' !important;
 }
+h6{
+    margin-top: 0;
+}
 
 .titulo{
     font-family: var(--ion-font-family);
@@ -264,11 +267,6 @@ button{
     padding-top: 0px;
 }
 
-.nombre h6{
-    padding-top: 0px;
-}
-
-
 .precio{
     color: var(--ion-color-naranja-oscuro);
     font-weight: bolder;
@@ -338,4 +336,12 @@ div.carrito img{
 
 .expira{
     color: red;
+}
+
+.borde{
+    padding: 19px 15px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 10px;
+
 }

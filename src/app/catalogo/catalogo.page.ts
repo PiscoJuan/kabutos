@@ -18,7 +18,7 @@ export class CatalogoPage implements OnInit {
   valorTarjeta: any;
   misPremios: any;
   historial: any;
-  opcion: string = '0';
+  opcion: string = 'none';
   public filtro: String = "vendidos";
   constructor(
     private premiosService: PremiosService,

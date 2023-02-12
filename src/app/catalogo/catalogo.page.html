@@ -26,8 +26,9 @@
     <div class="contenedor">
       <div class="contenedor-filtro">
         <div class="contenedor-selector">
-          <ion-label class="subtitulo">Filtrar por:</ion-label>
+          <ion-label class="subtitulo">Tienes {{puntos}} puntos</ion-label>
           <select [(ngModel)]="opcion" class="selector" (change)="showLoading3()">
+            <option value="none" selected disabled hidden>Filtrar por:</option>
             <option value="menor">Puntos: más bajo</option>
             <option value="mayor">Puntos: más alto</option>
             <option value="ascendente">A a Z</option>

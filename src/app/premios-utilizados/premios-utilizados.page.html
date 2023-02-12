@@ -26,7 +26,7 @@
     <div class="contenedor">
 
       <div>
-        <ion-label class="titulo2" (click)="utilizar()">Por Utilizar</ion-label>
+        <ion-label class="titulo2 borde" (click)="utilizar()">Por Utilizar</ion-label>
         <ion-label class="titulo2 azul">Utilizados</ion-label>
 
         <div class="contener-producto" *ngFor="let premio of historial" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
@@ -39,8 +39,7 @@
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <p class="fecha">{{premio.fecha_canje}}</p>
-                <p class="expira">ENTREGADO</p>
+                <p class="fecha">Canje: {{premio.fecha_canje}} <spam class="expira">ENTREGADO</spam> </p>
               </div>
 
             </div>

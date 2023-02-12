@@ -27,7 +27,7 @@
 
       <div>
         <ion-label class="titulo2 azul">Por Utilizar</ion-label>
-        <ion-label class="titulo2" (click)="utilizados()">Utilizados</ion-label>
+        <ion-label class="titulo2 borde" (click)="utilizados()">Utilizados</ion-label>
         <div class="contener-producto" *ngFor="let premio of misPremios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
           <div class="div-producto" (onload)="cargarNum(premio.nombre)">
             <div class="contener-columnaI">
@@ -38,17 +38,13 @@
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <p class="fecha">Canje: {{premio.fecha_canje}}</p>
-                <p class="expira">Expira: {{premio.fecha_entrega | date:'yyyy-MM-dd' }}</p>
+                <p class="fecha">Canje: {{premio.fecha_canje}}<br><spam class="expira">Expira: {{premio.fecha_entrega | date:'yyyy-MM-dd' }}</spam></p>
               </div>
             </div>
             <div class="contener-columna-centrar">
               <div class="precio">
                 <img class="puntos" src="../assets/img/puntos.png" width="25" height="25"> 
                 <h4 name="precio">{{premio.puntos}}</h4>
-              </div>
-              <div class="favorito">
-
               </div>
             </div>
           </div>
