@@ -13,9 +13,18 @@ ion-header{
     font-size: larger;
     color: var(--ion-color-azul-oscuro);
     font-size: 1.7rem;
-    padding: 20px 30px;
+    padding: 0px 30px;
 }
 
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.atras{
+    height: 25px;
+}
 
 .icono{
     position: relative;
@@ -49,7 +58,7 @@ ion-input{
 }
 
 .contenedor-page{
-    padding: 20px 30px;
+    padding: 0px 30px
 }
 
 .contenedor-filtro{
@@ -90,14 +99,35 @@ ion-input{
 }
 
 .div-producto{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: 90%;
     display: flex;
-     flex-flow: row nowrap; /* Align on the same line */
-  justify-content: space-around; 
+    flex-direction: column;
 vertical-align: middle;
 box-shadow: 5px 5px 5px 5px #c2c2c2;
     border-radius: 20px;
-    height: 130px;
-
+    height: 110px;
+    .salsa{
+        display: flex;
+        justify-content: space-around; 
+        vertical-align: middle;
+        align-items: center;
+        p{
+            width: 80%;
+            color: var(--ion-color-azul-oscuro);
+        }
+    }
+    .espacio{
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 20px;
+        padding: 10px;
+        width: 8rem;
+        height: 2rem;
+        font-size: small;
+    }
 
 }
 .producto-carrito{

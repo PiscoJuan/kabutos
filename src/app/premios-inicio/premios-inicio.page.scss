@@ -15,12 +15,21 @@ ion-header{
 .atras{
     height: 25px;
 }
+.titulooo{
+    font-family: var(--ion-font-family);
+    font-weight: bold;
+    font-size: larger;
+    color: var(--ion-color-azul-oscuro);
+    font-size: 1.7rem;
+    padding: 10px 15px 0px 15px;
+}
 .titulo{
     font-family: var(--ion-font-family);
     font-weight: bold;
     font-size: larger;
     color: var(--ion-color-azul-oscuro);
     font-size: 1.7rem;
+    text-align: center;
     padding: 10px 15px 0px 15px;
 }
 .titulo2{
@@ -135,8 +144,7 @@ vertical-align: middle;
 
 .azul{
     background-color: #142a8f;
-
-    height: 15rem;
+    height: 16rem;
     background: #142A8F;
     display: flex;
     align-items: center;
@@ -213,7 +221,7 @@ vertical-align: middle;
     .espacio{
         font-size: 20px;
         padding: 10px;
-        width: 10rem;
+        width: 9rem;
         height: 3rem;
         font-size: medium;
     }
@@ -286,7 +294,7 @@ button{
      font-family: var(--ion-font-family);
     font-weight: bold;
     color: var(--ion-color-azul-oscuro);
-    font-size: 24px;
+    font-size: 20px;
     top:20px;
     right: 10px;
 }

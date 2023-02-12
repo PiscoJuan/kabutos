@@ -13,9 +13,18 @@ ion-header{
     font-size: larger;
     color: var(--ion-color-azul-oscuro);
     font-size: 1.7rem;
-    padding: 20px 30px;
+    padding: 10px 30px;
 }
 
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.atras{
+    height: 25px;
+}
 
 .icono{
     position: relative;
@@ -70,22 +79,21 @@ ion-input{
     vertical-align: middle;
     height: 40px;
     font-size: 1rem;
-    width: 60%;
+    width: 50%;
 
 }
 
 .contenedor-selector{
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .subtitulo{
-    color: var(--ion-color-gris-oscuro);
+    color: var(--ion-color-azul-oscuro);
     font-weight:bold;
-    padding: 10px 0px 0px 10px;
-    font-size: 0.9rem!important;
-    padding-right: 5px;
+    padding: 10px 0px 0px 0px;
+    font-size: 1rem;
     vertical-align: middle;
 }
 

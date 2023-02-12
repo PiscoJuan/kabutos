@@ -5,7 +5,11 @@
   <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+  </div>
   <ion-label class="titulo">Puntos</ion-label>
   <br>
   <div class="franja">
@@ -24,7 +28,17 @@
   </div>
   <br>
 
-  <ion-label class="titulo">Historial de puntos</ion-label>
+  <div class="div-producto">
+    <div class="salsa">
+      <img src="../assets/img/04.png" width="40" height="40">
+      <p>Tienes {{puntos}} puntos listos para canjear por premios</p>
+    </div>
+    <button class="espacio" ion-button size="large" (click)="catalogo()" style="background:{{colorBack}};">
+      Canjealas aquí
+    </button>
+  </div>
+  
+  <!--<ion-label class="titulo">Historial de puntos</ion-label>-->
   <div>
     <ion-grid class="tabla">
       <ion-row class="title">

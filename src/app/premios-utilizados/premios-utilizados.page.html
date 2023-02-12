@@ -5,7 +5,11 @@
   <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+  </div>
     <ion-label class="titulo">Mis Premios</ion-label>
     <br>
     <div class="franja">
@@ -39,14 +43,14 @@
             <div class="contener-columna">
               <div class="nombre">
                 <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <p class="fecha">Canje: {{premio.fecha_canje}} <spam class="expira">ENTREGADO</spam> </p>
+                <p class="fecha">Canje: {{premio.fecha_canje}} <spam class="expira" style="color:{{colorBack}}">ENTREGADO</spam> </p>
               </div>
 
             </div>
             <div class="contener-columna-centrar">
               <div class="precio">
                 <img class="puntos"  src="../assets/img/puntos.png" width="25" height="25">
-                <h4 name="precio"> {{premio.puntos}}</h4>
+                <h4 name="precio" > {{premio.puntos}}</h4>
               </div>
 
             </div>

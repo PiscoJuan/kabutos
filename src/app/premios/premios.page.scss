@@ -28,6 +28,17 @@ p{
     padding: 20px 15px;
     margin: 0px 5px;
 }
+
+.titulo_atras{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.atras{
+    height: 25px;
+}
+
 .icono{
     position: relative;
     right: 10px;
@@ -60,7 +71,7 @@ ion-input{
 }
 
 .contenedor-page{
-    padding: 20px 30px;
+    padding: 0px 30px
 }
 
 .contenedor-filtro{
@@ -108,8 +119,6 @@ vertical-align: middle;
 box-shadow: 5px 5px 5px 5px #c2c2c2;
     border-radius: 20px;
     height: 130px;
-
-
 }
 .producto-carrito{
     position: absolute;
@@ -237,7 +246,6 @@ button{
 }
 
 .producto{
-    position: relative;
     bottom: 20px;
     height: 5rem;
     width: 8rem;
@@ -274,15 +282,14 @@ button{
 .precio{
     color: var(--ion-color-naranja-oscuro);
     font-weight: bolder;
-    position: relative;
-    padding-left: 0px;
-    padding-right: 30px;
-    text-align: right;
+    text-align: left;
     display: flex;
 }
 
 .puntos{
     margin-top: 10px;
+    max-width: 20px;
+    max-height: 20px;
 }
 
 div.precio h4{
