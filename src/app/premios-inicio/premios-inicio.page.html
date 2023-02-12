@@ -5,9 +5,17 @@
   <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
     <ion-label class="titulo">Hola {{nombre}}</ion-label>
-    <br>
+  </div>
+
+  <div class="contendorGris">
+    <img src={{fide}} width="40" height="40">
+    <p>Acumula puntos con tus puntos</p>
+  </div>
   <div class="contenedor-page">
     <div class="contenedor">
       <div class="contenedor azul">
@@ -34,7 +42,8 @@
             Canjear por tarjeta de regalo
           </button>
           <button class="espacio" ion-button size="large" (click)="catalogo()">
-            Canjear por Premios
+            <p>Canjear por</p>
+            <p>Premios</p>
           </button>
         </div>
         <ion-label>{{puntos}} puntos equivalen a ${{valorTarjeta}}</ion-label>

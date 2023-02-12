@@ -25,7 +25,8 @@ export class CuponesCarritoPage implements OnInit {
 
   productoNecesario: any;
   totalProductoNecesario: any;
-  
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   
   constructor(public cuponesService: CuponesService, private  router:  Router,private alert: AlertController,
     public loadingCtrl: LoadingController,
@@ -40,6 +41,12 @@ export class CuponesCarritoPage implements OnInit {
   }
   
   ionViewWillEnter(){
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.cargaPantalla()
 
   }

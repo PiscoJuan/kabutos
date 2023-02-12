@@ -7,6 +7,8 @@ import { LoadingController } from '@ionic/angular';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { BaneoService } from '../servicios/baneo.service';
 import { Router } from "@angular/router";
+import { NavController } from '@ionic/angular';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 @Component({
   selector: 'app-premios-inicio',
@@ -19,6 +21,9 @@ export class PremiosInicioPage implements OnInit {
   valorTarjeta: any;
   opcion: string = '0';
   nombre: string;
+  fide ="../assets/img/fidelizacion22.png"
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   public filtro: String = "vendidos";
   constructor(
     private premiosService: PremiosService,
@@ -27,6 +32,7 @@ export class PremiosInicioPage implements OnInit {
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
     private router: Router,
+    private navCtrlr: NavController, 
     private baneoService: BaneoService,
   ) {}
 
@@ -35,7 +41,14 @@ export class PremiosInicioPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.data()
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+        this.fide ="../assets/img/fidelizacion22black.png"
+      }
+      this.data()
+    });
   }
 
   data(){
@@ -155,5 +168,12 @@ export class PremiosInicioPage implements OnInit {
   }
   catalogo() {
     this.router.navigate(["/footer/catalogo"]);
+  }
+  atras(){
+    let animations:AnimationOptions={
+      animated: true,
+      animationDirection: "back"
+    }
+    this.navCtrlr.back(animations)
   }
 }
