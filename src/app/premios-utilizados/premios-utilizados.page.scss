@@ -113,11 +113,8 @@ ion-input{
 
 .div-producto{
     display: flex;
-  justify-content: space-around; 
-vertical-align: middle;
-box-shadow: 5px 5px 5px 5px #c2c2c2;
+    box-shadow: 5px 5px 5px 5px #c2c2c2;
     border-radius: 20px;
-    height: 140px;
 }
 .producto-carrito{
     position: absolute;
@@ -132,7 +129,6 @@ vertical-align: middle;
 
 .azul{
     background-color: #142a8f;
-
     background: #142A8F;
     align-items: center;
     justify-content: center;
@@ -265,8 +261,6 @@ button{
 }
 
 .nombre{
-    width: 150px;
-    height: 80px;
     padding-left: 25px;
     font-size: 0.9rem;
 }
@@ -274,8 +268,9 @@ button{
 .precio{
     color: var(--ion-color-naranja-oscuro);
     font-weight: bolder;
-    text-align: left;
+    text-align: right;
     display: flex;
+    justify-content: end;
 }
 
 .puntos{
@@ -294,28 +289,11 @@ div.carrito img{
     right: 2rem;
 }
 
-.available.div-producto {
-    position: absolute;
-    box-shadow: none;
-    z-index: 1;
-    width: calc(100% - 60px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255,255,255,0.7);
-}
-
-.centrar{
-    width: 70px;
-}
-
 .contener-columna-centrar{
     float: right;
     position: relative;
-    width: 100%;
-    right: 30px;
+    width: 20%;
     text-align: right;
-    justify-content: flex-end;
 }
 
 .contener-columnaI{
@@ -341,5 +319,8 @@ div.carrito img{
     border-style: solid;
     border-width: 1.5px;
     border-radius: 10px;
-
+}
+.centrarOpciones{
+    display: flex;
+    justify-content: center;
 }
