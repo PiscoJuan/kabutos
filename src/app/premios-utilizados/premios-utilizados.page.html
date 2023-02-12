@@ -30,9 +30,10 @@
     <div class="contenedor">
 
       <div>
-        <ion-label class="titulo2 borde" (click)="utilizar()">Por Utilizar</ion-label>
-        <ion-label class="titulo2 azul">Utilizados</ion-label>
-
+        <div class="centrarOpciones">
+          <ion-label class="titulo2 borde" (click)="utilizar()">Por Utilizar</ion-label>
+          <ion-label class="titulo2 azul">Utilizados</ion-label>
+        </div>
         <div class="contener-producto" *ngFor="let premio of historial" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
           <div class="div-producto" (onload)="cargarNum(premio.nombre)">
             <div class="contener-columnaI">
