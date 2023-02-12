@@ -9,18 +9,18 @@
     <div class="titulo_atras">
       <img class="atras" src={{butAtras}} size=12 (click)="atras()">
     </div>
-    <ion-label class="titulo">Hola {{nombre}}</ion-label>
+    <ion-label class="titulo">Hola {{nombre}},</ion-label>
   </div>
 
   <div class="contendorGris">
-    <img src={{fide}} width="40" height="40">
-    <p>Acumula puntos con tus puntos</p>
+    <img src={{fide}} width="80" height="80">
+    <p>Acumula puntos con tus compras</p>
   </div>
   <div class="contenedor-page">
     <div class="contenedor">
       <div class="contenedor azul">
-        <!--<ion-label class="titulo">Consumos para sumar puntos</ion-label>
-        <br>-->
+        <ion-label class="titulo">Consumos para sumar puntos</ion-label>
+        <br>
         <div class="division">
           <div>
             <ion-label>Saldo disponible:</ion-label>
@@ -38,12 +38,11 @@
           </div>
         </div>
         <div class="btns2">
-          <button class="espacio" ion-button size="large" (click)="monto()">
+          <button class="espacio" ion-button size="large" (click)="monto()" style="background:{{colorBack}};">
             Canjear por tarjeta de regalo
           </button>
-          <button class="espacio" ion-button size="large" (click)="catalogo()">
-            <p>Canjear por</p>
-            <p>Premios</p>
+          <button class="espacio" ion-button size="large" (click)="catalogo()" style="background:{{colorBack}};">
+            <p>Canjear por Premios</p>
           </button>
         </div>
         <ion-label>{{puntos}} puntos equivalen a ${{valorTarjeta}}</ion-label>
@@ -59,13 +58,9 @@
         <div class="contener-producto" *ngFor="let premio of premios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
           <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
           <div class="div-producto">
-            <div class="contener-columna">
-
-                <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
-                <p name="precio"> Exp: {{premio.fecha_canje | date:'yyyy-MM-dd' }}</p>
-            
-            </div>
+              <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
+              <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}" >
+              <p name="precio" style="color:{{colorBack}}"> Exp: {{premio.fecha_canje | date:'yyyy-MM-dd' }}</p>
           </div>
         </div>
       </div>

@@ -109,12 +109,18 @@ ion-input{
 
 .div-producto{
     display: flex;
-     flex-flow: row nowrap; /* Align on the same line */
+    flex-direction: column;
     justify-content: space-around; 
     vertical-align: middle;
+    text-align: center;
     box-shadow: 5px 5px 5px 5px #c2c2c2;
     border-radius: 20px;
-    height: 130px;
+    img{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        max-height: 6rem;
+    }
 }
 .producto-carrito{
     position: absolute;
@@ -130,7 +136,7 @@ vertical-align: middle;
 .azul{
     background-color: #142a8f;
 
-    height: 10rem;
+    height: 15rem;
     background: #142A8F;
     display: flex;
     align-items: center;
@@ -143,6 +149,7 @@ vertical-align: middle;
         color:white;
     }
     .division{
+        margin-top: 10px;
         width: 100%;
         display: flex;
         justify-content: space-around;
@@ -158,6 +165,7 @@ vertical-align: middle;
         width: 100%;
         display: flex;
         justify-content: space-evenly;
+        align-items: center;
         .columna{
             display: flex;
             flex-direction: column;
@@ -165,7 +173,12 @@ vertical-align: middle;
         .valores{
             font-size: 40px;
         }
+        .division3{
+        display: flex;
+        align-items: center;
     }
+    }
+    
 }
 
 .franja{
@@ -192,14 +205,17 @@ vertical-align: middle;
 }
 
 .btns2{
-    justify-content: flex-end;
+    justify-content: space-around;
     display: flex;
     margin-top: 10px;
+    padding: 10px;
+    width: 100%;
     .espacio{
         font-size: 20px;
         padding: 10px;
-        width: 17rem;
-        height: 2rem;
+        width: 10rem;
+        height: 3rem;
+        font-size: medium;
     }
 }
 
@@ -270,8 +286,7 @@ button{
      font-family: var(--ion-font-family);
     font-weight: bold;
     color: var(--ion-color-azul-oscuro);
-    font-size: 14px;
-    position: relative;
+    font-size: 24px;
     top:20px;
     right: 10px;
 }
@@ -366,5 +381,14 @@ div.carrito img{
 }
 .contendorGris{
     background-color: lightgray;
-    padding: 10px 0px 0px 10px;
+    display: flex;
+    padding: 0px 10px 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+    p{
+        width: 80%;
+        align-items: center;
+        color: var(--ion-color-azul-oscuro);
+        font-size: 25px;
+    }
 }
