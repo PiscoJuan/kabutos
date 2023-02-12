@@ -97,6 +97,10 @@ const routes: Routes = [
     path: 'premios-inicio',
     loadChildren: () => import('./premios-inicio/premios-inicio.module').then( m => m.PremiosInicioPageModule)
   },
+  {
+    path: 'premios-utilizados',
+    loadChildren: () => import('./premios-utilizados/premios-utilizados.module').then( m => m.PremiosUtilizadosPageModule)
+  },
 
 
   

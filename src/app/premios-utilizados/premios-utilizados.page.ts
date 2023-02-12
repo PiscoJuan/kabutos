@@ -5,11 +5,11 @@ import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from "@angular/router";
 @Component({
-  selector: 'app-premios',
-  templateUrl: './premios.page.html',
-  styleUrls: ['./premios.page.scss'],
+  selector: 'app-premios-utilizados',
+  templateUrl: './premios-utilizados.page.html',
+  styleUrls: ['./premios-utilizados.page.scss'],
 })
-export class PremiosPage implements OnInit {
+export class PremiosUtilizadosPage implements OnInit {
   puntos: any;
   valorTarjeta: any;
   misPremios: any;
@@ -73,9 +73,7 @@ export class PremiosPage implements OnInit {
     });
     return await modal.present();
   }
-
-  utilizados() {
-    this.router.navigate(["/footer/premios-utilizados"]);
+  utilizar() {
+    this.router.navigate(["/footer/premios"]);
   }
-
 }
