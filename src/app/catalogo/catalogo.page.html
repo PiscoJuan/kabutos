@@ -14,15 +14,15 @@
   <br>
   <div class="franja">
     <ion-tab-button class="col_home" tab="catalogo">
-      <img src="../assets/img/catalogo055.png" width="40" height="40">
+      <img src="../assets/img/catalogo055.png" height="40">
       <span style="color:yellow">Catalogo</span>
     </ion-tab-button>
     <ion-tab-button class="col_home" tab="puntos">
-      <img src="../assets/img/mispuntos01.png" width="40" height="40">
+      <img src="../assets/img/mispuntos01.png" height="40">
       Mis Puntos
     </ion-tab-button>
     <ion-tab-button class="col_home" tab="premios">
-      <img src="../assets/img/mispremios066.png" width="40" height="40">
+      <img src="../assets/img/mispremios066.png" height="40">
       Mis Premios
     </ion-tab-button>
   </div>
@@ -46,10 +46,10 @@
           <div class="div-producto">
             <div class="contener-columna">
               <div class="nombre">
-                <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
+                <h6 class="nombre-producto" name="nombre" style="max-width: 200px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">{{premio.nombre}}</h6>
               </div>
               <div class="precio">
-                <img class="puntos" src="../assets/img/puntos.png" width="25" height="25">
+                <img class="puntos" src="../assets/img/puntos.png" height="30">
                 <h4 name="precio" style="color:{{colorBack}}"> {{premio.puntos}}</h4>
               </div>
             </div>
