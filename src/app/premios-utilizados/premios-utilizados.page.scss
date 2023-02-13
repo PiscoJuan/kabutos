@@ -22,10 +22,9 @@ p{
 .titulo2{
     font-family: var(--ion-font-family);
     font-weight: bold;
-    font-size: larger;
+    font-size: large;
     color: var(--ion-color-azul-oscuro);
-    font-size: 1.4rem;
-    padding: 20px 15px;
+    padding: 10px 40px;
     margin: 0px 5px;
 }
 
@@ -224,10 +223,11 @@ button{
 }
 .contener-producto{
     padding:0px 0px;
-    padding-top: 45px;
+    padding-top: 15px;
 }
 
 .contener-columna{
+    width: 80%;
     display: block;
 }
 
@@ -238,7 +238,6 @@ button{
     font-size: 1.1rem;
     position: relative;
     top:20px;
-    right: 10px;
 }
 
 .producto{
@@ -261,26 +260,26 @@ button{
 }
 
 .nombre{
-    padding-left: 25px;
-    font-size: 0.9rem;
+    padding-left: 5px;
+    font-size: 0.8rem;
 }
 
 .precio{
     color: var(--ion-color-naranja-oscuro);
     font-weight: bolder;
-    text-align: right;
+    text-align: left;
     display: flex;
     justify-content: end;
+    padding-right: 5px;
 }
 
 .puntos{
-    margin-top: 10px;
-    max-width: 20px;
-    max-height: 20px;
+    margin-top: 5px;
+    height: 2.4rem;
 }
 
 div.precio h4{
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 div.carrito img{
@@ -315,7 +314,6 @@ div.carrito img{
 }
 
 .borde{
-    padding: 19px 15px;
     border-style: solid;
     border-width: 1.5px;
     border-radius: 10px;

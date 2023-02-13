@@ -1,6 +1,3 @@
-<style>
-
-</style>
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
     <ion-refresher-content></ion-refresher-content>
@@ -10,58 +7,50 @@
       <img class="atras" src={{butAtras}} size=12 (click)="atras()">
     </div>
   </div>
-    <ion-label class="titulo">Mis Premios</ion-label>
-    <br>
-    <div class="franja">
-      <ion-tab-button class="col_home" tab="catalogo">
-        <img src="../assets/img/catalogo05.png" width="40" height="40">
-        Catalogo
-      </ion-tab-button>
-      <ion-tab-button class="col_home" tab="puntos">
-        <img src="../assets/img/mispuntos01.png" width="40" height="40">
-        Mis Puntos
-      </ion-tab-button>
-      <ion-tab-button class="col_home" tab="premios">
-        <img src="../assets/img/mispremios06.png" width="40" height="40">
-        <span style="color:yellow">Mis Premios</span>
-      </ion-tab-button>
-    </div>
-    <div class="contenedor-page">
-    <div class="contenedor">
-
-      <div>
-        <div class="centrarOpciones">
-          <ion-label class="titulo2 azul">Por Utilizar</ion-label>
-          <ion-label class="titulo2 borde" (click)="utilizados()">Utilizados</ion-label>
-        </div>
-        
-        <div class="contener-producto" *ngFor="let premio of misPremios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
-          <div class="div-producto" (onload)="cargarNum(premio.nombre)">
-            <div class="contener-columnaI">
-              <div class="producto">
-                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
-              </div>
-            </div>
-            <div class="contener-columna">
-              <div class="nombre">
-                <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
-                <p class="fecha">Canje: {{premio.fecha_canje}}<br><spam class="expira"style="color:{{colorBack}}">Expira: {{premio.fecha_entrega | date:'yyyy-MM-dd' }}</spam></p>
-              </div>
-            </div>
-            <div class="contener-columna-centrar">
-              <div class="precio">
-                <img class="puntos" src="../assets/img/puntos.png" > 
-                <h4 name="precio" >{{premio.puntos}}</h4>
-              </div>
-            </div>
+  <ion-label class="titulo">Mis Premios</ion-label>
+  <br>
+  <div class="franja">
+    <ion-tab-button class="col_home" tab="catalogo">
+      <img src="../assets/img/catalogo05.png" height="40">
+      Catalogo
+    </ion-tab-button>
+    <ion-tab-button class="col_home" tab="puntos">
+      <img src="../assets/img/mispuntos01.png" height="40">
+      Mis Puntos
+    </ion-tab-button>
+    <ion-tab-button class="col_home" tab="premios">
+      <img src="../assets/img/mispremios06.png" height="40">
+      <span style="color:yellow">Mis Premios</span>
+    </ion-tab-button>
+  </div>
+  <div class="centrarOpciones">
+    <ion-label class="titulo2 azul">Por Utilizar</ion-label>
+    <ion-label class="titulo2 borde" (click)="utilizados()">Utilizados</ion-label>
+  </div>
+  <div class="contenedor-page">
+    <div class="contener-producto" *ngFor="let premio of misPremios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
+      <div class="div-producto" (onload)="cargarNum(premio.nombre)">
+        <div class="contener-columnaI">
+          <div class="producto">
+            <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
           </div>
         </div>
-        <br>
+        <div class="contener-columna">
+          <div class="nombre">
+            <h6 class="nombre-producto" name="nombre" style="max-width: 125px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">{{premio.nombre}}</h6>
+            <p class="fecha" style="color:grey">Canje: {{premio.fecha_canje}}<br><spam class="expira">Expira: {{premio.fecha_entrega | date:'yyyy-MM-dd' }}</spam></p>
+          </div>
+          
+          <div class="precio">
+            <img class="puntos" src="../assets/img/puntos.png" > 
+            <h4 name="precio" style={{colorBack}}>{{premio.puntos}}</h4>
+          </div>
+        
+        </div>
       </div>
     </div>
-
-
   </div>
+
   <ion-infinite-scroll *ngIf="flag==true" threshold="100px" (ionInfinite)="cargandoSiguientes($event)">
     <ion-infinite-scroll-content>
     </ion-infinite-scroll-content>
