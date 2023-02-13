@@ -15,7 +15,6 @@ export class MensajesPage implements OnInit {
   cliente:string
   admin: any;
   admin_seleccionado:string
-  tiene_mensajes:boolean=false
 
   interval
   constructor(
@@ -23,22 +22,28 @@ export class MensajesPage implements OnInit {
     private storage: Storage,
     private mensajeriaService:MensajeriaService
 
-    ) { }
+    ) {
+
+     }
 
   ngOnInit() {
     this.mensajeriaService.obtenerAdmin()
-    console.log(this.storage.get("perfil").then(data=>{
+    this.storage.get("perfil").then(data=>{
       this.cliente=data.cedula
       this.mensajeriaService.usuario_cliente=data.cedula
-      this.mensajeriaService.obtenerListaMensajes(this.content)
-    }))
+      this.mensajeriaService.obtenerListaMensajes()
+      this.content.scrollToBottom(100)
+
+    })
 
     this.interval = setInterval(() => {
-      this.mensajeriaService.obtenerListaMensajes(this.content)
-      this.tiene_mensajes=true
+      this.mensajeriaService.obtenerListaMensajes()
       }, 2000); 
 
-   
+      this.interval = setInterval(() => {
+        this.content.scrollToBottom(100)
+      }, 10000); 
+
   }
   ionViewWillLeave(){
     clearInterval(this.interval);
@@ -47,9 +52,9 @@ export class MensajesPage implements OnInit {
   
   ionViewDidEnter(){
     this.mensajeriaService.obtenerAdmin()
-    this.mensajeriaService.obtenerListaMensajes(this.content)
+    this.mensajeriaService.obtenerListaMensajes()
     this.admin_seleccionado=this.mensajeriaService.usuarios_admin[0].nombre+" "+this.mensajeriaService.usuarios_admin[0].apellido
-
+    this.content.scrollToBottom(100)
   }
 
 
@@ -79,9 +84,9 @@ export class MensajesPage implements OnInit {
 
     this.admin=event.detail.value.cedula
     this.mensajeriaService.usuario_admin=event.detail.value.cedula
-    //this.mensajeriaService.contactosMensajes=[]
-    this.mensajeriaService.obtenerListaMensajes(this.content)
+    this.mensajeriaService.obtenerListaMensajes()
     this.mensajeriaService.marcar_leido()
+    this.content.scrollToBottom(100)
 
   }
   

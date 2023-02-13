@@ -45,6 +45,7 @@ export class AppComponent {
     private footer: FooterPage,
     private notificacionesService: NotificacionesService,
     private HistorialService:HistorialService,
+    private mensajeriaService:MensajeriaService
   ) {
     this.initializeApp();
     /*console.log(this.storage.get("perfil").then(data=>{
