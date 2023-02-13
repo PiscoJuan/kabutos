@@ -679,7 +679,7 @@ export class ShoppingCartPage implements OnInit {
           this.actualizarCarrito()
           this.horario();
         } else {
-          this.mensajeIncorrecto("Compra prohibida", "No puede comprar");
+          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
         }
       })
     })

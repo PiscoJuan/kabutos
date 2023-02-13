@@ -92,7 +92,7 @@ export class CatalogoPage implements OnInit {
           }
           
         } else {
-          this.mensajeIncorrecto("Canje prohibido", "No puedes canjear premios");
+          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
         }
       })
     })

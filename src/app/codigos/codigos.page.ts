@@ -122,7 +122,7 @@ export class CodigosPage implements OnInit {
         if (data.valid == "OK"){
           this.canjearCodigo(form)
         } else {
-          this.mensajeIncorrecto("Canje prohibido", "No puedes canjear códigos");
+          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
         }
       })
     })
