@@ -52,6 +52,9 @@
                 <img class="puntos" src="../assets/img/puntos.png" height="30">
                 <h4 name="precio" style="color:{{colorBack}}"> {{premio.puntos}}</h4>
               </div>
+              <div class="texto" *ngIf="premio.puntos - puntos > 0">
+                Te falta {{premio.puntos - puntos}} puntos
+              </div>
             </div>
 
             <div class="contener-columnaI">
