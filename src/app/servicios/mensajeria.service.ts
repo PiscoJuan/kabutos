@@ -12,6 +12,7 @@ export class MensajeriaService {
   @ViewChild(IonContent) content: IonContent;
 
   url_base :string= "https://cabutoshop.pythonanywhere.com/movil/";
+  //url_base :string= "http://127.0.0.1:8000/movil/";
   //url_base_admins:string="http://127.0.0.1:8000/obtenerAdmin";
   
   usuarios_admin:any=[]
@@ -40,6 +41,7 @@ export class MensajeriaService {
     }
     this.http.get<any[]>(this.url_base+"api/chat/" + this.usuario_cliente + "/" + this.usuario_admin+"/",{'headers':headers})
       .subscribe(res => {
+        console.log(res)
 
         let mensajes = res['mensajes']
         this.canal_actual = res['canal']
@@ -71,7 +73,10 @@ export class MensajeriaService {
       'Content-Type':'application/x-www-form-urlencoded'
     }
     let data_sms = JSON.parse(JSON.stringify(sms_info))
-    this.http.post<any>(this.url_base+"api/chat/" + this.usuario_admin + "/" + this.usuario_cliente + "/",data_sms,{'headers':headers})
+    console.log(sms_info)
+    console.log("=============")
+    
+    this.http.post<any>(this.url_base+"api/chat/"+ this.usuario_cliente + "/" + this.usuario_admin + "/" ,data_sms,{'headers':headers})
       .subscribe(res => {
         
         this.obtenerListaMensajes()

@@ -68,6 +68,7 @@ export class MensajesPage implements OnInit {
           admin:this.admin,
           texto:this.textSms
         }
+        console.log(data)
         this.mensajeriaService.sendMessage(data,this.content)
 
         this.textSms = "";
