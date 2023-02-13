@@ -28,7 +28,7 @@ ion-header{
     font-weight: bold;
     font-size: larger;
     color: var(--ion-color-azul-oscuro);
-    font-size: 1.7rem;
+    font-size: 1.46rem;
     text-align: center;
     padding: 10px 15px 0px 15px;
 }
@@ -75,7 +75,7 @@ ion-input{
 .contenedor-page{
     display: flex;
     flex-direction: column;
-    padding: 10px 15px 0px 15px;
+    padding: 0px 15px 0px 15px;
 }
 
 .contenedor-filtro{
@@ -109,10 +109,7 @@ ion-input{
 .subtitulo{
     color: var(--ion-color-gris-oscuro);
     font-weight: lighter;
-    padding: 10px 0px 0px 10px;
     font-size: 0.7rem!important;
-    padding-right: 5px;
-    vertical-align: middle;
     text-align: center;
 }
 
@@ -144,7 +141,8 @@ vertical-align: middle;
 
 .azul{
     background-color: #142a8f;
-    height: 16rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background: #142A8F;
     display: flex;
     align-items: center;
@@ -157,7 +155,7 @@ vertical-align: middle;
         color:white;
     }
     .division{
-        margin-top: 10px;
+        margin-top: 5px;
         width: 100%;
         display: flex;
         justify-content: space-around;
@@ -184,7 +182,7 @@ vertical-align: middle;
         .division3{
         display: flex;
         align-items: center;
-    }
+        }
     }
     
 }
@@ -215,12 +213,11 @@ vertical-align: middle;
 .btns2{
     justify-content: space-around;
     display: flex;
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: 5px;
+    padding: 5px;
     width: 100%;
     .espacio{
         font-size: 20px;
-        padding: 10px;
         width: 9rem;
         height: 3rem;
         font-size: medium;
@@ -394,9 +391,9 @@ div.carrito img{
     justify-content: space-between;
     align-items: center;
     p{
-        width: 80%;
+        width: 100%;
         align-items: center;
         color: var(--ion-color-azul-oscuro);
-        font-size: 25px;
+        font-size: 18px;
     }
 }
