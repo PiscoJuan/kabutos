@@ -2,13 +2,19 @@
   <div class = "btn-salir"><img src="../assets/img/salir.png" (click)=salir()></div>
   <div class = "nombre">{{nombre}}</div>
   <div class = "imagen"><img src="http://cabutoshop.pythonanywhere.com{{imagen}}"  ></div>
-  <!--<div class = "descripcion">{{descripcion}}</div>-->
-  <div class = "precio">
-    <div class="punto">
-      <img class="puntos" src="../assets/img/puntos.png" width="25" height="25">  {{precio}}
+  <div class = "precio" *ngIf="button">
+    <div class="punto" >
+      <img class="puntos" src="../assets/img/puntos.png" height="45"> {{precio}} 
+      Puntos
     </div>
-    <button *ngIf="button" ion-button size="large" (click)="reclamo()">
+    <button  ion-button size="large" (click)="reclamo()">
       Canjear
     </button>
+  </div>
+  <div class = "precio" *ngIf="!button">
+    <div class="punto2" >
+      <img class="puntos2" src="../assets/img/puntos.png" height="45"> {{precio}} 
+      Puntos
+    </div>
   </div>
 </ion-content>
