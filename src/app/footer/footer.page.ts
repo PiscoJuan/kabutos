@@ -44,7 +44,11 @@ export class FooterPage implements OnInit {
       if (event instanceof NavigationEnd) {
         this.datos();
         if(event && event.url){
-          this.selectedPath = event.url;
+          if(event.url == '/footer/premios-inicio'){
+            this.selectedPath = '';
+          }else{
+            this.selectedPath = event.url;
+          }
         }
         this.storage.get('cosas').then((valor)=>{
           if(valor!= null){
