@@ -55,6 +55,9 @@
               <div class="texto" *ngIf="premio.puntos - puntos > 0">
                 Te falta {{premio.puntos - puntos}} puntos
               </div>
+              <div class="texto" *ngIf="premio.puntos - puntos < 0 || premio.puntos - puntos == 0">
+                ¡Ya puedes reclamarlo!
+              </div>
             </div>
 
             <div class="contener-columnaI">
