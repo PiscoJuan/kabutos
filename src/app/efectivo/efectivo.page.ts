@@ -38,6 +38,8 @@ export class EfectivoPage implements OnInit {
   id: any;
   cvc: any;
   receptor: any;
+  nombreTarjeta: any="";
+  numeroTarjeta: any="";
   tarjetaRegalo= "no";
   colorBack:any = "var(--ion-color-naranja-oscuro)";
   butAtras:any = "../assets/img/atras_naranja.png";
@@ -121,6 +123,11 @@ export class EfectivoPage implements OnInit {
               this.numero = val;
             }
           });
+          this.storage.get("numeroTarjeta").then((val) => {
+            if (val != null) {
+              this.numero = val;
+            }
+          });
         }
       }
     });
@@ -175,7 +182,12 @@ export class EfectivoPage implements OnInit {
     let tax = Number(sub.toFixed(2));
     let vat = Number(this.iva.toFixed(2));
     let tot = Number(completo.toFixed(2));
-
+    this.storage.get("nombreTarjeta").then((val) => {
+      this.nombreTarjeta = val ;
+    });
+    this.storage.get("numeroTarjeta").then((val) => {
+      this.numeroTarjeta = val ;
+    });
     let info = {
       card: {
         token: this.token,
@@ -192,6 +204,7 @@ export class EfectivoPage implements OnInit {
         vat: vat,
         tax_percentage: 12,
         taxable_amount: tax,
+
       },
     };
 
@@ -367,6 +380,8 @@ export class EfectivoPage implements OnInit {
   
   async guardarPedido(form, transaccion, autorizacion) {
     await this.showLoading2();
+    form.nombreTarjeta= this.nombreTarjeta,
+    form.numeroTarjeta= this.numeroTarjeta
     this.pedidoService
       .nuevoPedido(form)
       .pipe(

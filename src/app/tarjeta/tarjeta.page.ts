@@ -19,6 +19,7 @@ export class TarjetaPage implements OnInit {
   id;
   loading: any;
   tarjetas: any;
+  numTarjetas:any;
   butAtras:any = "../assets/img/atras_naranja.png";
   imgAdd:any = "../assets/img/agregar_2.png";
   colorBack:any = "var(--ion-color-naranja-oscuro)";
@@ -55,7 +56,7 @@ export class TarjetaPage implements OnInit {
     this.datos();
   }
 
-  pagar(token, type, number) {
+  pagar(token, type, number, name) {
     let tarjeta="";
     if(type === 'vi'){
       tarjeta='Visa';
@@ -77,6 +78,7 @@ export class TarjetaPage implements OnInit {
       tarjeta='Union Pay';
     }
     tarjeta= tarjeta+" ****"+number;
+    this.storage.set('nombreTarjeta', name); 
     this.storage.set('numeroTarjeta', tarjeta); 
     this.storage.set('tokenTarjeta', token);
     this.router.navigate(['/footer/efectivo']);
@@ -93,6 +95,7 @@ export class TarjetaPage implements OnInit {
       .subscribe(
         data => {
           console.log(this.id);
+          this.numTarjetas= data["cards"].length;
           this.tarjetas = data["cards"];
 
         },
@@ -145,4 +148,7 @@ export class TarjetaPage implements OnInit {
     return await modal.present();
   }
 
+  async agregarNegado() {
+    this.mensajeIncorrecto("Límite de tarjetas excedido", "Solo puede guardar hasta dos tarjetas.")
+  }
 }

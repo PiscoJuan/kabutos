@@ -33,7 +33,8 @@ export class HacerRegaloPuntosPage implements OnInit {
   public id: any;
   public idCarrito: any;
   datalist:any;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private premiosService: PremiosService,
     private storage: Storage,
@@ -53,13 +54,19 @@ export class HacerRegaloPuntosPage implements OnInit {
   }
 
   ngOnInit() {
-    this.cargaPantalla();
-    this.perfilService.getPerfiles().subscribe((data) => {
-      this.usuarios=(data)
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+      this.cargaPantalla();
+      this.perfilService.getPerfiles().subscribe((data) => {
+        this.usuarios=(data)
+      });
+      this.input = document.querySelector("correo") as HTMLInputElement | null // Selects the input.
+      this.datalist = document.getElementById("brow")as HTMLDataListElement | null; // Selects the datalist.
+      this.datalist.setAttribute("id", "");
     });
-    this.input = document.querySelector("correo") as HTMLInputElement | null // Selects the input.
-    this.datalist = document.getElementById("brow")as HTMLDataListElement | null; // Selects the datalist.
-    this.datalist.setAttribute("id", "");
   }
 
   cargaPantalla() {

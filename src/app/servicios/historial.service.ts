@@ -36,7 +36,7 @@ export class HistorialService {
       'Content-Type': 'application/json'
     }
     const body = JSON.stringify(info);
-    return this.http.post(this.baseUrl+'guardarPedido2/',body,{'headers':headers})
+    return this.http.post(this.baseUrl+'guardarPedido/',body,{'headers':headers})
   }
   cancelarPedido(info):Observable<any>{
     const headers = {
@@ -46,7 +46,6 @@ export class HistorialService {
     const body = JSON.stringify(info);
     return this.http.post(this.baseUrl+'cancelarPedido2/',body,{'headers':headers})
   }
-
   pagarPedido(info):Observable<any>{
     const headers = {
       'Accept': 'application/json, text/plain',

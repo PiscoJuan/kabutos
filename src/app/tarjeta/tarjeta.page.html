@@ -14,7 +14,7 @@
     <div class="datos"><span style="color:{{colorBack}}">Opción de pago</span></div>
     <div class="confirmar">Seleccione tarjeta</div>
     <div class="contener-tarjeta" *ngFor="let tarjeta of tarjetas">
-      <div class="div-tarjeta" (click)="pagar(tarjeta.token, tarjeta.type, tarjeta.number)">
+      <div class="div-tarjeta" (click)="pagar(tarjeta.token, tarjeta.type, tarjeta.number, tarjeta.holder_name)">
         <div class="contener-columnaI">
           <img *ngIf="tarjeta.type === 'vi'" src="../assets/img/visa.png">
           <img *ngIf="tarjeta.type === 'mc'" src="../assets/img/mastercard.svg">
@@ -43,8 +43,11 @@
         </div>
       </div>
     </div>
-    <div class="button-content">
+    <div class="button-content" *ngIf="numTarjetas<2">
       <div class="btn_regresar"> <img src={{imgAdd}} class="agregar" (click)="agregar()"> </div>
+    </div>
+    <div class="button-content" *ngIf="numTarjetas>=2" >
+      <div class="btn_regresar"> <img src={{imgAdd}} class="agregar" (click)="agregarNegado()"> </div>
     </div>
   </div>  
 </ion-content>
