@@ -44,6 +44,11 @@
           <ion-input type="text" [value]="perfil.fechaNac | date:'dd/MM/yyyy'" readonly></ion-input>
         </ion-item>
 
+        <div class="button-content" (click)="cambiarContra()">
+          <ion-button class="btn-registro" size="large" style="--background: {{colorBack}};">
+            <p class="registro">Cambiar contraseña</p>
+          </ion-button>
+        </div>
 
         <div class="button-content" (click)="eliminar_credenciales()">
           <ion-button class="btn-registro" size="large" style="--background: {{colorBack}};">

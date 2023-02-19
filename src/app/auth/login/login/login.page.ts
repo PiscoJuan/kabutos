@@ -1,21 +1,21 @@
-import { Component, OnInit} from '@angular/core';
-import { Router } from  "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
 import { FcmService } from 'src/app/servicios/fcm.service';
 import { LoadingController } from '@ionic/angular';
-import { AlertController, NavController,ToastController,Platform, ModalController } from '@ionic/angular';
-import {ModalPage} from './../../../modal/modal.page';
-import {login} from  '../../../global'
+import { AlertController, NavController, ToastController, Platform, ModalController } from '@ionic/angular';
+import { ModalPage } from './../../../modal/modal.page';
+import { login } from '../../../global'
 import { Storage } from '@ionic/storage';
-import {AppComponent} from  '../../../app.component'
-import {FooterPage} from 'src/app/footer/footer.page'
-import {CorrectoPage} from '../../../aviso/correcto/correcto.page';
-import {IncorrectoPage} from '../../../aviso/incorrecto/incorrecto.page';
+import { AppComponent } from '../../../app.component'
+import { FooterPage } from 'src/app/footer/footer.page'
+import { CorrectoPage } from '../../../aviso/correcto/correcto.page';
+import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { ShoppingCartService } from 'src/app/servicios/shopping-cart.service';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
-import { FCM } from "@capacitor-community/fcm"; 
+import { FCM } from "@capacitor-community/fcm";
 import { HistorialService } from "../../../servicios/historial.service";
 import { PushNotifications, Token } from '@capacitor/push-notifications';
 @Component({
@@ -28,20 +28,20 @@ import { PushNotifications, Token } from '@capacitor/push-notifications';
 export class LoginPage implements OnInit {
 
   loading: any;
-	validacion : {};
+  validacion: {};
   public alertShown: boolean = false;
-  picture:string ;
-  name:string;
-  email:string;
+  picture: string;
+  name: string;
+  email: string;
   perfil;
   isLoggedIn: boolean = false
   user: any
-  public type = "password"; 
+  public type = "password";
   passwordToggleIcon = 'eye';
-  public showPass = false; 
+  public showPass = false;
   constructor(
-    private  authService:  AuthService, 
-    private  router:  Router, 
+    private authService: AuthService,
+    private router: Router,
     private loadingCtrl: LoadingController,
     private alert: AlertController,
     private toast: ToastController,
@@ -54,13 +54,13 @@ export class LoginPage implements OnInit {
     private fcm: FcmService,
     private firebase: FirebaseX,
     private perfilService: PerfilService,
-    private HistorialService:HistorialService,
+    private HistorialService: HistorialService,
     private shoppingService: ShoppingCartService) { }
-	
+
   ngOnInit() {
   }
 
-  async contrasena(){
+  async contrasena() {
     //let modal = this.modalCtrl.create(ModalPage);
     const modal = await this.modalCtrl.create({
       component: ModalPage,
@@ -68,21 +68,21 @@ export class LoginPage implements OnInit {
     });
     return await modal.present();
   }
-  
-  verificar(form){
-	form = form.value
-	console.log(form)
-  console.log(form.correo)
-  console.log(form.contrasena)
-	if(form.correo == "" || form.contrasena == "" ){
-    //this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
-    this.mensajeIncorrecto("Campos Incompletos","Por favor complete los campos");
-  }else{
-    this.show(form)
-  }
+
+  verificar(form) {
+    form = form.value
+    console.log(form)
+    console.log(form.correo)
+    console.log(form.contrasena)
+    if (form.correo == "" || form.contrasena == "") {
+      //this.mensaje("Campos Incompletos","Revisar los campos","Por favor complete los campos");
+      this.mensajeIncorrecto("Campos Incompletos", "Por favor complete los campos");
+    } else {
+      this.show(form)
+    }
   }
 
-  async verificarB(form){
+  async verificarB(form) {
 
     this.loading = await this.loadingCtrl.create({
       message: 'Loading.....'
@@ -90,9 +90,9 @@ export class LoginPage implements OnInit {
 
     await this.loading.present();
 
-    this.authService.VerificarUser(form).subscribe(data=> {
+    this.authService.VerificarUser(form).subscribe(data => {
       console.log(data.valid)
-      if (data.valid == "OK"){
+      if (data.valid == "OK") {
         let info = {
           'correo': form.correo,
           'contrasena': 'xxxxx'
@@ -102,17 +102,17 @@ export class LoginPage implements OnInit {
           .subscribe(data => {
             console.log(data)
             if (data.hasOwnProperty(0)) {
-              this.footer.cosas=data[0].total
+              this.footer.cosas = data[0].total
               this.storage.set('cosas', this.footer.cosas);
-            }else{
-              this.footer.cosas=data.total
+            } else {
+              this.footer.cosas = data.total
               this.storage.set('cosas', this.footer.cosas)
             }
 
           }, (error) => {
             this.loading.dismiss();
             console.error(error);
-          });    
+          });
         //this.router.navigateByUrl('/producto');
         var nombre = data.nombre;
         var apellido = data.apellido;
@@ -125,68 +125,68 @@ export class LoginPage implements OnInit {
         this.storage.set('apellido', apellido);
         this.storage.set('correo', form.correo);
         this.storage.set('number', "");
-        this.component.name=nombre;
+        this.component.name = nombre;
         this.component.lastname = apellido;
-        this.component.action="Cerrar Sesión";
+        this.component.action = "Cerrar Sesión";
         this.perfilS(form.correo);
 
-        PushNotifications.addListener('registration', 
-        (token: Token)=>{
-          console.log('The token is: '+ token.value)
-          this.storage.set('token', token.value);
-          let info = {
-            id: id,
-            token: token.value
-          };
-          console.log("infoToken es:", info);
-          this.HistorialService.addToken(info).subscribe(
-            (data) => {
-              if (data.valid == "Ok") {
-                console.log("AAAAAAAAA");
-              } else {
-                console.log("EEEEEEEE");
+        PushNotifications.addListener('registration',
+          (token: Token) => {
+            console.log('The token is: ' + token.value)
+            this.storage.set('token', token.value);
+            let info = {
+              id: id,
+              token: token.value
+            };
+            console.log("infoToken es:", info);
+            this.HistorialService.addToken(info).subscribe(
+              (data) => {
+                if (data.valid == "Ok") {
+                  console.log("AAAAAAAAA");
+                } else {
+                  console.log("EEEEEEEE");
+                }
+              },
+              (err) => {
+                console.log("IIIIIII");
               }
-            },
-            (err) => {
-              console.log("IIIIIII");
-            }
-          );
-        });
+            );
+          });
         this.firebase.getToken().then(token => {
-          var registro={
-            usuario : id,
-            token : token
+          var registro = {
+            usuario: id,
+            token: token
           }
           console.log(registro);
-          this.fcm.registrarUsuario(registro).subscribe(data=> {
-          console.log(data.valid);
+          this.fcm.registrarUsuario(registro).subscribe(data => {
+            console.log(data.valid);
           });
         });
         console.log(login);
 
         this.loading.dismiss();
 
-        if(login.categoria == true){
+        if (login.categoria == true) {
           this.router.navigateByUrl('/footer/categorias/detalle-categoria');
-        }else if(login.oferta == true && (login.producto =false)){
+        } else if (login.oferta == true && (login.producto = false)) {
           this.router.navigateByUrl('/footer/ofertas');
-        }else if (login.producto == true){
+        } else if (login.producto == true) {
           this.router.navigateByUrl('/footer/producto');
-        }else{
+        } else {
           this.router.navigateByUrl('/');
         }
       }
-      else{
+      else {
         this.loading.dismiss();
         //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
-        this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
+        this.mensajeIncorrecto("Acceso Incorrecto", "Algo salió mal su correo o contraseña están incorrectos");
         this.router.navigateByUrl('/login');
       }
-      
-      })
+
+    })
   }
 
-  perfilS(correo){
+  perfilS(correo) {
     this.perfilService.getPerfil(correo).subscribe(
       data => {
         this.perfil = data[0];
@@ -212,7 +212,7 @@ export class LoginPage implements OnInit {
     );
   }
 
-  imageURL():any {
+  imageURL(): any {
     const getImageOrFallback = (path, fallback) => {
       return new Promise(resolve => {
         const img = new Image();
@@ -224,15 +224,15 @@ export class LoginPage implements OnInit {
     getImageOrFallback(
       "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen,
       "../assets/img/avatar_perfil2.png"
-      ).then(result => {
-        this.component.image=result
-        this.perfil.url=result
-        this.storage.set("perfil", this.perfil)
-      })
+    ).then(result => {
+      this.component.image = result
+      this.perfil.url = result
+      this.storage.set("perfil", this.perfil)
+    })
   }
 
-  atras(){
-    let animations:AnimationOptions={
+  atras() {
+    let animations: AnimationOptions = {
       animated: true,
       animationDirection: "back"
     }
@@ -242,7 +242,7 @@ export class LoginPage implements OnInit {
   async forgotPass() {
     const forgot = await this.alert.create({
       cssClass: 'Forgot Password?',
-      header:'Forgot Password?',
+      header: 'Forgot Password?',
       message: "Enter you email address to send a reset link password.",
       inputs: [
         {
@@ -260,9 +260,9 @@ export class LoginPage implements OnInit {
         },
         {
           text: 'Send',
-          handler:  data => {
+          handler: data => {
             console.log('Send clicked');
-             this.presentToast();
+            this.presentToast();
 
           }
         }
@@ -272,20 +272,20 @@ export class LoginPage implements OnInit {
   }
 
 
-async presentToast() {
+  async presentToast() {
     const toast = await this.toast.create({
-              message: 'Email was sended successfully',
-              duration: 3000,
-              position: 'top',
-              cssClass: 'dark-trans',
-              /*closeButtonText: 'OK',
-              showCloseButton: true*/
+      message: 'Email was sended successfully',
+      duration: 3000,
+      position: 'top',
+      cssClass: 'dark-trans',
+      /*closeButtonText: 'OK',
+      showCloseButton: true*/
     });
     toast.present();
   }
 
 
-async mensaje(titulo:string,subtitulo:string,mensaje:string) {
+  async mensaje(titulo: string, subtitulo: string, mensaje: string) {
     const alert = await this.alert.create({
       cssClass: titulo,
       header: titulo,
@@ -304,101 +304,101 @@ async mensaje(titulo:string,subtitulo:string,mensaje:string) {
     await alert.present();
   }
 
-    togglePasswordClick():void{
-      this.showPass=!this.showPass;   
-      if(this.passwordToggleIcon == 'eye'){
-        this.passwordToggleIcon = 'eye-off';
-      }else{
-        this.passwordToggleIcon = 'eye';
-      }
+  togglePasswordClick(): void {
+    this.showPass = !this.showPass;
+    if (this.passwordToggleIcon == 'eye') {
+      this.passwordToggleIcon = 'eye-off';
+    } else {
+      this.passwordToggleIcon = 'eye';
     }
-    showPassword() {
-      this.showPass = !this.showPass;
-            if(this.showPass){
-                this.type = "text";
-                 } else {
-           this.type = "password";
-         }
-       } 
+  }
+  showPassword() {
+    this.showPass = !this.showPass;
+    if (this.showPass) {
+      this.type = "text";
+    } else {
+      this.type = "password";
+    }
+  }
 
 
-       showLoading(form) {  
-        this.loadingCtrl.create({  
-          message: 'Loading.....'   
-          }).then((loading) => {  
-           loading.present();{
-            this.verificar(form);
-          } 
-           setTimeout(() => {   
-             loading.dismiss();  
-           }, 2000 );   
-          });  
-        }
-
-        showLoadingC() {  
-          this.loadingCtrl.create({  
-            message: 'Loading.....'   
-            }).then((loading) => {  
-             loading.present();{
-              this.contrasena();
-            } 
-             setTimeout(() => {   
-               loading.dismiss();  
-             }, 1000 );   
-            });  
-          }
-
-
-            showLoadingR() {  
-              this.loadingCtrl.create({  
-                message: 'Loading.....'   
-                }).then((loading) => {  
-                 loading.present();{
-                  this.router.navigateByUrl('/registro');
-                } 
-                 setTimeout(() => {   
-                   loading.dismiss();  
-                 }, 1000 );   
-                });  
-              }
-
-              
-  show(form){
+  showLoading(form) {
     this.loadingCtrl.create({
       message: 'Loading.....'
     }).then((loading) => {
-      loading.present();{
-        this.verificarB(form);
+      loading.present(); {
+        this.verificar(form);
       }
-      setTimeout(() => { 
-        loading.dismiss();  
-      }, 1000 );  
-    }); 
+      setTimeout(() => {
+        loading.dismiss();
+      }, 2000);
+    });
   }
 
-  async mensajeCorrecto(titulo:string,mensaje:string){
+  showLoadingC() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.contrasena();
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
+
+
+  showLoadingR() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.router.navigateByUrl('/registro');
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
+
+
+  show(form) {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.verificarB(form);
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
+
+  async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: CorrectoPage,
       cssClass: 'CorrectoProducto',
       componentProps: {
         'titulo': titulo,
         'mensaje': mensaje
-        }
-      });
-      return await modal.present();
+      }
+    });
+    return await modal.present();
   }
-    
-    
-  async mensajeIncorrecto(titulo:string,mensaje:string){
+
+
+  async mensajeIncorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
       component: IncorrectoPage,
       cssClass: 'IncorrectoProducto',
       componentProps: {
         'titulo': titulo,
         'mensaje': mensaje
-        }
-      });
-      return await modal.present();
+      }
+    });
+    return await modal.present();
   }
 }
 

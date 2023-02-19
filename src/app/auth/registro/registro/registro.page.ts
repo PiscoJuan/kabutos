@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from '../../servicios/auth.service';
-import { ModalController, LoadingController, NavController  } from '@ionic/angular';
-import { FileUploader} from 'ng2-file-upload';
-import {login} from  '../../../global'
+import { ModalController, LoadingController, NavController } from '@ionic/angular';
+import { FileUploader } from 'ng2-file-upload';
+import { login } from '../../../global'
 import { Storage } from '@ionic/storage';
-import {AppComponent} from  '../../../app.component'
+import { AppComponent } from '../../../app.component'
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { FcmService } from 'src/app/servicios/fcm.service';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { CorrectoPage } from '../../../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../../../aviso/incorrecto/incorrecto.page';
 import { PoliticasPage } from 'src/app/politicas/politicas.page';
-import { AnimationOptions} from '@ionic/angular/providers/nav-controller';
+import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { HistorialService } from "../../../servicios/historial.service";
 import { PushNotifications, Token } from '@capacitor/push-notifications';
-import { FCM } from "@capacitor-community/fcm"; 
+import { FCM } from "@capacitor-community/fcm";
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -40,7 +40,7 @@ export class RegistroPage implements OnInit {
     private firebase: FirebaseX,
     private perfilService: PerfilService,
     private storage: Storage,
-    private HistorialService:HistorialService,
+    private HistorialService: HistorialService,
     private component: AppComponent,) { }
 
   ngOnInit() {
@@ -82,11 +82,11 @@ export class RegistroPage implements OnInit {
           this.mensajeIncorrecto("Revisar cédula", "Su cédula no es válida");
         } else if ((int_length < 10 && int_length < 13) || int_length > 13) {
           this.mensajeIncorrecto("Revisar RUC", "Recuerde que si ingresa cédula deben ser  RUC 13 dígitos");
-        }else if (this.validarEmail(form.email) == false) {
+        } else if (this.validarEmail(form.email) == false) {
           this.mensajeIncorrecto("Revisar correo", "Escriba de su correo de manera correcta");
-        }else if (contra != conf) {
+        } else if (contra != conf) {
           this.mensajeIncorrecto("Registro Fallido", "Las contraseñas no coinciden, verifique que las contraseñas sean iguales");
-        }else if(!this.validarTelefono(form.telefono)){
+        } else if (!this.validarTelefono(form.telefono)) {
           this.mensajeIncorrecto("Registro Fallido", "El numero de teléfono no es válido");
         }
         console.log("voy a comparar");
@@ -96,7 +96,8 @@ export class RegistroPage implements OnInit {
           if (isNaN(form.nombre) && isNaN(form.apellido)) {
             console.log("voy a comparar");
             console.log(this.isEqual(form.nombre, form.apellido));
-            if (this.isEqual(form.nombre, form.apellido)) {this.mensajeIncorrecto("Registro Fallido", "El nombre y apellido registrado son iguales");
+            if (this.isEqual(form.nombre, form.apellido)) {
+              this.mensajeIncorrecto("Registro Fallido", "El nombre y apellido registrado son iguales");
             } else {
               this.showLoading(formR)
             }
@@ -110,8 +111,8 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  regresar(){
-    let animations:AnimationOptions={
+  regresar() {
+    let animations: AnimationOptions = {
       animated: true,
       animationDirection: "back"
     }
@@ -136,51 +137,51 @@ export class RegistroPage implements OnInit {
         this.storage.set('correo', formR.email);
         this.storage.set('number', "");
         this.storage.set('telefono', formR.telefono);
-        this.component.name=nombre;
+        this.component.name = nombre;
         this.component.lastname = apellido;
-        this.component.action="Cerrar Sesión";
+        this.component.action = "Cerrar Sesión";
         this.perfilS(formR.email)
 
-        PushNotifications.addListener('registration', 
-        (token: Token)=>{
-          console.log('The token is: '+ token.value)
-          this.storage.set('token', token.value);
-          let info = {
-            id: id,
-            token: token.value
-          };
-          console.log("infoToken es:", info);
-          this.HistorialService.addToken(info).subscribe(
-            (data) => {
-              if (data.valid == "Ok") {
-                console.log("AAAAAAAAA");
-              } else {
-                console.log("EEEEEEEE");
+        PushNotifications.addListener('registration',
+          (token: Token) => {
+            console.log('The token is: ' + token.value)
+            this.storage.set('token', token.value);
+            let info = {
+              id: id,
+              token: token.value
+            };
+            console.log("infoToken es:", info);
+            this.HistorialService.addToken(info).subscribe(
+              (data) => {
+                if (data.valid == "Ok") {
+                  console.log("Token anadido");
+                } else {
+                  console.log("Error al anadir token");
+                }
+              },
+              (err) => {
+                console.log("Error 2 al anadir token");
               }
-            },
-            (err) => {
-              console.log("IIIIIII");
-            }
-          );
-        });
+            );
+          });
         this.firebase.getToken().then(token => {
-          var registro={
-            usuario : id,
-            token : token
+          var registro = {
+            usuario: id,
+            token: token
           }
           console.log(registro);
-          this.fcm.registrarUsuario(registro).subscribe(data=> {
-          console.log(data.valid);
+          this.fcm.registrarUsuario(registro).subscribe(data => {
+            console.log(data.valid);
           });
         });
         console.log(login)
-        if(login.categoria == true){
+        if (login.categoria == true) {
           this.router.navigateByUrl('/footer/categorias/detalle-categoria');
-        }else if(login.oferta == true && (login.producto =false)){
+        } else if (login.oferta == true && (login.producto = false)) {
           this.router.navigateByUrl('/footer/ofertas');
-        }else if (login.producto == true){
+        } else if (login.producto == true) {
           this.router.navigateByUrl('/footer/producto');
-        }else{
+        } else {
           this.router.navigateByUrl('/');
         }
       } else if (data.valid == 'CED') {
@@ -213,25 +214,25 @@ export class RegistroPage implements OnInit {
         if (numeroUno > 9) {
           numeroUno = (numeroUno - 9);
         }
-  
+
         let numeroTres: any = cedula.substring(2, 3);
         numeroTres = (numeroTres * 2);
         if (numeroTres > 9) {
           numeroTres = (numeroTres - 9);
         }
-  
+
         let numeroCinco: any = cedula.substring(4, 5);
         numeroCinco = (numeroCinco * 2);
         if (numeroCinco > 9) {
           numeroCinco = (numeroCinco - 9);
         }
-  
+
         let numeroSiete: any = cedula.substring(6, 7);
         numeroSiete = (numeroSiete * 2);
         if (numeroSiete > 9) {
           numeroSiete = (numeroSiete - 9);
         }
-  
+
         let numeroNueve: any = cedula.substring(8, 9);
         numeroNueve = (numeroNueve * 2);
         if (numeroNueve > 9) {
@@ -253,17 +254,17 @@ export class RegistroPage implements OnInit {
         } else {
           return false;
         }
-  
+
       } else {
         return false;
       }
     } else {
       return false;
     }
-  
+
   }
 
-  perfilS(correo){
+  perfilS(correo) {
     this.perfilService.getPerfil(correo).subscribe(
       data => {
         this.perfil = data[0];
@@ -289,7 +290,7 @@ export class RegistroPage implements OnInit {
     );
   }
 
-  imageURL():any {
+  imageURL(): any {
     const getImageOrFallback = (path, fallback) => {
       return new Promise(resolve => {
         const img = new Image();
@@ -301,11 +302,11 @@ export class RegistroPage implements OnInit {
     getImageOrFallback(
       "http://cabutoshop.pythonanywhere.com" + this.perfil.imagen,
       "../assets/img/avatar_perfil2.png"
-      ).then(result => {
-        this.component.image=result
-        this.perfil.url=result
-        this.storage.set("perfil", this.perfil)
-      })
+    ).then(result => {
+      this.component.image = result
+      this.perfil.url = result
+      this.storage.set("perfil", this.perfil)
+    })
   }
 
   onSelectFile(event) {

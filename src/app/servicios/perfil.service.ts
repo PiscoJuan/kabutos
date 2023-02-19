@@ -54,6 +54,15 @@ export class PerfilService {
     return this.http.post(this.baseUrl+`editarCliente/`,user);
   }
 
+  cambiarContra(data):Observable<any>{
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(data);
+    return this.http.post(this.baseUrl+`modContra/`,data, {'headers': headers})
+  }
+
   eliminar_perfil(user):Observable<any>{
     const headers = {
       'Accept': 'application/json, text/plain',

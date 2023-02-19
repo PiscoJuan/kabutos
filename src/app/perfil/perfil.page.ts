@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { finalize } from 'rxjs/operators';
 import { ModalController } from '@ionic/angular';
@@ -117,6 +118,17 @@ export class PerfilPage implements OnInit {
     });
   }
 
+  async mensajeCorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalController.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
   async mensajeIncorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalController.create({
       component: IncorrectoPage,
@@ -165,6 +177,11 @@ export class PerfilPage implements OnInit {
     });
   }
   
+  async cambiarContra(){
+
+    this.router.navigate(['/footer/cambiar-contra']);
+
+  }
 
   imageURL():any {
     const getImageOrFallback = (path, fallback) => {

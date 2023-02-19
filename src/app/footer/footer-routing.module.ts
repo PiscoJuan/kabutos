@@ -198,6 +198,10 @@ const routes: Routes = [
         path: 'premios-utilizados',
         loadChildren: () => import('../premios-utilizados/premios-utilizados.module').then( m => m.PremiosUtilizadosPageModule)
       },
+      {
+        path: 'cambiar-contra',
+        loadChildren: () => import('../cambiar-contra/cambiar-contra.module').then( m => m.CambiarContraPageModule)
+      },
     ]
   },
   {
