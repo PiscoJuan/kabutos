@@ -222,4 +222,29 @@ export class PerfilPage implements OnInit {
     });
     return await modal.present();
   }
+
+  showLoadingOut() {
+    this.loadingCtrl.create({
+      message: 'Loading.....'
+    }).then((loading) => {
+      loading.present(); {
+        this.logout();
+        this.mensajeCorrecto("Cerrar Sesión", "Sesión cerrada exitosamente")
+      }
+      setTimeout(() => {
+        loading.dismiss();
+      }, 1000);
+    });
+  }
+  logout() {
+    this.storage.clear()
+      .then(
+        data => {
+          login.login = false;
+
+          this.router.navigateByUrl('/');
+        },
+        error => console.error(error)
+      );
+  }
 }
