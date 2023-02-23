@@ -22,17 +22,30 @@
         <ion-menu-toggle auto-hide="true">
           <ion-item routerLink="/footer/ofertas">Ofertas</ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/codigos">Códigos</ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/cupones">Cupones</ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/tarjetas-de-regalo">Tarjetas de Regalo</ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/premios-inicio">Premios y Puntos</ion-item>
+
+        <ion-item lines="none" (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
+          Beneficios y Premios
+          <ion-img slot="end" [src]="isRemainder? 'https://cdn-icons-png.flaticon.com/512/467/467293.png' : 'https://cdn-icons-png.flaticon.com/512/467/467264.png'" class="imagen"></ion-img>
+        </ion-item>
+        <ion-menu-toggle auto-hide="false">
+          <ion-list lines="none">
+            <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/footer/codigos']"
+              menuClose class="sub-menu" class="listado">
+              Códigos
+            </ion-item>
+            <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/footer/cupones']"
+              menuClose class="sub-menu" class="listado">
+              Cupones
+            </ion-item>
+            <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/footer/tarjetas-de-regalo']"
+              menuClose class="sub-menu" class="listado">
+              Tarjetas de Regalo
+            </ion-item>
+            <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/footer/premios-inicio']"
+              menuClose class="sub-menu" class="listado">
+              Premios y Puntos
+            </ion-item>
+          </ion-list>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
           <ion-item routerLink="/footer/info-tarjeta">Medios de Pago</ion-item>
@@ -40,18 +53,29 @@
         <ion-menu-toggle auto-hide="true">
           <ion-item routerLink="/footer/historial">Historial de Compras</ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item class="menu-items" routerLink="/footer/establecimiento">Locales</ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/sugerencia">Reclamos y Sugerencias</ion-item>
-        </ion-menu-toggle>
-        
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/politicas">Políticas de Privacidad</ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/contacto">Contáctanos</ion-item>
+        <ion-item lines="none" (click)="isAtencion === 1 ? isAtencion = 0 : isAtencion = 1">
+          Atención al Cliente
+          <ion-img slot="end" [src]="isAtencion? 'https://cdn-icons-png.flaticon.com/512/467/467293.png' : 'https://cdn-icons-png.flaticon.com/512/467/467264.png'" class="imagen"></ion-img>
+        </ion-item>
+        <ion-menu-toggle auto-hide="false">
+          <ion-list lines="none">
+            <ion-item menuclose [hidden]="!isAtencion" [routerLink]="['/footer/establecimiento']"
+              menuClose class="sub-menu" class="listado">
+              Locales
+            </ion-item>
+            <ion-item menuclose [hidden]="!isAtencion" [routerLink]="['/footer/sugerencia']"
+              menuClose class="sub-menu" class="listado">
+              Reclamos y Sugerencias
+            </ion-item>
+            <ion-item menuclose [hidden]="!isAtencion" [routerLink]="['/footer/politicas']"
+              menuClose class="sub-menu" class="listado">
+              Políticas de Privacidad
+            </ion-item>
+            <ion-item menuclose [hidden]="!isAtencion" [routerLink]="['/footer/contacto']"
+              menuClose class="sub-menu" class="listado">
+              Contáctanos
+            </ion-item>
+          </ion-list>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">
         <ion-item routerLink="/footer/mensajes">Chatea con Administrador </ion-item>
