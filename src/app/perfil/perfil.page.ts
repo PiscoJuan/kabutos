@@ -12,7 +12,9 @@ import { NavigationExtras, Router } from '@angular/router';
 import { login } from 'src/app/global';
 import { AppComponent } from '../app.component';
 import { CodigounicoPage } from '../codigounico/codigounico.page';
-
+import { BaneoService } from '../servicios/baneo.service';
+import { constants } from 'buffer';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-perfil',
@@ -28,8 +30,8 @@ export class PerfilPage implements OnInit {
   date = "";
   id;
   colorBack:any = "var(--ion-color-naranja-oscuro)";
-
   constructor(
+    private baneoService: BaneoService,
     private storage: Storage,
     public perfilService: PerfilService,
     public loadingCtrl: LoadingController,
@@ -158,23 +160,40 @@ export class PerfilPage implements OnInit {
 
   async eliminar_credenciales(){
 
-    this.loading = await this.loadingCtrl.create({
-      message: 'Loading.....'
-    });
+    
+    this.storage.get("perfil").then((dato) => {
+      this.baneoService.revisarBan(dato.id).subscribe( async (data:any) => {
+        if (data.valid == "OK"){
+          this.loading = await this.loadingCtrl.create({
+            message: 'Loading.....'
+          });
+      
+          await this.loading.present();
+      
+          const user = {
+            "correo": this.perfil.correo
+          }
+      
+          this.perfilService.eliminar_perfil(user).subscribe(data =>{
+            console.log(data)
+             if(data.valid == "OK"){
+                this.loading.dismiss();
+                this.mensajeIncorrecto("Cuenta de usuario eliminada","Cuenta eliminada, debera crear otro usuario");
+                this.component.logout();
+             } else {
+              this.mensajeIncorrecto("Error","La cuenta no ha sido eliminada");
+              this.loading.dismiss();
+      
+              
+             }
+          });
+        } else {
+          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
+        }
+      })
+    })
 
-    await this.loading.present();
-
-    const user = {
-      "correo": this.perfil.correo
-    }
-
-    this.perfilService.eliminar_perfil(user).subscribe(data =>{
-       if(data.valid == "OK"){
-          this.loading.dismiss();
-          this.mensajeIncorrecto("Cuenta de usuario eliminada","Cuenta eliminada, debera crear otro usuario");
-          this.component.logout();
-       }
-    });
+    
   }
   
   async cambiarContra(){
@@ -224,18 +243,28 @@ export class PerfilPage implements OnInit {
   }
 
   showLoadingOut() {
-    this.loadingCtrl.create({
-      message: 'Loading.....'
-    }).then((loading) => {
-      loading.present(); {
-        this.logout();
-        this.mensajeCorrecto("Cerrar Sesión", "Sesión cerrada exitosamente")
-      }
-      setTimeout(() => {
-        loading.dismiss();
-      }, 1000);
-    });
+
+        this.storage.get("perfil").then((dato) => {
+      this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
+        if (data.valid == "OK"){
+          this.loadingCtrl.create({
+            message: 'Loading.....'
+          }).then((loading) => {
+            loading.present(); {
+              this.logout();
+              this.mensajeCorrecto("Cerrar Sesión", "Sesión cerrada exitosamente")
+            }
+            setTimeout(() => {
+              loading.dismiss();
+            }, 1000);
+          });
+        } else {
+          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
+        }
+      })
+    })
   }
+  
   logout() {
     this.storage.clear()
       .then(
