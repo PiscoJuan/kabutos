@@ -13,9 +13,7 @@
     </ion-menu-toggle>
     <ion-content style="--background: #2153FF !important;" #navChild>
       <ion-list>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/footer/perfil">Perfil</ion-item>
-        </ion-menu-toggle>
+
         <ion-menu-toggle auto-hide="true">
           <ion-item routerLink="/footer/producto">Productos</ion-item>
         </ion-menu-toggle>
@@ -23,12 +21,12 @@
           <ion-item routerLink="/footer/ofertas">Ofertas</ion-item>
         </ion-menu-toggle>
 
-        <ion-item lines="none" (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
+        <ion-item  (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
           Beneficios y Premios
           <ion-img slot="end" [src]="isRemainder? 'https://cdn-icons-png.flaticon.com/512/467/467293.png' : 'https://cdn-icons-png.flaticon.com/512/467/467264.png'" class="imagen"></ion-img>
         </ion-item>
         <ion-menu-toggle auto-hide="false">
-          <ion-list lines="none">
+          <ion-list >
             <ion-item menuclose [hidden]="!isRemainder" [routerLink]="['/footer/codigos']"
               menuClose class="sub-menu" class="listado">
               Códigos
@@ -53,12 +51,12 @@
         <ion-menu-toggle auto-hide="true">
           <ion-item routerLink="/footer/historial">Historial de Compras</ion-item>
         </ion-menu-toggle>
-        <ion-item lines="none" (click)="isAtencion === 1 ? isAtencion = 0 : isAtencion = 1">
+        <ion-item  (click)="isAtencion === 1 ? isAtencion = 0 : isAtencion = 1">
           Atención al Cliente
           <ion-img slot="end" [src]="isAtencion? 'https://cdn-icons-png.flaticon.com/512/467/467293.png' : 'https://cdn-icons-png.flaticon.com/512/467/467264.png'" class="imagen"></ion-img>
         </ion-item>
         <ion-menu-toggle auto-hide="false">
-          <ion-list lines="none">
+          <ion-list >
             <ion-item menuclose [hidden]="!isAtencion" [routerLink]="['/footer/establecimiento']"
               menuClose class="sub-menu" class="listado">
               Locales
