@@ -8,7 +8,7 @@
       <ion-label class="titulo">Canjear Código</ion-label>
     </div>
     
-    <form #form="ngForm" (ngSubmit)="canjear(form)">
+    <form *ngIf="val" #form="ngForm" (ngSubmit)="canjear(form)">
       <div class="form">
         <ion-label>Código</ion-label>
         <ion-item>

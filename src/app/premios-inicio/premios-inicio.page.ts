@@ -21,6 +21,7 @@ export class PremiosInicioPage implements OnInit {
   valorTarjeta: any;
   opcion: string = '0';
   nombre: string;
+  val = null;
   fide ="../assets/img/fidelizacion22.png"
   colorBack:any = "var(--ion-color-naranja-oscuro)";
   butAtras:any = "../assets/img/atras_naranja.png";
@@ -53,27 +54,33 @@ export class PremiosInicioPage implements OnInit {
 
   data(){
     this.storage.get("perfil").then((dato) => {
-      this.nombre = dato.nombre;
-      this.premiosService.getPuntos(dato.id).subscribe((data:any) => {
-        this.puntos = data.puntos
-        this.valorTarjeta = data.puntos * (data.tarjetaAPuntos / data.puntosATarjeta)
-        this.valorTarjeta = this.valorTarjeta.toFixed(2)
-      })
 
-      this.premiosService.getPremiosPersonales(dato.id).subscribe(data => {
-        this.premios = data;
-        console.log("fer", this.premios)
-        let d = JSON.parse(JSON.stringify(this.premios));
-
-        d = d.map(function(a){
-          let f = a.fecha_canje.split('-')
-          let fecha = new Date(f[0], f[1], f[2])
-          a.fecha_canje = fecha
-          return a
-          })
-        this.premios = d
-        console.log("dat", this.premios)
-      })
+      if(dato!=null){
+        this.val = dato;
+        this.nombre = dato.nombre;
+        this.premiosService.getPuntos(dato.id).subscribe((data:any) => {
+          this.puntos = data.puntos
+          this.valorTarjeta = data.puntos * (data.tarjetaAPuntos / data.puntosATarjeta)
+          this.valorTarjeta = this.valorTarjeta.toFixed(2)
+        })
+  
+        this.premiosService.getPremiosPersonales(dato.id).subscribe(data => {
+          this.premios = data;
+          console.log("fer", this.premios)
+          let d = JSON.parse(JSON.stringify(this.premios));
+  
+          d = d.map(function(a){
+            let f = a.fecha_canje.split('-')
+            let fecha = new Date(f[0], f[1], f[2])
+            a.fecha_canje = fecha
+            return a
+            })
+          this.premios = d
+          console.log("dat", this.premios)
+        })
+      } else {
+        this.mensajeIncorrecto("Perfil no encontrado","Inicie sesión para poder ver sus premios");
+      }
     });
   }
 

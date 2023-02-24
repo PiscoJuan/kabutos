@@ -1,38 +1,40 @@
-<div class="seccion-retorno ">
-  <div class="icono-retorno"  >
+<ion-content>
+
+
+  <div class="seccion-retorno ">
+  <div class="icono-retorno">
     <img src="../../../assets/img/atras_naranja.png" alt="" (click)="regresar()">
   </div>
   <!--span>Regresar</span-->
-   <div  >
-    <br>
+  <br>
+  <div>
+  <br>
+    
     Administrador:
 
-    <ion-select 
-    interface="popover" 
-    placeholder="{{admin_seleccionado}}"
-    (ionChange)="manejarAdmin($event)" >
-    <div class="no-leido"></div>
-      <ion-select-option *ngFor="let admin of mensajeriaService.usuarios_admin" [value]="admin">{{admin.nombre}} {{admin.apellido}}  </ion-select-option>
+    <ion-select class="gris" interface="popover" placeholder="{{admin_seleccionado}}" (ionChange)="manejarAdmin($event)">
+      <div class="no-leido"></div>
+      <ion-select-option class="gris" *ngFor="let admin of mensajeriaService.usuarios_admin" [value]="admin">{{admin.nombre}}
+        {{admin.apellido}} </ion-select-option>
     </ion-select>
   </div>
-  
+
 </div>
 
 <div class="titulo">
   Mensajería con Administración
 </div>
-<ion-content>
-
   <div id="mensajes" class="mensajes" *ngFor="let message of mensajeriaService.contactosMensajes">
 
     <div *ngIf="message.esAdmin==true" class="item-mensaje recibido">
       <div class="avatar">
         <img src="../../../assets/img/avatar.png" alt="">
-  
+
       </div>
       <div class="detalles">
         <div class="nombre">
-          <span>{{message.usuario_admin__nombre}} {{message.usuario_admin__apellido}}</span> <span class="tipo">( administrador )</span>
+          <span>{{message.usuario_admin__nombre}} {{message.usuario_admin__apellido}}</span> <span class="tipo">(
+            administrador )</span>
         </div>
         <div class="texto">
           {{message.texto}}
@@ -40,18 +42,19 @@
         <div class="tiempo">
           {{ message.tiempo | date:'short' }}
         </div>
-  
+
       </div>
-  </div>
-  
+    </div>
+
     <div *ngIf="message.esAdmin==false" class="item-mensaje emitido">
       <div class="avatar">
         <img src="../../../assets/img/avatar.png" alt="">
-  
+
       </div>
       <div class="detalles">
         <div class="nombre">
-          <span>{{message.usuario_cliente__nombre}} {{message.usuario_cliente__apellido}}</span> <span class="tipo">( yo )</span>
+          <span>{{message.usuario_cliente__nombre}} {{message.usuario_cliente__apellido}}</span> <span class="tipo">( yo
+            )</span>
         </div>
         <div class="texto">
           {{message.texto}}
@@ -59,21 +62,21 @@
         <div class="tiempo">
           {{ message.tiempo | date:'short' }}
         </div>
-  
+
       </div>
     </div>
 
 
 
-</div>
+  </div>
 
-</ion-content>
+
 <div class="footer">
   <div class="entrada-mensaje">
     <div class="input">
       <div class="input-contenedor">
-        
-        <ion-input  class="texto" [(ngModel)]="textSms" placeholder="Escribir un mensaje..."  >
+
+        <ion-input class="texto" [(ngModel)]="textSms" placeholder="Escribir un mensaje...">
         </ion-input>
       </div>
     </div>
@@ -83,3 +86,4 @@
     </div>
   </div>
 </div>
+</ion-content>

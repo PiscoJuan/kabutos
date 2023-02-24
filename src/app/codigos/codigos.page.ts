@@ -29,7 +29,7 @@ export class CodigosPage implements OnInit {
   loading: any;
   colorBack:any = "var(--ion-color-naranja-oscuro)";
   butAtras:any = "../assets/img/atras_naranja.png";
-
+  val = null;
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -43,6 +43,9 @@ export class CodigosPage implements OnInit {
     this.storage.get('perfil').then((val)=>{
       if(val!=null){
         this.perfil=val;
+        this.val = val;
+      } else {
+        this.mensajeIncorrecto("Perfil no encontrado","Inicie sesión para poder canjear códigos");
       }
     });
 
