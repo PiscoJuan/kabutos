@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { LoadingController, ModalController } from '@ionic/angular';
+import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 
 @Component({
@@ -15,6 +17,7 @@ export class PagoPage implements OnInit {
   butAtras:any = "../assets/img/atras_naranja.png";
   constructor(private storage: Storage,
     private router: Router,
+    private modalCtrl: ModalController,
     private navCtrlr: NavController, 
   ) { }
 
@@ -41,6 +44,18 @@ export class PagoPage implements OnInit {
   tarjeta(){
     this.router.navigate(['/footer/tarjeta']); 
     this.storage.set('tipoPago','Tarjeta');
+    this.mensajeCorrecto("Para comprobar la legalidad de la compra", "Recuerde que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra.")
+  }
+  async mensajeCorrecto(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: CorrectoPage,
+      cssClass: 'CorrectoProducto',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
   }
 
   atras(){

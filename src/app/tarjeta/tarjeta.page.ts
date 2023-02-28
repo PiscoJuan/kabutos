@@ -149,6 +149,6 @@ export class TarjetaPage implements OnInit {
   }
 
   async agregarNegado() {
-    this.mensajeIncorrecto("Límite de tarjetas excedido", "Solo puede guardar hasta dos tarjetas.")
+    this.mensajeIncorrecto("Atención", "En nuestra aplicación, solo podrás registrar hasta 2 tarjetas por mes.")
   }
 }
