@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class TarjetaService {
 
   baseUrl :string= "https://ccapi.paymentez.com/v2/";
+  baseUrl2 :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
     private http: HttpClient
@@ -59,8 +60,16 @@ export class TarjetaService {
     }
     let parametro= new HttpParams().set('uid',id);
     return this.http.get(this.baseUrl+'card/list',{params:parametro,headers:headers});
-
   }
+  
+  getMes(id: string){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl2+'getMes/'+ id,{'headers':headers});
+  }
+
   authToken(application_code,application_key){
     const unix_timestamp=Math.round(new Date().getTime() / 1000);;
     const uniq_token_string= application_key + unix_timestamp

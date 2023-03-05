@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { CorrectoPage } from 'src/app/aviso/correcto/correcto.page';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { Router } from '@angular/router'
+import { finalize } from 'rxjs/operators';
 
 declare var Payment: any;
 declare var PaymentForm: any;
@@ -21,6 +22,8 @@ export class NuevaTarjetaPage implements OnInit {
   loading: any;
   nombre; apellido;
   card;
+  id;
+  responseNumTarj: any;
   butAtras:any = "../assets/img/atras_naranja.png";
   imgAdd:any = "../assets/img/agregar_2.png";
   colorBack:any = "var(--ion-color-naranja-oscuro)";
@@ -61,6 +64,11 @@ export class NuevaTarjetaPage implements OnInit {
         this.butAtras= "../assets/img/atras_negro.png"
       }
     });
+    this.storage.get('id').then((val) => {
+      if (val != null) {
+        this.id = val;
+      }
+    });
   }
 
   dismiss() {
@@ -68,67 +76,84 @@ export class NuevaTarjetaPage implements OnInit {
   }
 
   save(form) {
-    let checkCard = this.card.getCard()
+    this.tarjetaService.getMes(this.id)
+      .pipe(
+        finalize(async () => {
+          
+        })
+      )
+      .subscribe(
+        data => {
+          this.responseNumTarj= data["estado"]
+          if(this.responseNumTarj == "OK"){
+            let checkCard = this.card.getCard()
+            if (checkCard != null) {
+              this.storage.get('id').then((id) => {
+                if (id != null) {
+                  this.storage.get('correo').then((val) => {
+                    if (val != null) {
+                      
+                      var $this = this;
+                      let button = <HTMLButtonElement> document.getElementById('guardarTarjeta');
+                      let texto=button.innerText
+                      button.disabled = true;
+                      button.innerText = "Procesando...";
 
-    if (checkCard != null) {
-      this.storage.get('id').then((id) => {
-        if (id != null) {
-          this.storage.get('correo').then((val) => {
-            if (val != null) {
-              
-              var $this = this;
-              let button = <HTMLButtonElement> document.getElementById('guardarTarjeta');
-              let texto=button.innerText
-              button.disabled = true;
-              button.innerText = "Procesando...";
+                      let successHandler = function (cardResponse) {
+                        //console.log(cardResponse.card);
+                        if (cardResponse.card.status === 'valid') {
+                          const info = {
+                            "token": cardResponse.card.token,
+                            "cvc": checkCard.card.cvc
+                          }
 
-              let successHandler = function (cardResponse) {
-                //console.log(cardResponse.card);
-                if (cardResponse.card.status === 'valid') {
-                  const info = {
-                    "token": cardResponse.card.token,
-                    "cvc": checkCard.card.cvc
-                  }
+                          $this.perfiltarjeta.addCredencial(info)
+                          .subscribe(
+                            data => {
+                              console.log(data);
+                              if(data.valid=="OK"){
+                                $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito");
+                              }else{
+                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                              $this.router.navigate(['']);
+                              }
+                            },
+                            err => {
+                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                              $this.router.navigate(['']);
+                            }
+                          );
 
-                  $this.perfiltarjeta.addCredencial(info)
-                  .subscribe(
-                    data => {
-                      console.log(data);
-                      if(data.valid=="OK"){
-                        $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito");
-                     }else{
-                      $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
-                      $this.router.navigate(['']);
-                     }
-                    },
-                    err => {
-                      $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
-                      $this.router.navigate(['']);
-                    }
-                  );
+                        } else if (cardResponse.card.status === 'review') {
+                          $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
+                        } else {
+                          $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                        }
+                        $this.dismiss();
+                      };
 
-                } else if (cardResponse.card.status === 'review') {
-                  $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
-                } else {
-                  $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                      let errorHandler = function (err) {
+                        $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos")
+                        button.disabled = false;
+                        button.innerText = texto;
+                      };
+
+                      Payment.addCard(id+"", val, checkCard, successHandler, errorHandler);
+
+                      }
+                  });
                 }
-                $this.dismiss();
-              };
-
-              let errorHandler = function (err) {
-                $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos")
-                button.disabled = false;
-                button.innerText = texto;
-              };
-
-              Payment.addCard(id+"", val, checkCard, successHandler, errorHandler);
-
-             }
-          });
+              });
+            }
+          }else{
+            this.mensajeIncorrecto("Demasiadas Tarjetas registradas", "Por cuestiones de seguridad, no permitimos ingresar mas de 2 tarjetas cada 2 meses.")
+          }
+          
+        },
+        err => {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
-      });
-    }
-    
+      );
   }
 
   enviar() {
