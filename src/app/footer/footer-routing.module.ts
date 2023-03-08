@@ -206,7 +206,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/elegir-estab',
+    //redirectTo: '/elegir-estab',
+    redirectTo: '/footer/inicio',
     pathMatch: 'full'
   }
 ];
