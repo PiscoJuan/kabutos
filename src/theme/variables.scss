@@ -25,6 +25,17 @@
     }
   }
 
+  .DetallesTarjeta .modal-wrapper{
+    top: 25%;
+    width: 80%;
+    position: absolute;
+    height: 40%;
+    border-radius: 20px;
+    *{
+      font-family:'MyriadProSemibold' !important ;
+    }
+  }
+
   .DetallesPremios .modal-wrapper{
     top: 25%;
     width: 80%;

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
+import { TarjetaPage } from '../aviso/tarjeta/tarjeta.page';
 
 @Component({
   selector: 'app-pago',
@@ -44,7 +45,7 @@ export class PagoPage implements OnInit {
   tarjeta(){
     this.router.navigate(['/footer/tarjeta']); 
     this.storage.set('tipoPago','Tarjeta');
-    this.mensajeCorrecto("Para comprobar la legalidad de la compra", "Recuerde que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra.")
+    this.mensajeTarjeta("Para comprobar la legalidad de la compra","Recuerde que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
   }
   async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
@@ -57,6 +58,19 @@ export class PagoPage implements OnInit {
     });
     return await modal.present();
   }
+
+  async mensajeTarjeta(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: TarjetaPage,
+      cssClass: 'DetallesTarjeta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
+
 
   atras(){
     let animations:AnimationOptions={

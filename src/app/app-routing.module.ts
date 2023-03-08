@@ -105,6 +105,10 @@ const routes: Routes = [
     path: 'cambiar-contra',
     loadChildren: () => import('./cambiar-contra/cambiar-contra.module').then( m => m.CambiarContraPageModule)
   },
+  {
+    path: 'tarjeta',
+    loadChildren: () => import('./aviso/tarjeta/tarjeta.module').then( m => m.TarjetaPageModule)
+  },
 ];
 
 
