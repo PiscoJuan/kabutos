@@ -16,6 +16,7 @@ import { TarjetaService } from "../servicios/tarjeta.service";
 import { Observable } from "rxjs";
 import { EstablecimientoService } from "../servicios/establecimiento.service";
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
+import { TarjetaPage } from '../aviso/tarjeta/tarjeta.page';
 
 @Component({
   selector: "app-efectivo",
@@ -308,6 +309,17 @@ export class EfectivoPage implements OnInit {
     });
     return await modal.present();
   }
+  async mensajeTarjeta(titulo: string, mensaje: string) {
+    const modal = await this.modalController.create({
+      component: TarjetaPage,
+      cssClass: 'DetallesTarjeta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
 
   getText(item){
     this.mensaje=(item.value)
@@ -442,8 +454,8 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (transaccion != null || autorizacion != null){
-            this.mensajeCorrecto("Pago exitoso", "Su pedido ha sido pagado con exito");
-          }   
+            this.mensajeTarjeta("Para comprobar la legalidad de la compra","Recuerde que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
+          } 
           this.router.navigate([""]);
         },
         (err) => {
