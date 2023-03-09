@@ -146,7 +146,7 @@ export class NuevaTarjetaPage implements OnInit {
               });
             }
           }else{
-            this.mensajeIncorrecto("Demasiadas Tarjetas registradas", "Por cuestiones de seguridad, no permitimos ingresar mas de 2 tarjetas cada 2 meses.")
+            this.mensajeIncorrecto("Demasiadas Tarjetas registradas", "Por cuestiones de seguridad, no permitimos ingresar más de 2 tarjetas.")
           }
           
         },

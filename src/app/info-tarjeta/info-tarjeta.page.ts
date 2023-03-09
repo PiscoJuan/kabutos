@@ -62,7 +62,7 @@ export class InfoTarjetaPage implements OnInit {
   }
 
   async agregarNegado() {
-    this.mensajeIncorrecto("Atención", "En nuestra aplicación, solo podrás registrar hasta 2 tarjetas por mes.")
+    this.mensajeIncorrecto("Atención", "En nuestra aplicación, solo podrás registrar hasta 2 tarjetas.")
   }
 
   async presentConfirm(message: any,cancelText: any,okText: any): Promise<any> {
