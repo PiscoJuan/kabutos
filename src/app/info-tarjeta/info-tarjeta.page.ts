@@ -19,6 +19,8 @@ export class InfoTarjetaPage implements OnInit {
   id;
   loading: any;
   tarjetas: any;
+  numTarjetas:any;
+  imgAdd:any = "../assets/img/agregar_2.png";
   constructor(
     private alertCtrl: AlertController,
     private storage: Storage,
@@ -31,7 +33,11 @@ export class InfoTarjetaPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    //console.log("didEnter");
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.imgAdd= "../assets/img/agregar_2black.png"
+      }
+    });
     this.storage.get('id').then((val) => {
       console.log(val);
       if (val != null) {
@@ -53,6 +59,10 @@ export class InfoTarjetaPage implements OnInit {
       this.datos();
     });
     return await modal.present();
+  }
+
+  async agregarNegado() {
+    this.mensajeIncorrecto("Atención", "En nuestra aplicación, solo podrás registrar hasta 2 tarjetas.")
   }
 
   async presentConfirm(message: any,cancelText: any,okText: any): Promise<any> {
@@ -176,8 +186,10 @@ export class InfoTarjetaPage implements OnInit {
       )
       .subscribe(
         data => {
-          //console.log(data);
+          console.log(data);
+          console.log(data["cards"].length);
           this.tarjetas = data["cards"];
+          this.numTarjetas= data["cards"].length;
           if (Object.keys(this.tarjetas).length === 0) {
             this.mensajeIncorrecto("No tiene tarjetas", "No cuenta con tarjetas guardadas")
           }

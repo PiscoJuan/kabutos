@@ -20,6 +20,8 @@ export class NuevaDireccionPage implements OnInit {
   latitud: any;
   longitud: any;
   zonas: any;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   @ViewChild('mapaUbicacion', { static: true }) mapElement;
   map;
   marker;
@@ -38,6 +40,12 @@ export class NuevaDireccionPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.initMap()
   }
 

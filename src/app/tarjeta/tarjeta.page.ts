@@ -19,6 +19,10 @@ export class TarjetaPage implements OnInit {
   id;
   loading: any;
   tarjetas: any;
+  numTarjetas:any;
+  butAtras:any = "../assets/img/atras_naranja.png";
+  imgAdd:any = "../assets/img/agregar_2.png";
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   constructor(
     private router: Router,
     private storage: Storage,
@@ -32,6 +36,13 @@ export class TarjetaPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.imgAdd= "../assets/img/agregar_2black.png"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     console.log("didEnter");
     this.storage.get('total').then((val) => {
       console.log(val);
@@ -45,7 +56,7 @@ export class TarjetaPage implements OnInit {
     this.datos();
   }
 
-  pagar(token, type, number) {
+  pagar(token, type, number, name) {
     let tarjeta="";
     if(type === 'vi'){
       tarjeta='Visa';
@@ -67,6 +78,7 @@ export class TarjetaPage implements OnInit {
       tarjeta='Union Pay';
     }
     tarjeta= tarjeta+" ****"+number;
+    this.storage.set('nombreTarjeta', name); 
     this.storage.set('numeroTarjeta', tarjeta); 
     this.storage.set('tokenTarjeta', token);
     this.router.navigate(['/footer/efectivo']);
@@ -83,6 +95,7 @@ export class TarjetaPage implements OnInit {
       .subscribe(
         data => {
           console.log(this.id);
+          this.numTarjetas= data["cards"].length;
           this.tarjetas = data["cards"];
 
         },
@@ -135,4 +148,7 @@ export class TarjetaPage implements OnInit {
     return await modal.present();
   }
 
+  async agregarNegado() {
+    this.mensajeIncorrecto("Atención", "En nuestra aplicación, solo podrás registrar hasta 2 tarjetas.")
+  }
 }

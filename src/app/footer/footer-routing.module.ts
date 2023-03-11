@@ -154,6 +154,10 @@ const routes: Routes = [
         loadChildren: () => import('../hacer-regalo-monto/hacer-regalo-monto.module').then( m => m.HacerRegaloMontoPageModule)
       },
       {
+        path: 'hacer-regalo-puntos',
+        loadChildren: () => import('../hacer-regalo-puntos/hacer-regalo-puntos.module').then( m => m.HacerRegaloPuntosPageModule)
+      },
+      {
         path: 'hacer-regalo-producto',
         loadChildren: () => import('../hacer-regalo-producto/hacer-regalo-producto.module').then( m => m.HacerRegaloProductoPageModule)
       },
@@ -161,10 +165,48 @@ const routes: Routes = [
         path: 'cupones-carrito',
         loadChildren: () => import('../cupones-carrito/cupones-carrito.module').then( m => m.CuponesCarritoPageModule)
       },
+      {
+        path: 'premios',
+        loadChildren: () => import('../premios/premios.module').then( m => m.PremiosPageModule)
+      },
+      {
+        path: 'puntos',
+        loadChildren: () => import('../puntos/puntos.module').then( m => m.PuntosPageModule)
+      },
+      {
+        path: 'catalogo',
+        loadChildren: () => import('../catalogo/catalogo.module').then( m => m.CatalogoPageModule)
+      },
+      {
+        path: 'historial-mensajes',
+        loadChildren: () => import('../chat/historial-mensajes/historial-mensajes.module').then( m => m.HistorialMensajesPageModule)
+      },
+      {
+        path: 'mensajes',
+        loadChildren: () => import('../chat/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+      },
+    
+      {
+        path: 'premios-inicio',
+        loadChildren: () => import('../premios-inicio/premios-inicio.module').then( m => m.PremiosInicioPageModule)
+      },
+      {
+        path: 'elegir-estab',
+        loadChildren: () => import('../elegir-estab/elegir-estab.module').then( m => m.ElegirEstabPageModule)
+      },
+      {
+        path: 'premios-utilizados',
+        loadChildren: () => import('../premios-utilizados/premios-utilizados.module').then( m => m.PremiosUtilizadosPageModule)
+      },
+      {
+        path: 'cambiar-contra',
+        loadChildren: () => import('../cambiar-contra/cambiar-contra.module').then( m => m.CambiarContraPageModule)
+      },
     ]
   },
   {
     path: '',
+    //redirectTo: '/elegir-estab',
     redirectTo: '/footer/inicio',
     pathMatch: 'full'
   }

@@ -7,13 +7,13 @@
       <ion-input placeholder="    ¿Qué necesitas?" [(ngModel)]="textInput"></ion-input>
       <img src="../assets/img/buscar.png" class="icono" (click)="buscar()">
     </div>
-    <div class="contenedor-publicidad">
-      <img src="../assets/img/publicidad-ej1.jpg" >
-    </div>
-    <div class="contenedor-titulo" *ngIf="categorias.length >0">
-      <ion-label class="titulo">Categorías</ion-label>
-      <a class="todos" (click)="categoriasPage()">Ver todo</a>
-    </div>
+    
+    <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
+      <ion-slide *ngFor="let publicidad of superior">
+        <a href="{{publicidad.link}}"><img src="{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
+      </ion-slide>
+    </ion-slides>
+    
     <div class="contenedor contenedor-c" *ngIf="categorias.length >0">
       <div class="contener-categoria" *ngFor="let categoria of categorias">
         <div class="div-categoria" (click)="mostrar(categoria.nombre)">
@@ -28,19 +28,18 @@
     </div>
     <div class="contenedor contenedor-p" *ngIf="producto.length >0">
       <div class="contener-producto" *ngFor="let productos of producto">
-        <div class="div-producto" (click)="detalle('Producto',productos.nombre,productos.image,productos.precio,productos.suma)">
+        <div class="div-producto" (click)="detalle('Producto',productos.id_producto__nombre,productos.id_producto__image,productos.id_producto__precio,productos.suma)">
           <div class="producto">
-            <img name="imagen" src="http://cabutoshop.pythonanywhere.com/media/{{productos.image}}">
+            <img name="imagen" src="http://cabutoshop.pythonanywhere.com/media/{{productos.id_producto__image}}">
           </div>
           <div class="nombre">
-            <h6 class="nombre-producto" name="nombre">{{productos.nombre}}</h6>
+            <h6 class="nombre-producto" name="nombre">{{productos.id_producto__nombre}}</h6>
           </div>
           <div class="precio">
-            <h4 name="precio">${{productos.precio| number : '1.2-2'}}</h4>
+            <h4 name="precio" style="color: {{colorBack}};">${{productos.id_producto__precio| number : '1.2-2'}}</h4>
           </div>
         </div>
       </div>
-
     </div>
     <div class="contenedor-titulo" *ngIf="ofertas.length >0">
       <ion-label class="titulo">Ofertas</ion-label>
@@ -56,13 +55,17 @@
             <h6 class="nombre-producto" name="nombre">{{oferta.nombre}}</h6>
           </div>
           <div class="precio">
-            <h4 name="precio">${{oferta.precio| number : '1.2-2'}}</h4>
+            <h4 name="precio" style="color: {{colorBack}};">${{oferta.precio| number : '1.2-2'}}</h4>
           </div>
         </div>
       </div>
     </div>
-    <div class="contenedor-publicidad">
-      <img src="../assets/img/publicidad-ej1.jpg" >
-    </div>
+
+    <ion-slides class="contenedor-publicidad" [options]="{ slidesPerView:1, autoplay: {delay: 3000} }" >
+      <ion-slide *ngFor="let publicidad of inferior">
+        <a href="{{publicidad.link}}"><img src="{{publicidad.img}}" alt="{{publicidad.nombre}}"></a>
+      </ion-slide>
+    </ion-slides>
+
   </div>
 </ion-content>

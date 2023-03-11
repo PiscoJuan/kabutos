@@ -1,0 +1,73 @@
+<style>
+
+</style>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+  </div>
+  <ion-label class="titulo">Catálogo de Premios</ion-label>
+  <br>
+  <div class="franja">
+    <ion-tab-button class="col_home" tab="catalogo">
+      <img src="../assets/img/catalogo055.png" height="40">
+      <span style="color:yellow">Catálogo</span>
+    </ion-tab-button>
+    <ion-tab-button class="col_home" tab="puntos">
+      <img src="../assets/img/mispuntos01.png" height="40">
+      Mis Puntos
+    </ion-tab-button>
+    <ion-tab-button class="col_home" tab="premios">
+      <img src="../assets/img/mispremios066.png" height="40">
+      Mis Premios
+    </ion-tab-button>
+  </div>
+  <div class="contenedor-page">
+    <div class="contenedor">
+      <div class="contenedor-filtro">
+        <div class="contenedor-selector">
+          <ion-label class="subtitulo">Tienes {{puntos}} puntos</ion-label>
+          <select [(ngModel)]="opcion" class="selector" (change)="showLoading3()">
+            <option value="none" selected disabled hidden>Filtrar por:</option>
+            <option value="menor">Puntos: más bajo</option>
+            <option value="mayor">Puntos: más alto</option>
+            <option value="ascendente">A a Z</option>
+            <option value="descendente">Z a A</option>
+          </select>
+        </div>
+      </div>
+      <div class="colProds">
+        <div class="contener-producto" *ngFor="let premio of premios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos,premio.cantidad)>
+          <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
+          <div class="div-producto">
+            <div class="contener-columna">
+              <div class="nombre">
+                <h6 class="nombre-producto" name="nombre" style="max-width: 200px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">{{premio.nombre}}</h6>
+              </div>
+              <div class="precio">
+                <img class="puntos" src="../assets/img/puntos.png" height="30">
+                <h4 name="precio" style="color:{{colorBack}}"> {{premio.puntos}}</h4>
+              </div>
+              <div class="texto" *ngIf="premio.puntos - puntos > 0">
+                Te falta {{premio.puntos - puntos}} puntos
+              </div>
+              <div class="texto" *ngIf="premio.puntos - puntos < 0 || premio.puntos - puntos == 0">
+                ¡Ya puedes reclamarlo!
+              </div>
+            </div>
+
+            <div class="contener-columnaI">
+              <div class="producto">
+                <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

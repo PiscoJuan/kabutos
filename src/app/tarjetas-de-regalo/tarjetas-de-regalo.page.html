@@ -1,12 +1,12 @@
 <div class="contenedor">
   <div class="titulo_atras">
-    <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+    <img class="atras" src={{butAtras}} size=12 (click)="atras()">
   </div>
   <div class="contenedor-titulo">
     <ion-label class="titulo">¿Desea hacer un regalo?</ion-label>
   </div>
   <br>
-  <div class="button-content">
+  <div *ngIf="val" class="button-content">
     <button ion-button size="large" (click)="regalar()">
       <div class="imggg">
         <img src="../assets/img/wgift.png" width="20" height="20">
@@ -20,7 +20,7 @@
     </button>
   </div>
   <br>
-  <div class="contenedor-titulo2">
+  <div *ngIf="val" class="contenedor-titulo2">
     <ion-label class="titulo2">¡Tus tarjetas de regalo!</ion-label>
   </div>
 </div>

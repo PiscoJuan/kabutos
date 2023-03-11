@@ -41,6 +41,8 @@ export class HacerRegaloProductoPage implements OnInit {
   num: any = 0;
   loaderToShow: any;
   almacenado: {};
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   private correo: String = "";
   public cantidad: string = "0";
   public page: number = 0;
@@ -51,6 +53,7 @@ export class HacerRegaloProductoPage implements OnInit {
   public id: any;
   public idCarrito: any;
   loading: any;
+  elegirEstab: number = 1;
 
   public filtro: String = "vendidos";
 
@@ -67,8 +70,18 @@ export class HacerRegaloProductoPage implements OnInit {
 
 
   ngOnInit() {
-    this.cargaPantalla();
-    this.getCorreo();
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+      this.cargaPantalla();
+      this.getCorreo();
+      this.storage.get("elegirEstab").then((val) => {
+        this.elegirEstab = Number(val);
+        console.log(val)
+      });
+    });
   }
 
   atras() {
@@ -123,7 +136,7 @@ export class HacerRegaloProductoPage implements OnInit {
   datos(event, filtro){
     if (filtro == "vendidos") {
       this.page += 1;
-      this.productoService.getProductosByFiltro(filtro, this.page).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.page,this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcial.push(...data);
         this.producto = this.productoParcial;
         console.log(data);
@@ -137,7 +150,7 @@ export class HacerRegaloProductoPage implements OnInit {
     }
     else if (filtro == "descendente"){
       this.pageZA += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageZA).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageZA,this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialZA.push(...data);
         this.producto = this.productoParcialZA;
         console.log(data);
@@ -151,7 +164,7 @@ export class HacerRegaloProductoPage implements OnInit {
     }                                                     
     else if (filtro == "ascendente"){
       this.pageAZ += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageAZ).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageAZ,this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialAZ.push(...data);
         this.producto = this.productoParcialAZ;
         console.log(data);
@@ -165,7 +178,7 @@ export class HacerRegaloProductoPage implements OnInit {
     }
     else if(filtro == "menor"){
       this.pageMenor += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageMenor).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageMenor,this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialMenor.push(...data);
         this.producto = this.productoParcialMenor;
         console.log(data);
@@ -179,7 +192,7 @@ export class HacerRegaloProductoPage implements OnInit {
     }
     else if(filtro == "mayor"){
       this.pageMayor += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageMayor).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageMayor,this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialMayor.push(...data);
         this.producto = this.productoParcialMayor;
         console.log(data);
@@ -229,7 +242,7 @@ export class HacerRegaloProductoPage implements OnInit {
   }
 
   ordenar(data) { 
-    this.productoService.getProductosByFiltro(data, 1).subscribe((data: Array<Producto>) => {
+    this.productoService.getProductosByFiltro(data, 1,this.elegirEstab).subscribe((data: Array<Producto>) => {
       this.producto = data;
     }
     );

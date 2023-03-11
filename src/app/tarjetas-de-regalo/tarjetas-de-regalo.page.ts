@@ -12,7 +12,6 @@ import { ShoppingCartService } from "../servicios/shopping-cart.service";
 import { Storage } from "@ionic/storage";
 import { finalize } from "rxjs/operators";
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
-import { database } from "firebase";
 declare var window;
 @Component({
   selector: "app-tarjetas-de-regalo",
@@ -26,6 +25,9 @@ export class TarjetasDeRegaloPage implements OnInit {
   url = "";
   loader: any;
   valor = 0;
+  val = null;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   private correo: String = "";
 
   constructor(
@@ -40,6 +42,10 @@ export class TarjetasDeRegaloPage implements OnInit {
     this.storage.get("perfil").then((val) => {
       if (val != null) {
         this.perfil = val;
+        this.val = val;
+
+      } else {
+        this.mensajeIncorrecto("Perfil no encontrado","Inicie sesión para poder ver sus regalos");
       }
     });
   }
@@ -48,6 +54,12 @@ export class TarjetasDeRegaloPage implements OnInit {
     
   }
   ionViewDidEnter(){
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.mostrarTarjetas();
   }
 

@@ -85,7 +85,11 @@ export class AppComponent {
             }
             if(data.titulo=="Pedido despachado" || data.titulo=="Pedido enviado" || data.titulo=="Pedido entregado"){
               this.notificacion(data.titulo, data.mensaje, "");
-            }else {
+            }
+            else if (data.titulo == "Mensaje enviado") {
+              this.router.navigateByUrl('/footer/mensajes', { replaceUrl: true });
+            }
+            else {
               this.imagen(data)
             }
             /*if (data.image) {

@@ -28,7 +28,8 @@ export class DetalleHistorialPage implements OnInit {
   perfil:any;
   transaction:any;
   usuario_id;
-
+  image:any ="../assets/img/atras.png"
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   constructor(
     public loadingCtrl: LoadingController,
     public modalController: ModalController,
@@ -48,6 +49,12 @@ export class DetalleHistorialPage implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.image= "../assets/img/atrasblack.png"
+      }
+    });
   }
 
   ionViewDidEnter(){

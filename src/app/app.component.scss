@@ -3,7 +3,7 @@
 }   
 
 .header-content{
-    background-color: #2153FF !important;
+    background-color: #2153FF ;
     height: 180px;
     text-align: center;
     display: flex;
@@ -30,24 +30,24 @@
 }
 
 ion-menu{
-    --background: #2153FF !important;
+    --background: #2153FF ;
     --width: 16rem;
 }
 
 ion-menu {
     &#menu-up{
-        display: block !important;
+        display: block ;
         visibility: hidden;
     }
     &.show-menu {
-        visibility: visible !important;
+        visibility: visible;
     }
  }
 
 
 ion-item{
-    --background: #2153FF !important;
-    background: #2153FF !important;
+    --background: #2153FF ;
+    background: #2153FF ;
     padding-left: 0.5rem;
     color: white;
     font-size: 1rem;
@@ -59,12 +59,12 @@ ion-item{
 .social-media {
     //display: inline-block!important;
     text-align: center;
-    background: #2153FF !important;
+    background: #2153FF ;
     display: flex;
     justify-content: center;
     padding-top:2rem;
     padding-bottom: 20px;
-    border-bottom: 1px white solid!important;
+    border-bottom: 1px white solid;
     margin-left: 10px;
     margin-right: 10px;
 
@@ -72,18 +72,18 @@ ion-item{
         height: 1.6rem;
         width: 2.8rem;
         text-align: center;
-        background: #2153FF !important;
+        background: #2153FF ;
         padding: 0px 10px 0px 10px;
     }
 }
 
 .list-ios {
-    background: #2153FF !important;
+    background: #2153FF;
     text-align:center;
 }
 
 ion-footer{
-    --background: #2153FF !important;
+    --background: #2153FF ;
     color: white;
     padding-top: 1rem;
     margin: auto;
@@ -91,7 +91,7 @@ ion-footer{
 }
 
 .sesion{
-    background:#2153FF !important;
+    background:#2153FF;
     font-size: 1rem;
     padding-bottom: 1.5rem;
     width: max-content;
@@ -100,7 +100,7 @@ ion-footer{
 
 
 ion-app {
- --background: #2153FF !important;   
+ --background: #2153FF ;   
 }
 
 ion-content{
@@ -118,4 +118,17 @@ ion-list{
     padding: 20px 0px 0px 10px;
     margin: 0px;
     text-align: left;
+}
+.no-leido {
+    margin-left: 5px;
+    background-color: orangered;
+    width: 15px;
+    height: 15px;
+    border-radius: 12px;
+  }
+.listado{
+    padding-left: 30px;
+}
+.imagen{
+    width: 20px;
 }

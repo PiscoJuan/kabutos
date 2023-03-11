@@ -19,7 +19,8 @@ export class HacerRegaloEscogerPage implements OnInit {
   loading: any;
   correo: any;
   receptor: any;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(private storage: Storage,
     public perfilService: PerfilService,
     public hacerRegaloService: HacerRegaloService,
@@ -40,6 +41,12 @@ export class HacerRegaloEscogerPage implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
   }
 
   atras() {

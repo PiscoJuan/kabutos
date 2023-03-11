@@ -1,0 +1,27 @@
+<div class="contne">
+  <ion-refresher slot="fixed" (ionRefresh)="iniciar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="contenedor-page" >
+    <div class="titulo">¡Elige tu Tienda Favorita!</div>
+    <div class="button-content">
+      <button ion-button size="large" (click)="cabutosPage()" style="background: #fe3a00;">
+        <img src="../assets/img/cabutologo01.png" width="75%" >
+      </button>
+    </div>
+    <br>
+    <div class="button-content">
+      <button ion-button size="large" (click)="licoreriaPage()" style="background: #000000;">
+        <img src="../assets/img/licorlogo02.png" width="60%" >
+      </button>
+    </div>
+    <div class="button-content">
+      <p style="background: #000000; opacity:0">⠀</p>
+    </div>
+    <div class="button-content">
+      <p style="background: #000000; opacity:0">⠀</p>
+    </div>
+    
+  </div>
+  
+</div>

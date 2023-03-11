@@ -14,6 +14,8 @@ import { finalize } from 'rxjs/operators';
 import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { exit } from 'process';
 import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { BaneoService } from '../servicios/baneo.service';
+
 //import { Console } from 'console';
 declare var window;
 
@@ -52,7 +54,10 @@ export class ShoppingCartPage implements OnInit {
   currentTimeHours: any;
   open = false;
   politecnico=false;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(private modalCtrl: ModalController, private router: Router,
+    private baneoService: BaneoService,
     private shoppingService: ShoppingCartService, private loadingCtrl: LoadingController,
     private storage: Storage,
     private navCtrlr: NavController, private navParamsService: NavParamsService) {
@@ -62,6 +67,12 @@ export class ShoppingCartPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.modificado = false
     this.getCorreo();
     this.storage.get('name').then((nombre) => {
@@ -662,11 +673,17 @@ export class ShoppingCartPage implements OnInit {
     /*if (this.cupLen > 0){
       this.revisionCupon();
     }*/
-    this.actualizarCarrito()
-    this.horario();
+    this.storage.get("perfil").then((dato) => {
+      this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
+        if (data.valid == "OK"){
+          this.actualizarCarrito()
+          this.horario();
+        } else {
+          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
+        }
+      })
+    })
     
-
-
   }
 
   async revisionCupon() {

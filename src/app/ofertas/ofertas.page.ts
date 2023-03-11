@@ -20,6 +20,8 @@ export class OfertasPage implements OnInit {
   dataFromCart: {};
   oferta: {};
   almacenado: {};
+  elegirEstab: number = 1;
+  colorBack: any = "color: var(--ion-color-naranja-oscuro)"
   private correo: String = "";
   constructor(public productoService: ProductoService, public modalCtrl: ModalController, public loadingCtrl: LoadingController,
     private alert: AlertController, private storage: Storage, private router: Router, private navParamsService: NavParamsService) { }
@@ -31,12 +33,17 @@ export class OfertasPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log("refresh");
-    this.datos(null)
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      if(Number(val)==2){
+        this.colorBack="color: black"
+      }
+      this.datos(null)
+    });
   }
 
   datos(event){
-    this.productoService.getOferta().subscribe(data => {
+    this.productoService.getOferta(this.elegirEstab).subscribe(data => {
       this.oferta = data;
       console.log(this.oferta);
       if (event)

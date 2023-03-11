@@ -2,7 +2,7 @@
   <div class="btn-salir"><img src="../assets/img/salir.png" (click)=dismiss()></div>
   <div class="imagen"><img src="http://cabutoshop.pythonanywhere.com/media/{{imagen}}"></div>
   <div class="nombre">{{nombre}}</div>
-  <div class="precio">${{precio}}</div>
+  <div class="precio" style="color: {{colorBack}};">${{precio}}</div>
   <div class="contener-columna">
     <div class="producto-carrito">
       <div class="tocable" (click)=quitar(nombre)>

@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <ion-content>
     <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
         <ion-refresher-content></ion-refresher-content>
@@ -52,7 +55,10 @@
                         </div>
                         <div class="contener-columna-centrar">
                             <div class="precio">
-                                <h4 name="precio">${{productos.precio}}</h4>
+                                <h4 name="precio" style={{colorBack}}>${{productos.precio}} AQUI</h4>
+                            </div>
+                            <div class="favorito">
+                                
                             </div>
                             <div class="carrito">
                                 <img src="../assets/img/carrito_activo.png" height="23"

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProductoService } from '../servicios/producto.service';
+import { PublicidadService } from '../servicios/publicidad.service';
 import { finalize } from 'rxjs/operators';
 import { DetalleInicioPage } from './detalle-inicio/detalle-inicio.page';
 
@@ -13,6 +14,7 @@ import { DetalleInicioPage } from './detalle-inicio/detalle-inicio.page';
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
+
 export class InicioPage implements OnInit {
 
   loading;
@@ -20,9 +22,13 @@ export class InicioPage implements OnInit {
   categorias: any;
   ofertas: any;
   textInput;
-
+  superior: any;
+  inferior: any;
+  elegirEstab: number = 3;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
   constructor(
     public productoService: ProductoService,
+    public publicidadService: PublicidadService,
     public modalController: ModalController,
     private router: Router,
     private alert: AlertController,
@@ -38,18 +44,66 @@ export class InicioPage implements OnInit {
     this.storage.set("tarjetaRegaloMonto",'no')
     this.storage.set("tarjetaRegaloproducto",'no')
     await this.showLoading2();
+    
     this.iniciar(null)
   }
 
   async iniciar(event){
-    this.productoService.getInicio().pipe(
-      finalize(async () => {
-        await this.loading.dismiss();
-      })
-    ).subscribe(data => {
-      this.producto = data['productos'];
-      this.categorias = data['categorias'];
-      this.ofertas = data['ofertas'];
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+      }
+      this.productoService.getInicio(Number(val)).pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      ).subscribe(data => {
+        this.producto = data['productos'];
+        console.log(this.producto)
+        this.categorias = data['categorias'];
+        this.ofertas = data['ofertas'];
+        if (event)
+        event.target.complete();
+      }, (error) => {
+        console.error(error);
+        if (event)
+        event.target.complete();
+      });
+    });
+    
+
+    this.publicidadService.getSuperior()
+    .subscribe((data: any) => {
+      this.superior = data;
+      if(data.length == 0) {
+        this.superior = [ {
+          nombre: "default",
+          img: "../assets/img/publicidad-ej1.jpg",
+        }];        
+      } else {
+        this.superior.map((x) => x.img = "http://cabutoshop.pythonanywhere.com/"+x.img);
+      }
+      console.log("sup", this.superior);
+      if (event)
+      event.target.complete();
+    }, (error) => {
+      console.error(error);
+      if (event)
+      event.target.complete();
+    });
+  
+    this.publicidadService.getInferior()
+    .subscribe((data: any) => {
+      this.inferior = data;
+        if(data.length == 0) {
+          this.inferior = [ {
+            nombre: "default",
+            img: "../assets/img/publicidad-ej1.jpg",
+          }];
+        } else {
+          this.inferior.map((x) => x.img = "http://cabutoshop.pythonanywhere.com/"+x.img);
+        }
       if (event)
       event.target.complete();
     }, (error) => {
@@ -62,7 +116,7 @@ export class InicioPage implements OnInit {
   async buscar(){
     console.log(this.textInput)
     await this.showLoading2();
-    this.productoService.getInicioBuscar(this.textInput)
+    this.productoService.getInicioBuscar(this.textInput,this.elegirEstab)
     .pipe(
       finalize(async () => {
         await this.loading.dismiss();

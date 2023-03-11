@@ -1,0 +1,72 @@
+*{
+    font-family:'MyriadProSemibold' !important ;
+}
+.fondo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;    
+    background-color: rgb(237, 237, 238);
+    width: 90%;
+    height: 100%;
+    z-index: -9;
+    
+}
+.seccion-retorno{
+    margin: 15px;
+    .icono-retorno{    
+        float: inline-start;
+        margin-left: 10px;
+        img{
+            width: 50px;
+        }
+    }
+    span{
+        font-size: xx-large;
+    }
+}
+
+.filtro-chats{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    width: 100%;
+    padding:  0 0 10px 0;
+    ion-button{
+        --background: white;
+        color: rgb(1, 1, 46);
+        font-weight: bold;
+    }
+}
+
+.mensaje{
+    display: flex;
+    margin: 10px;
+    border-radius: 16px;
+    border: 1px solid black;
+    .avatar-foto{
+        img{
+            width: 60px;
+        }
+    }
+    .detalles{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        .nombre{
+            display: flex;
+            gap: 10px;
+
+            .no-leido{
+                display: flex;
+                float: inline-start;
+            }
+        }
+
+        .texto{
+
+        }
+    }
+}

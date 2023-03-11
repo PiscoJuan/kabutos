@@ -1,0 +1,21 @@
+<ion-content padding text-center style="text-align: center !important;">
+  <div class = "btn-salir"><img src="../assets/img/salir.png" (click)=salir()></div>
+  <div class = "nombre">{{nombre}}</div>
+  <div class = "imagen"><img src="http://cabutoshop.pythonanywhere.com{{imagen}}"  ></div>
+  <div class = "precio" *ngIf="button">
+    <div class="punto" >
+      <img class="puntos" src="../assets/img/puntos.png" height="45"> {{precio}}
+      <br> 
+      Puntos
+    </div>
+    <button  ion-button size="large" (click)="reclamo()">
+      Canjear
+    </button>
+  </div>
+  <div class = "precio" *ngIf="!button">
+    <div class="punto2" >
+      <img class="puntos2" src="../assets/img/puntos.png" height="45"> {{precio}} 
+      Puntos
+    </div>
+  </div>
+</ion-content>

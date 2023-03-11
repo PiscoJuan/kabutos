@@ -20,8 +20,11 @@ export class FooterPage implements OnInit {
   selectedPath = '';
   tab:String;tab_carrito:String;
   notificaciones : {};
+  rutalogo:any = "../assets/img/logo.png";
   public number:String="0";
   public cosas=0;
+  elegirEstab: number = 3;
+  colorBack:any = "var(--ion-color-naranja-oscuro)"
   constructor(private router: Router,
     private storage: Storage,
     private notificacionesService: NotificacionesService,
@@ -30,18 +33,24 @@ export class FooterPage implements OnInit {
      }
 
   ngOnInit() {
-    
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      if(this.elegirEstab==2){
+        this.rutalogo= "../assets/img/licorlogo02.png";
+        this.colorBack="#000000"
+      }
+    });
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         this.datos();
         if(event && event.url){
-          this.selectedPath = event.url;
-          
-
+          if(event.url == '/footer/premios-inicio'){
+            this.selectedPath = '';
+          }else{
+            this.selectedPath = event.url;
+          }
         }
-
         this.storage.get('cosas').then((valor)=>{
-
           if(valor!= null){
             this.cosas=valor;
           }else{
@@ -49,7 +58,6 @@ export class FooterPage implements OnInit {
           }
         })
         this.storage.get('name').then((nombre) => {
-
           if(login.login ==false && nombre == null ){
             this.tab="login";
             this.tab_carrito="login";

@@ -1,9 +1,9 @@
 <ion-tabs>
-  <ion-tab-bar slot="top" class="header" *ngIf="!selectedPath.includes('login')">
+  <ion-tab-bar slot="top" class="header" style="background-color: {{colorBack}};" *ngIf="!selectedPath.includes('login')">
     <ion-tab-button class="menu_hamburguesa" size=3>
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-tab-button>
-    <div class= "headerR" > <img src="../assets/img/logo.png"></div>
+    <div class= "headerR" > <img src={{rutalogo}}></div>
     <ion-tab-button class= "carrito_logo" size=1 [tab]="tab_carrito">        
       <div class= "carrito_logo">
         <div class = "valor_c" *ngIf="cosas>0"><span>{{cosas}}</span></div>
@@ -16,7 +16,7 @@
       <div class= "home"> <ion-img [src]="home" ></ion-img></div>
     </ion-tab-button>
     <ion-tab-button class= "col_notifications" [class.active-item]="selectedPath.includes('notificacion')" tab="notificacion" size= 4 >
-      <div class = "valor"><span>{{number}}</span></div>
+      <div class = "valor" style="background: {{colorBack}};"><span>{{number}}</span></div>
       <div class= "notifications"> <ion-img [src]="notificacion" ></ion-img></div> 
     </ion-tab-button>
     <ion-tab-button class= "col_perfil" [class.active-item]="selectedPath.includes('perfil') "  tab="perfil" size=4 >        

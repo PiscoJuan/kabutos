@@ -2,21 +2,21 @@
 <ion-content>
   <div class="contenedor-page">
     <div class="titulo_atras">
-      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
         <ion-label class="titulo">Pagar</ion-label>
     </div>
     <div class="total" >
       <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
       <div style="display: flex;">
-        <ion-label style="color:#FE3A00;font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
-        <div class="A_pagar" id="A_pagar" *ngIf="total">{{total}}</div>
+        <ion-label style="color:{{colorBack}};font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
+        <div class="A_pagar" id="A_pagar" *ngIf="total" style="color:{{colorBack}}">{{total}}</div>
       </div>
     </div>
     
     
     <div class="button-content">
-      <div class="datos">A Domicilio</div>
-      <ion-button class="btn-registro" (click)=domicilio()>
+      <div class="datos" style="color:{{colorBack}}">A Domicilio</div>
+      <ion-button class="btn-registro" (click)=domicilio() style="--background:{{colorBack}};">
         <p class="registro">DIRECCIONES GUARDADAS</p>
       </ion-button>
     </div>
@@ -33,8 +33,8 @@
       </ion-item>
     <div class="button-content botones">
 
-      <ion-button class="btn-registro" type=submit>
-        <p class="registro">Continuar</p>
+      <ion-button class="btn-registro" type=submit style="--background:{{colorBack}};">
+        <p class="registro" >Continuar</p>
       </ion-button>
     </div>
     </form>

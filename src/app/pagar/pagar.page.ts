@@ -17,6 +17,8 @@ export class PagarPage implements OnInit {
   perfil:any;
   correo:any;
   url;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -31,6 +33,12 @@ export class PagarPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     console.log("didEnter");
     this.storage.get('total').then((val) => {
       console.log(val);

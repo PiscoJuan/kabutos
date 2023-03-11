@@ -26,6 +26,9 @@ export class EditarPerfilPage implements OnInit {
   loading: any;
   imagenUrl;
   file:any;
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  imagenedit:any = "../assets/img/editar-imagen.png";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -49,7 +52,13 @@ export class EditarPerfilPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.imagenedit = "../assets/img/editar-imagenblack.png";
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
   }
 
   onSelectFile(event) {

@@ -16,6 +16,7 @@ import { TarjetaService } from "../servicios/tarjeta.service";
 import { Observable } from "rxjs";
 import { EstablecimientoService } from "../servicios/establecimiento.service";
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
+import { TarjetaPage } from '../aviso/tarjeta/tarjeta.page';
 
 @Component({
   selector: "app-efectivo",
@@ -38,7 +39,11 @@ export class EfectivoPage implements OnInit {
   id: any;
   cvc: any;
   receptor: any;
+  nombreTarjeta: any="";
+  numeroTarjeta: any="";
   tarjetaRegalo= "no";
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -55,6 +60,12 @@ export class EfectivoPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     this.envio = false;
     this.tarjetaRegalo='no        '
     //console.log("didEnter");
@@ -107,6 +118,11 @@ export class EfectivoPage implements OnInit {
           this.tipoPago = "Tarjeta";
           this.storage.get("tokenTarjeta").then((val) => {
             this.token = val + "";
+          });
+          this.storage.get("numeroTarjeta").then((val) => {
+            if (val != null) {
+              this.numero = val;
+            }
           });
           this.storage.get("numeroTarjeta").then((val) => {
             if (val != null) {
@@ -167,7 +183,12 @@ export class EfectivoPage implements OnInit {
     let tax = Number(sub.toFixed(2));
     let vat = Number(this.iva.toFixed(2));
     let tot = Number(completo.toFixed(2));
-
+    this.storage.get("nombreTarjeta").then((val) => {
+      this.nombreTarjeta = val ;
+    });
+    this.storage.get("numeroTarjeta").then((val) => {
+      this.numeroTarjeta = val ;
+    });
     let info = {
       card: {
         token: this.token,
@@ -184,6 +205,7 @@ export class EfectivoPage implements OnInit {
         vat: vat,
         tax_percentage: 12,
         taxable_amount: tax,
+
       },
     };
 
@@ -287,6 +309,17 @@ export class EfectivoPage implements OnInit {
     });
     return await modal.present();
   }
+  async mensajeTarjeta(titulo: string, mensaje: string) {
+    const modal = await this.modalController.create({
+      component: TarjetaPage,
+      cssClass: 'DetallesTarjeta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje
+      }
+    });
+    return await modal.present();
+  }
 
   getText(item){
     this.mensaje=(item.value)
@@ -330,11 +363,11 @@ export class EfectivoPage implements OnInit {
       }
     });
 
-    /*if (this.tipoPago == "Tarjeta") {
+    if (this.tipoPago == "Tarjeta") {
       this.pagar(form);
-    } else {*/
+    } else {
       this.guardarPedido(form, null, null);
-    //}
+    }
   }
 
   async pagar(form) {
@@ -358,11 +391,9 @@ export class EfectivoPage implements OnInit {
 
   
   async guardarPedido(form, transaccion, autorizacion) {
-    
     await this.showLoading2();
-    
-    
-
+    form.nombreTarjeta= this.nombreTarjeta,
+    form.numeroTarjeta= this.numeroTarjeta
     this.pedidoService
       .nuevoPedido(form)
       .pipe(
@@ -373,6 +404,7 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (data.valid == "ok") {
+            console.log("AAAAAAAAA", data.enviarnotificacion);
             if (this.tipoPago == "Tarjeta") {
               this.pagado(data.pedido, transaccion, autorizacion);
             }
@@ -383,14 +415,15 @@ export class EfectivoPage implements OnInit {
             this.storage.set("tarjetaRegaloproducto",'no')
             this.storage.get("tipoEntrega").then((val) => {
               if (val != null) {
-                if (val === "Local") {
+                if (this.tarjetaRegalo=='si') {
+                  this.mensajeCorrecto("Su regalo se ha enviado", "");
+                } else if (val === "Local" ){
                   this.mensajeCorrecto("Estaremos esperando por Usted", "");
-                } else {
+                }else {
                   this.mensajeCorrecto("Su pedido será enviado en breve", "");
                 }
               }
             });
-
             this.router.navigate([""]);
           } else {
             this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
@@ -421,8 +454,8 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (transaccion != null || autorizacion != null){
-            this.mensajeCorrecto("Pago exitoso", "Su pedido ha sido pagado con exito");
-          }   
+            this.mensajeTarjeta("Para comprobar la legalidad de la compra","Recuerde que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
+          } 
           this.router.navigate([""]);
         },
         (err) => {

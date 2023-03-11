@@ -21,6 +21,7 @@ export class DetalleCategoriaPage implements OnInit {
   categoria;
   producto: {};
   loader:any;
+  elegirEstab: number = 3;
   private correo: String = "";
   productoInput: string = '';
   verSeleccion: string = '';
@@ -45,14 +46,19 @@ export class DetalleCategoriaPage implements OnInit {
       if (nombre != null) {
         this.categoria = nombre;
       }
-      this.datos();
+      this.storage.get("elegirEstab").then((val) => {
+        this.elegirEstab = Number(val);
+        console.log("aaaaaaaaaaaaa")
+        console.log(this.elegirEstab)
+        this.datos();
+      });
     }
     );
   }
 
   async datos(){
     await this.showLoading2();
-    this.productoService.getProductosCategoria(this.categoria)
+    this.productoService.getProductosCategoria(this.categoria,this.elegirEstab)
     .pipe(
       finalize(async () => {
         await this.loader.dismiss();
@@ -124,20 +130,20 @@ export class DetalleCategoriaPage implements OnInit {
 
       this.producto = data;
       console.log(this.producto);
-      if (Object.keys(this.producto).length === 0 && this.productoInput!= null) {
+      if (Object.keys(this.producto).length === 0 && this.productoInput != null) {
         this.mensajeIncorrecto("Producto no encontrado", "No se ha podido encontrar el producto, intente de nuevo")
       }
-
-      if(this.productoInput == null) {
-        this.productoService.getProductosCategoria(this.categoria)
+      if(this.productoInput ==null) {
+        this.productoService.getProductosCategoria(this.categoria,this.elegirEstab)
         .pipe(
           finalize(async () => {
             await this.loader.dismiss();
           })
         )
         .subscribe(data => {
-          this.producto = data;
-        }, (error) => { console.error(error);
+          this.producto=data
+        }, (error) => {
+          console.error(error);
         });
       }
 

@@ -1,0 +1,69 @@
+<style>
+
+</style>
+<ion-content >
+  <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+    <ion-label *ngIf="val" class="titulooo">Hola {{nombre}},</ion-label>
+  </div>
+
+  <div class="contendorGris">
+    <img src={{fide}} height="50">
+    <p>Acumula puntos con tus compras</p>
+  </div>
+  <div *ngIf="val" class="contenedor-page">
+    <div class="contenedor">
+      <div class="contenedor azul">
+        <ion-label class="titulo">Consumos para sumar puntos</ion-label>
+        <br>
+        <div class="division">
+          <div>
+            <ion-label>Saldo disponible:</ion-label>
+          </div>
+          <div class="columna">
+            <ion-label>Puntos Acumulados:</ion-label>
+          </div>
+        </div>
+        <div class="division2">
+          <ion-label class="valores"> ${{valorTarjeta}} </ion-label>
+          <ion-label class="valores"> = </ion-label>
+          <div class="division3">
+            <img src="../assets/img/puntos033.png" width="40" height="40">
+            <ion-label class="valores">  {{puntos}} </ion-label>
+          </div>
+        </div>
+        <div class="btns2">
+          <button class="espacio" ion-button size="large" (click)="monto()" style="background:{{colorBack}};">
+            Canjear por tarjeta de regalo
+          </button>
+          <button class="espacio" ion-button size="large" (click)="catalogo()" style="background:{{colorBack}};">
+            <p>Canjear por Premios</p>
+          </button>
+        </div>
+        <ion-label>{{puntos}} puntos equivalen a ${{valorTarjeta}}</ion-label>
+      </div>
+      <div class="contenedor">
+        <ion-label class="subtitulo">Recuerda que tus puntos acumulados tienen 12 meses de vigencia y puedes usarlos como tarjeta de regalos o cambiarlos por premios</ion-label>
+      </div>
+      <div class="contenedor">
+        <ion-label class="titulo2">Mis Premios</ion-label>
+      </div>
+      <div class="colProds">
+        
+        <div class="contener-producto" *ngFor="let premio of premios" (click)=detalle(premio.img,premio.nombre,premio.descripcion,premio.puntos)>
+          <div class="available div-producto" *ngIf="premio.cantidad <= 0">Agotado</div>
+          <div class="div-producto">
+              <h6 class="nombre-producto" name="nombre">{{premio.nombre}}</h6>
+              <img name="imagen" src="http://cabutoshop.pythonanywhere.com{{premio.img}}" >
+              <p name="precio" style="color:{{colorBack}}"> Exp: {{premio.fecha_canje | date:'yyyy-MM-dd' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { login } from './../global'
 import 'rxjs/add/operator/map';
 import { ChildActivationStart, Router } from '@angular/router';
-import { AlertController, IonToggle, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, IonToggle, LoadingController, ModalController, NumericValueAccessor } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
@@ -37,6 +37,8 @@ export class ProductoPage implements OnInit {
   num: any = 0;
   loaderToShow: any;
   almacenado: {};
+  elegirEstab: number = 3;
+  colorBack: any = "color: var(--ion-color-naranja-oscuro)"
   private correo: String = "";
   public cantidad: string = "0";
   public page: number = 0;
@@ -58,13 +60,21 @@ export class ProductoPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cargaPantalla();
-    this.getCorreo();
+    this.storage.get("elegirEstab").then((val) => {
+      this.elegirEstab = Number(val);
+      if(Number(val)==2){
+        this.colorBack="color: black"
+      }
+      this.cargaPantalla();
+      this.getCorreo();
+    });
   }
 
 
 
   ionViewWillEnter() {
+    
+
     console.log("refresh");
     this.datos(null, this.filtro);
     this.loadData();
@@ -76,7 +86,7 @@ export class ProductoPage implements OnInit {
     if (filtro == "vendidos") {
       this.flag = true;
       this.page += 1;
-      this.productoService.getProductosByFiltro(filtro, this.page).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.page, this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcial.push(...data);
         this.producto = this.productoParcial;
         console.log(data);
@@ -91,7 +101,7 @@ export class ProductoPage implements OnInit {
     else if (filtro == "descendente") {
       this.flag = true;
       this.pageZA += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageZA).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageZA, this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialZA.push(...data);
         this.producto = this.productoParcialZA;
         console.log(data);
@@ -106,7 +116,7 @@ export class ProductoPage implements OnInit {
     else if (filtro == "ascendente") {
       this.flag = true;
       this.pageAZ += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageAZ).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageAZ, this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialAZ.push(...data);
         this.producto = this.productoParcialAZ;
         console.log(data);
@@ -121,7 +131,7 @@ export class ProductoPage implements OnInit {
     else if (filtro == "menor") {
       this.flag = true;
       this.pageMenor += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageMenor).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageMenor, this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialMenor.push(...data);
         this.producto = this.productoParcialMenor;
         console.log(data);
@@ -136,7 +146,7 @@ export class ProductoPage implements OnInit {
     else if (filtro == "mayor") {
       this.flag = true;
       this.pageMayor += 1;
-      this.productoService.getProductosByFiltro(filtro, this.pageMayor).subscribe((data: Array<Producto>) => {
+      this.productoService.getProductosByFiltro(filtro, this.pageMayor, this.elegirEstab).subscribe((data: Array<Producto>) => {
         this.productoParcialMayor.push(...data);
         this.producto = this.productoParcialMayor;
         console.log(data);
@@ -172,11 +182,13 @@ export class ProductoPage implements OnInit {
   }
 
 
+
   cargaPantalla() {
     this.loadingCtrl.create({
       message: 'Loading.....'
     }).then((loading) => {
       loading.present(); {
+
         this.ionViewWillEnter();
       }
       setTimeout(() => {
@@ -186,7 +198,7 @@ export class ProductoPage implements OnInit {
   }
 
   ordenar(data) {
-    this.productoService.getProductosByFiltro(data, 1).subscribe((data: Array<Producto>) => {
+    this.productoService.getProductosByFiltro(data, 1, this.elegirEstab).subscribe((data: Array<Producto>) => {
       this.producto = data;
     }
     );

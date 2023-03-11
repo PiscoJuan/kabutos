@@ -1,0 +1,66 @@
+<style>
+
+</style>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="datos($event,null)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+  </div>
+  <ion-label class="titulo">Puntos</ion-label>
+  <br>
+  <div class="franja">
+    <ion-tab-button class="col_home" tab="catalogo">
+      <img src="../assets/img/catalogo05.png" height="40">
+      Catálogo
+    </ion-tab-button>
+    <ion-tab-button class="col_home" tab="puntos">
+      <img src="../assets/img/mispuntos044.png" height="40">
+      <span style="color:yellow">Mis Puntos</span>
+    </ion-tab-button>
+    <ion-tab-button class="col_home" tab="premios">
+      <img src="../assets/img/mispremios066.png" height="40">
+      Mis Premios
+    </ion-tab-button>
+  </div>
+  <br>
+
+  <div class="div-producto">
+    <div class="salsa">
+      <img src="../assets/img/04.png" width="40" height="40">
+      <p>Tienes {{puntos}} puntos listos para canjear por premios</p>
+    </div>
+    <button class="espacio" ion-button size="large" (click)="catalogo()" style="background:{{colorBack}};">
+      Canjealas aquí
+    </button>
+  </div>
+  
+  <!--<ion-label class="titulo">Historial de puntos</ion-label>-->
+  <div>
+    <ion-grid class="tabla">
+      <ion-row class="title">
+        <ion-col>
+          <h3>Fecha</h3>
+        </ion-col>
+        <ion-col>
+          <h3>Puntos</h3>
+        </ion-col>
+        <ion-col>
+          <h3>Saldo</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let historial of historiales" class="row">
+        <ion-col>{{ historial.fecha | date:'dd/MM/yyyy' }}</ion-col>
+        <ion-col>{{ historial.puntos}} pts</ion-col>
+        <ion-col>${{ historial.total | number : '1.2-2' }}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-infinite-scroll *ngIf="flag==true" threshold="100px" (ionInfinite)="cargandoSiguientes($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

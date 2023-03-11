@@ -1,3 +1,5 @@
+
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -63,8 +65,50 @@ const routes: Routes = [
     path: 'codigounico',
     loadChildren: () => import('./codigounico/codigounico.module').then( m => m.CodigounicoPageModule)
   },
-  
-  
+  {
+    path: 'premios',
+    loadChildren: () => import('./premios/premios.module').then( m => m.PremiosPageModule)
+  },
+  {
+    path: 'puntos',
+    loadChildren: () => import('./puntos/puntos.module').then( m => m.PuntosPageModule)
+  },
+  {
+    path: 'catalogo',
+    loadChildren: () => import('./catalogo/catalogo.module').then( m => m.CatalogoPageModule)
+  },
+  {
+    path: 'detalles-premios',
+    loadChildren: () => import('./detalles-premios/detalles-premios.module').then( m => m.DetallesPremiosPageModule)
+  },
+  {
+    path: 'historial-mensajes',
+    loadChildren: () => import('./chat/historial-mensajes/historial-mensajes.module').then( m => m.HistorialMensajesPageModule)
+  },
+  {
+    path: 'mensajes',
+    loadChildren: () => import('./chat/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+  },
+  {
+    path: 'elegir-estab',
+    loadChildren: () => import('./elegir-estab/elegir-estab.module').then( m => m.ElegirEstabPageModule)
+  },
+  {
+    path: 'premios-inicio',
+    loadChildren: () => import('./premios-inicio/premios-inicio.module').then( m => m.PremiosInicioPageModule)
+  },
+  {
+    path: 'premios-utilizados',
+    loadChildren: () => import('./premios-utilizados/premios-utilizados.module').then( m => m.PremiosUtilizadosPageModule)
+  },
+  {
+    path: 'cambiar-contra',
+    loadChildren: () => import('./cambiar-contra/cambiar-contra.module').then( m => m.CambiarContraPageModule)
+  },
+  {
+    path: 'tarjeta',
+    loadChildren: () => import('./aviso/tarjeta/tarjeta.module').then( m => m.TarjetaPageModule)
+  },
 ];
 
 
@@ -76,3 +120,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

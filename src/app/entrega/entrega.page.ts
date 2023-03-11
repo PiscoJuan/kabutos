@@ -11,7 +11,8 @@ import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 })
 export class EntregaPage implements OnInit {
   total:number;
-
+  colorBack:any = "var(--ion-color-naranja-oscuro)";
+  butAtras:any = "../assets/img/atras_naranja.png";
   constructor(
     private storage: Storage,
     private router: Router,
@@ -22,6 +23,12 @@ export class EntregaPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.storage.get("elegirEstab").then((val) => {
+      if(Number(val) == 2){
+        this.colorBack="#000000"
+        this.butAtras= "../assets/img/atras_negro.png"
+      }
+    });
     console.log("didEnter");
     this.storage.get('total').then((val) => {
       console.log(val);

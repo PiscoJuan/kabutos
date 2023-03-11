@@ -1,0 +1,123 @@
+*{
+    font-family:'MyriadProSemibold' !important ;
+}
+.seccion-retorno{
+    margin: 15px;
+    .icono-retorno{    
+        float: inline-start;
+        margin-left: 10px;
+        img{
+            width: 50px;
+        }
+    }
+    span{
+        font-size: xx-large;
+    }
+}
+.gris{
+    background-color: #bebbbb;
+    color: black;
+}
+.titulo{
+    width: 100%;
+    background-color: orangered;
+    color: white;
+    text-align: center;
+    font-size: x-large;
+    border-radius: 15px 15px 0 0 ;
+}
+
+.mensajes{
+    padding: 5px;
+
+        .item-mensaje{
+            width: 90%;
+            margin-bottom: 5px;
+            display: flex;            
+            .avatar{
+                padding: 15px 15px 15px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: 80px;
+                }
+            }
+            .detalles{
+                width: 100%;
+                border: gray 2px solid;
+                border-radius: 10px 10px 10px 0;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                .nombre{
+                    color: rgb(97, 95, 95);
+                    font-size: large;
+                    .tipo{
+                        color: red;
+                        font-size: small;
+                    }
+                }
+        
+                .texto{
+                    color: gray;
+                    font-weight: normal;
+        
+                }
+        
+                .tiempo{
+                    display: flex;
+                    justify-content: end;
+                    color: red;
+                    font-size: small;
+                }
+            }
+   
+       
+    }
+    .emitido{
+        margin-left: auto;
+        .detalles{
+            background-color: rgb(190, 187, 187);
+        }
+    }
+
+    .recibido{
+        margin-right: auto;
+       
+    }
+    
+}
+
+.footer{
+    .entrada-mensaje{
+        display: flex;
+        .input{
+            width: 85%;
+            padding: 5px 10px;
+            .input-contenedor{
+                display: flexbox;
+                min-width: 85%;
+                .texto{
+                    padding: 7px;
+                    border: 1px solid orange;
+                    border-radius: 12px;
+                    width: 100%;
+                    min-height: 30px;
+                }
+              }
+        }
+        .btn-enviar{
+            width: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            ion-icon{
+                zoom: 2;
+                color: orangered;
+            }
+        }
+    }
+}

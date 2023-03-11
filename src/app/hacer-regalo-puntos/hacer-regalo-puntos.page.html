@@ -1,0 +1,52 @@
+
+<ion-content>
+  <div class="contenedor-page">
+    <div class="titulo_atras">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
+    </div>
+    <div class="contenedor-titulo">
+      <ion-label class="titulo">Ingrese sus datos o los del destinatario </ion-label>
+    </div>
+    <form #form="ngForm" (ngSubmit)="canjear(form)">
+
+      <div class="division3">
+        <ion-label class="valores"> ${{valorTarjeta}} </ion-label>
+        <ion-label class="valores"> = </ion-label>
+        <img src="../assets/img/puntos.png" width="40" height="40">
+        <ion-label class="valores"> {{puntos}}</ion-label>
+      </div>
+
+      <div class="form">
+        <ion-label>(Código, Correo o Nombre)</ion-label>
+        <br>
+        <ion-item>
+        <input list="brow" minlength="3" id="1" name="correo" [(ngModel)]="correo" required style="width: 100%; background-color: rgb(255, 255, 255);" (keyup)="lista($event)">
+          <datalist id="brow" name="brow" required>
+            <div class="contenedor-tarjetas" *ngFor="let usuario of usuarios">
+              <option class="input" value={{usuario.correo}} name="producto">{{usuario.codigo_unico}} / {{usuario.nombre}} {{usuario.apellido}}
+                / {{usuario.correo}}</option>
+            </div>
+          </datalist>
+        </ion-item>
+        
+      </div>
+
+      <div class="form">
+        <ion-label>Ingrese el monto a canjear en dólares</ion-label>
+        <ion-item>
+          <ion-input id="monto" name="monto" type="number" step=0.01 (keypress)="numberOnly($event)" (input)="yep($event)" [(ngModel)]="monto" required></ion-input>
+        </ion-item>
+      </div>
+      <div class="division3">
+        <img src="../assets/img/puntos.png" width="40" height="40">
+        <ion-label class="valores"> {{puntosactuales}}</ion-label>
+      </div>
+      <div class="button-content">
+        <ion-button class="btn-registro" size="large" type="submit" style="--background:{{colorBack}};">
+          <p class="registro">Aceptar</p>
+        </ion-button>
+      </div>
+    </form>
+    
+  </div>
+</ion-content> 

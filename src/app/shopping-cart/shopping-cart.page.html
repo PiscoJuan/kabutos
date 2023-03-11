@@ -2,14 +2,14 @@
 
   <div class="contenedor-page">
     <div class="titulo_atras">
-      <img class="atras" src="../assets/img/atras_naranja.png" size=12 (click)="atras()">
+      <img class="atras" src={{butAtras}} size=12 (click)="atras()">
       <ion-label class="titulo">Carrito</ion-label>
     </div>
     <div class="total">
       <ion-label class="A_pagar_header">Total a Pagar:</ion-label>
       <div style="display: flex;">
-        <ion-label style="color:#FE3A00;font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
-        <div class="A_pagar" id="A_pagar" *ngIf="total">{{totalOriginal}}</div>
+        <ion-label style="color:{{colorBack}};font-size: x-large;padding-left: 10px; margin-top: 0">$</ion-label>
+        <div class="A_pagar" id="A_pagar" *ngIf="total" style="color:{{colorBack}}"><span style="color:{{colorBack}}">{{totalOriginal}}</span></div>
 
       </div>
       <div class="A_pagar_header" *ngIf="politecnico">-10%</div>
@@ -39,7 +39,7 @@
       
               </div>
             <div class="precio">
-              <p>$</p><p name="precio" class="subtotal" id="{{productos.id_unico}}">{{productos.subtotal| number : '1.2-2'}}</p>
+              <p style="color:{{colorBack}}">$</p><p name="precio" class="subtotal" id="{{productos.id_unico}}" style="color:{{colorBack}}">{{productos.subtotal| number : '1.2-2'}}</p>
             </div>
           </div>
 
@@ -68,7 +68,7 @@
                 (click)=quitar(ofert.id_unico,null)>
             </div>
             <div class="precio">
-              <p>$</p><p name="precio" class="subtotal" id="{{ofert.id_unico}}">{{ofert.subtotal_oferta| number : '1.2-2'}}</p>
+              <p style="color:{{colorBack}}">$</p><p name="precio" class="subtotal" id="{{ofert.id_unico}}" style="color:{{colorBack}}">{{ofert.subtotal_oferta| number : '1.2-2'}}</p>
             </div>
           </div>
           
@@ -97,8 +97,8 @@
                 (click)=quitar(combo.id_unico,null)>
             </div>
             <div class="precio">
-              <p>$</p>
-              <p name="precio" class="subtotal" id="{{combo.id_unico}}">{{combo.precio| number : '1.2-2'}}</p>
+              <p style="color:{{colorBack}}">$</p>
+              <p name="precio" class="subtotal" id="{{combo.id_unico}}" style="color:{{colorBack}}">{{combo.precio| number : '1.2-2'}}</p>
             </div>
           </div>
         </div>
@@ -127,8 +127,8 @@
                 id="menos" (click)=quitar(cupons.id_unico,null)>
             </div>
             <div class="precio" style="visibility:hidden">
-              <p>$</p>
-              <h4 name="precio" class="subtotal" id="{{cupons.id_unico}}">{{cupons.subtotal_cupon| number : '1.2-2'}}</h4>
+              <p style="color:{{colorBack}}">$</p>
+              <h4 name="precio" class="subtotal" id="{{cupons.id_unico}}" style="color:{{colorBack}}">{{cupons.subtotal_cupon| number : '1.2-2'}}</h4>
             </div>
           </div>
           
@@ -147,7 +147,7 @@
             </div>
           <div class="contener-columna">
             <div class="nombre">
-              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}usd.</h6>
+              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}</h6>
             </div>
             <div class="producto-carrito">
               <img src="../assets/img/agregar.png" style="visibility:hidden" width="10" height="10" class="btn-producto"
@@ -156,8 +156,8 @@
               <img src="../assets/img/restar.png" style="visibility:hidden" width="10" height="3" class="btn-producto" id="menos" (click)=quitar(tarjeta.id_unico,null)>
             </div>
             <div class="precio" >
-              <p>$</p>
-              <h4 name="precio" class="subtotal" id="{{tarjeta.id_unico}}">{{tarjeta.subtotal_tarjeta| number : '1.2-2'}}</h4>
+              <p style="color:{{colorBack}}">$</p>
+              <h4 name="precio" class="subtotal" id="{{tarjeta.id_unico}}" style="color:{{colorBack}}">{{tarjeta.subtotal_tarjeta| number : '1.2-2'}}</h4>
             </div>
           </div>
         </div>
@@ -170,11 +170,11 @@
           <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
               (click)="eliminar(tarjeta.id_tarjeta,tarjeta.id_unico,tarjeta.cantidad_tarjeta)"></div>
             <div class="producto">
-              <img name="imagen" src="https://cdn-icons-png.flaticon.com/512/3663/3663716.png">
+              <img name="imagen" src="../assets/img/REGALO.png">
             </div>
           <div class="contener-columna">
             <div class="nombre">
-              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}usd.</h6>
+              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}</h6>
             </div>
             <div class="producto-carrito">
               <img src="../assets/img/agregar.png" style="visibility:hidden" width="10" height="10" class="btn-producto"
@@ -183,8 +183,8 @@
               <img src="../assets/img/restar.png" style="visibility:hidden" width="10" height="3" class="btn-producto" id="menos" (click)=quitar(tarjeta.id_unico,null)>
             </div>
             <div class="precio" >
-              <p>$</p>
-              <h4 name="precio" class="subtotal" id="{{tarjeta.id_unico}}">{{tarjeta.subtotal_tarjeta| number : '1.2-2'}}</h4>
+              <p style="color:{{colorBack}}">$</p>
+              <h4 name="precio" class="subtotal" id="{{tarjeta.id_unico}}" style="color:{{colorBack}}">{{tarjeta.subtotal_tarjeta| number : '1.2-2'}}</h4>
             </div>
           </div>
         </div>
@@ -192,13 +192,13 @@
     </div>
 
     <div class="btns">
-      <button ion-button size="large" (click)="cupones()">
+      <button ion-button size="large" (click)="cupones()" style="background: {{colorBack}};">
         Agregar Cupón
       </button>
-      <button ion-button size="large" (click)="productos()">
+      <button ion-button size="large" (click)="productos()" style="background: {{colorBack}};">
         Agregar Productos
       </button>
-      <button ion-button icon-end (click)="pagar()">
+      <button ion-button icon-end (click)="pagar()" style="background: {{colorBack}};">
         Continuar 
         <img src="../assets/img/continuar.png" width="10" height="15">
       </button>

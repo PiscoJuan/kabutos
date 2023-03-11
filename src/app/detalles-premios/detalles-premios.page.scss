@@ -1,0 +1,69 @@
+.btn-salir img{
+    height: 0.7rem;
+}
+
+.btn-salir{
+    text-align: right !important;
+    padding: 10px 10px 0px 5px;
+}
+
+.imagen img{
+    height: 7.5rem;
+}
+
+.nombre{
+    padding: 0 15px 10px 15px;
+    font-size: 1.3rem;
+    color:#0F195E !important;
+}
+
+.descripcion{
+    padding: 10px 20px;
+    color:#87868A !important;
+}
+
+
+.precio{
+    text-align: right !important;
+    color:#FE3A00 !important;
+    padding-top: 10px;
+    font-size: 1.5rem;
+    display:flex;
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    align-items: center;
+}
+
+.punto{
+    margin-left: 5px;
+    text-align: left !important;
+    color:#FE3A00 !important;
+    font-size: 1.3rem;
+    display:flex;
+    justify-content: center;
+
+}
+.punto2{
+    text-align: center !important;
+    color:#FE3A00 !important;
+    font-size: 1.5rem;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+button{
+    font-size: 1.3rem;
+    padding: 0 10px;
+    height: 2.4rem;
+    width: 50%;
+    padding: 15px 25px;
+    background: var(--ion-color-naranja-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color:white;
+    margin-left: 5px;
+}
