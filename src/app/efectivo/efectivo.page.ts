@@ -454,7 +454,7 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (transaccion != null || autorizacion != null){
-            this.mensajeTarjeta("Aviso importante","Cabutos le informa que, para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
+            this.mensajeTarjeta("Aviso importante","Cabutos le informa, que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
           } 
           this.router.navigate([""]);
         },
