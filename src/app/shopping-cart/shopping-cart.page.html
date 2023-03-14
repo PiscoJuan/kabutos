@@ -32,11 +32,11 @@
             <div class="producto-carrito">
               <img src="../assets/img/restar.png" width="10" height="3" class="btn-producto" id="menos"
                 (click)=quitar(productos.id_unico,productos.nombre_producto)>
-            
+
               <div id="{{productos.id_unico}}" class="cantidad">{{productos.cantidad}}</div>
               <img src="../assets/img/agregar.png" width="10" height="10" class="btn-producto" id="mas"
                 (click)=agregar(productos.id_unico,productos.suma,productos.nombre_producto)>
-      
+
               </div>
             <div class="precio">
               <p style="color:{{colorBack}}">$</p><p name="precio" class="subtotal" id="{{productos.id_unico}}" style="color:{{colorBack}}">{{productos.subtotal| number : '1.2-2'}}</p>
@@ -71,7 +71,7 @@
               <p style="color:{{colorBack}}">$</p><p name="precio" class="subtotal" id="{{ofert.id_unico}}" style="color:{{colorBack}}">{{ofert.subtotal_oferta| number : '1.2-2'}}</p>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -131,8 +131,8 @@
               <h4 name="precio" class="subtotal" id="{{cupons.id_unico}}" style="color:{{colorBack}}">{{cupons.subtotal_cupon| number : '1.2-2'}}</h4>
             </div>
           </div>
-          
-          
+
+
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@
             </div>
           <div class="contener-columna">
             <div class="nombre">
-              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}usd.</h6>
+              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}</h6>
             </div>
             <div class="producto-carrito">
               <img src="../assets/img/agregar.png" style="visibility:hidden" width="10" height="10" class="btn-producto"
@@ -170,11 +170,11 @@
           <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
               (click)="eliminar(tarjeta.id_tarjeta,tarjeta.id_unico,tarjeta.cantidad_tarjeta)"></div>
             <div class="producto">
-              <img name="imagen" src="https://cdn-icons-png.flaticon.com/512/3663/3663716.png">
+              <img name="imagen" src="../assets/img/REGALO.png">
             </div>
           <div class="contener-columna">
             <div class="nombre">
-              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}usd.</h6>
+              <h6 class="nombre-producto" name="nombre">Tarjeta de regalo de: {{tarjeta.monto_tarjeta}}</h6>
             </div>
             <div class="producto-carrito">
               <img src="../assets/img/agregar.png" style="visibility:hidden" width="10" height="10" class="btn-producto"
@@ -199,7 +199,7 @@
         Agregar Productos
       </button>
       <button ion-button icon-end (click)="pagar()" style="background: {{colorBack}};">
-        Continuar 
+        Continuar
         <img src="../assets/img/continuar.png" width="10" height="15">
       </button>
     </div>
