@@ -363,11 +363,11 @@ export class EfectivoPage implements OnInit {
       }
     });
 
-    /*if (this.tipoPago == "Tarjeta") {
+    if (this.tipoPago == "Tarjeta") {
       this.pagar(form);
-    } else {*/
+    } else {
       this.guardarPedido(form, null, null);
-    //}
+    }
   }
 
   async pagar(form) {
