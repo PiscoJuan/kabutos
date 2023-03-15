@@ -45,7 +45,7 @@ export class PagoPage implements OnInit {
   tarjeta(){
     this.router.navigate(['/footer/tarjeta']); 
     this.storage.set('tipoPago','Tarjeta');
-    this.mensajeTarjeta("Para comprobar la legalidad de la compra","Recuerde que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
+    this.mensajeTarjeta("Aviso importante","Cabutos le informa, que para retirar su pedido, debe presentar su cédula de identidad y tarjeta utilizada en la compra")
   }
   async mensajeCorrecto(titulo: string, mensaje: string) {
     const modal = await this.modalCtrl.create({
