@@ -18,5 +18,13 @@ export class BaneoService {
     }
     return this.http.get(this.baseUrl+'revisarBan/'+id,{headers:headers})            
   }
+
+  revisarVersion(id:number) {
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'revisarVersion/'+id,{headers:headers})            
+  }
   
 }
