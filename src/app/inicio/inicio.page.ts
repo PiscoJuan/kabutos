@@ -18,6 +18,7 @@ import { BaneoService } from '../servicios/baneo.service';
 export class InicioPage implements OnInit {
 
   loading;
+  id;
   producto;
   categorias: any;
   ofertas: any;
@@ -44,7 +45,15 @@ export class InicioPage implements OnInit {
   async ionViewWillEnter() {
     this.storage.set("tarjetaRegaloMonto",'no')
     this.storage.set("tarjetaRegaloproducto",'no')
+    this.storage.get("id").then((val) => {
+      this.id=Number(val);
+    })
     await this.showLoading2();
+    this.baneoService.actualizarVersion(this.id).subscribe((data:any) => {
+      if (data.valid != "OK"){
+        console.log("ok")
+      }
+    })
     this.baneoService.revisarVersion(2).subscribe((data:any) => {
       if (data.valid != "OK"){
         this.mensajeIncorrecto("Versión antigua", "Se encuentra usando una versión antigua de su aplicación, por favor actualize su app en la tienda.");
