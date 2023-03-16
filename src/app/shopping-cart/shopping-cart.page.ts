@@ -674,12 +674,19 @@ export class ShoppingCartPage implements OnInit {
       this.revisionCupon();
     }*/
     this.storage.get("perfil").then((dato) => {
-      this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
-        if (data.valid == "OK"){
-          this.actualizarCarrito()
-          this.horario();
-        } else {
-          this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
+      this.baneoService.revisarVersion(2).subscribe((data:any) => {
+        if (data.valid != "OK") {
+          this.mensajeIncorrecto("Versión antigua", "Se encuentra usando una versión antigua de su aplicación, por favor actualize su app en la tienda.");
+        }
+        else {
+          this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
+            if (data.valid == "OK"){
+              this.actualizarCarrito()
+              this.horario();
+            } else {
+              this.mensajeIncorrecto("Cuenta bloqueada", "Su cuenta ha sido bloqueada, por favor comuníquese con el establecimiento");
+            }
+          })
         }
       })
     })
