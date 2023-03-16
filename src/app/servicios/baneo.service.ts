@@ -26,4 +26,11 @@ export class BaneoService {
     }
     return this.http.get(this.baseUrl+'revisarVersion/'+id,{headers:headers})            
   }
+  actualizarVersion(id:string){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    return this.http.get(this.baseUrl+'actualizarVersion/'+id,{headers:headers})     
+  }
 }
