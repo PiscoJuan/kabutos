@@ -178,11 +178,17 @@ export class LoginPage implements OnInit {
       }
       else {
         this.loading.dismiss();
-        //this.mensaje("Acceso Incorrecto","Algo salió mal","Su correo o contraseña están incorrectos");
-        this.mensajeIncorrecto("Acceso Incorrecto", "Algo salió mal su correo o contraseña están incorrectos");
+        this.mensajeIncorrecto("Acceso Incorrecto", "Algo salió mal. Su correo o contraseña están incorrectos");
         this.router.navigateByUrl('/login');
       }
 
+    },(error:any)=>{
+      this.loading.dismiss();
+      this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
+      console.log("error", error);
+    }
+    ,()=>{
+      this.loading.dismiss();
     })
   }
 
