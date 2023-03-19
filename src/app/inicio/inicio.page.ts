@@ -9,6 +9,8 @@ import { PublicidadService } from '../servicios/publicidad.service';
 import { finalize } from 'rxjs/operators';
 import { DetalleInicioPage } from './detalle-inicio/detalle-inicio.page';
 import { BaneoService } from '../servicios/baneo.service';
+import { TarjetaPage } from '../aviso/tarjeta/tarjeta.page';
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -56,10 +58,22 @@ export class InicioPage implements OnInit {
     })
     this.baneoService.revisarVersion(2).subscribe((data:any) => {
       if (data.valid != "OK"){
-        this.mensajeIncorrecto("Versión antigua", "Se encuentra usando una versión antigua de su aplicación, por favor actualize su app en la tienda.");
+        this.mensajeTarjeta("Versión antigua", "Se encuentra usando una versión antigua de su aplicación, por favor actualice su app en la tienda.");
       }
     })
     this.iniciar(null)
+  }
+  async mensajeTarjeta(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: TarjetaPage,
+      cssClass: 'DetallesTarjeta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje,
+        'button': true
+      }
+    });
+    return await modal.present();
   }
 
   async iniciar(event){
