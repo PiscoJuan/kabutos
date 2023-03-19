@@ -15,6 +15,7 @@ import { AnimationOptions } from '@ionic/angular/providers/nav-controller';
 import { exit } from 'process';
 import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
 import { BaneoService } from '../servicios/baneo.service';
+import { TarjetaPage } from '../aviso/tarjeta/tarjeta.page';
 
 //import { Console } from 'console';
 declare var window;
@@ -676,7 +677,7 @@ export class ShoppingCartPage implements OnInit {
     this.storage.get("perfil").then((dato) => {
       this.baneoService.revisarVersion(2).subscribe((data:any) => {
         if (data.valid != "OK") {
-          this.mensajeIncorrecto("Versión antigua", "Se encuentra usando una versión antigua de su aplicación, por favor actualize su app en la tienda.");
+          this.mensajeTarjeta("Versión antigua", "Se encuentra usando una versión antigua de su aplicación, por favor actualice su app en la tienda.");
         }
         else {
           this.baneoService.revisarBan(dato.id).subscribe((data:any) => {
@@ -691,6 +692,18 @@ export class ShoppingCartPage implements OnInit {
       })
     })
     
+  }
+  async mensajeTarjeta(titulo: string, mensaje: string) {
+    const modal = await this.modalCtrl.create({
+      component: TarjetaPage,
+      cssClass: 'DetallesTarjeta',
+      componentProps: {
+        'titulo': titulo,
+        'mensaje': mensaje,
+        'button': true
+      }
+    });
+    return await modal.present();
   }
 
   async revisionCupon() {

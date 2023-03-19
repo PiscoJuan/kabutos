@@ -10,6 +10,7 @@ export class TarjetaPage implements OnInit {
 
   titulo = ""
   mensaje = ""
+  button = false
   constructor(public navCtrol: NavController, public navParams: NavParams,private  router:  Router,
     public modalCtrl: ModalController,
     private alert: AlertController,

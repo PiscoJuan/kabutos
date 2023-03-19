@@ -1,6 +1,15 @@
 <ion-content padding text-center style="text-align: center !important;">
   <div class = "btn-salir"><img src="../assets/img/salir.png" (click)=salir()></div>
-  <div class = "img-correcto"><img src="../assets/img/proceso_exitoso.png"  ></div>
+  <div class = "img-correcto"><img src="../assets/img/error.png"  ></div>
   <div class = "titulo">{{titulo}}</div>
   <div class = "mensaje">{{mensaje}}</div>
+  <div class = "precio" *ngIf="button">
+    <a href="https://apps.apple.com/ec/app/cabutos/id1637263647">
+    <!-- <a href="itms-apps://apps.apple.com/ec/app/cabutos/id1637263647"> -->
+
+    <img class="puntos2" src="../assets/img/puntos.png" height="45">
+
+    </a>
+
+  </div>
 </ion-content>
