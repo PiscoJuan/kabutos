@@ -162,7 +162,15 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('/login');
       }
       
-      })
+      },(error:any)=>{
+        this.loading.dismiss();
+        this.mensajeIncorrecto("Acceso Incorrecto","Algo salió mal su correo o contraseña están incorrectos");
+        console.log("error", error);
+      }
+      ,()=>{
+        this.loading.dismiss();
+    }
+    )
   }
 
   perfilS(correo){

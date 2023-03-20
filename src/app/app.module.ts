@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingCartPageModule } from './shopping-cart/shopping-cart.module';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {ProductoService} from '../app/servicios/producto.service';
 import { AuthModule } from  './auth/auth.module';
@@ -30,6 +30,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 import { SignInWithApple } from '@awesome-cordova-plugins/sign-in-with-apple/ngx';
+import { AuthInterceptor } from './auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -56,7 +57,8 @@ driverOrder: ['indexeddb', 'sqlite', 'websql']
     SocialSharing,
     
     FooterPage,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi: true}
   ],
   bootstrap: [AppComponent],
 })
