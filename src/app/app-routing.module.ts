@@ -109,6 +109,14 @@ const routes: Routes = [
     path: 'tarjeta',
     loadChildren: () => import('./aviso/tarjeta/tarjeta.module').then( m => m.TarjetaPageModule)
   },
+  {
+    path: 'nombre-componente',
+    loadChildren: () => import('./nombre-componente/nombre-componente.module').then( m => m.NombreComponentePageModule)
+  },
+  {
+    path: 'tres-ds',
+    loadChildren: () => import('./tres-ds/tres-ds.module').then( m => m.TresDsPageModule)
+  },
 ];
 
 

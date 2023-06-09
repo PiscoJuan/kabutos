@@ -17,6 +17,8 @@ import { Observable } from "rxjs";
 import { EstablecimientoService } from "../servicios/establecimiento.service";
 import { AnimationOptions } from "@ionic/angular/providers/nav-controller";
 import { TarjetaPage } from '../aviso/tarjeta/tarjeta.page';
+import { TresDsPage } from '../tres-ds/tres-ds.page';
+
 
 @Component({
   selector: "app-efectivo",
@@ -205,10 +207,34 @@ export class EfectivoPage implements OnInit {
         vat: vat,
         tax_percentage: 12,
         taxable_amount: tax,
-
       },
+      term_url : "https://cabutoshop.pythonanywhere.com/movil/threeds",
+      device_type: "browser",
+      browser_info: {
+        ip: "88.196.25.166",
+        language: "en-US",
+        java_enabled: false,
+        js_enabled: true,
+        color_depth: 24,
+        screen_height: 1200,
+        screen_width: 1920,
+        timezone_offset: 0,
+        user_agent: "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/70.0.3538.110 Safari\/537.36",
+        accept_header: "text/html"
+      },
+      extra_params: {
+        threeDS2_data: {
+          term_url : "https://cabutoshop.pythonanywhere.com/movil/threeds",
+          device_type: "browser",
+          process_anyway: false
+        },
+        
+      }
     };
+    console.log("info que se manda al pagar o algo asi la verdad no se Dx");
+    console.log(info)
 
+    //ACA al parecer 
     this.tarjetaService
       .pagar(info)
       .pipe(
@@ -218,13 +244,129 @@ export class EfectivoPage implements OnInit {
       )
       .subscribe(
         (data) => {
+          console.log("Aca imprime el resultado de pagar:")
+          console.log(data) 
           if (data.transaction.status == "success") {
             this.guardarPedido(
               form,
               data.transaction.id,
               data.transaction.authorization_code
             );
-          } else {
+          } else if (data.transaction.status == "pending" && data.transaction.status_detail == 35){
+            let threeDSMethodData = {
+              threeDSServerTransID: '<TRANS ID>',
+              threeDSMethodNotificationURL: '<URL>'
+            }
+            let formTwo = document.getElementById('threeDSMethodForm');
+            (<HTMLInputElement>document.getElementById('threeDSMethodData')).value= data["3ds"].browser_response.hidden_iframe;
+            //inputValue.value= base64url(data.3ds.browser_response.hidden_iframe);
+            // form.action = '<threeDSMethodURL>';
+            // form.target = 'threeDSMethodIframe'; // id of iframe
+            // form.method = 'post';
+            // form.submit();  
+            setTimeout(() => {
+              console.log("Delayed for 5 second.");
+              let datos = {
+                user: {
+                  id: this.id + ""
+                },
+                transaction: {
+                  id: data.transaction.id
+                },
+                type: "AUTHENTICATION_CONTINUE",
+                value: ""
+              };
+              console.log("COSAS ASASAS: "+ datos)
+              console.log(datos)
+              this.tarjetaService.autentificar(datos)
+              .subscribe(
+                (respFinal) => {
+                  console.log("Aca imprime el resultado de pagar:")
+                  console.log(respFinal) 
+                  if (respFinal.transaction.status_detail == 3 ){
+                    this.guardarPedido(
+                      form,
+                      data.transaction.id,
+                      data.transaction.authorization_code
+                    );
+                    console.log("Funciona!!!!!!!!")
+                  } else if (data.transaction.status == "pending" && data.transaction.status_detail == 36){
+                    let datos = {
+                      user: {
+                        id: this.id + ""
+                      },
+                      transaction: {
+                        id: data.transaction.id
+                      },
+                      term_url : "https://cabutoshop.pythonanywhere.com/movil/threeds",
+                      device_type: "browser",
+                      type: "BY_CRES",
+                      value: "U3VjY2VzcyBBdXRoZW50aWNhdGlvbg=="
+                    };
+                    console.log("COSAS ASASAS: "+ datos)
+                    console.log(datos)
+                    this.tarjetaService.autentificar(datos)
+                    .subscribe(
+                      (respFinal) => {
+                        console.log("Aca imprime el resultado de pagar:")
+                        console.log(respFinal) 
+                        if (respFinal.status_detail == 3 ){
+                          this.guardarPedido(
+                            form,
+                            data.transaction.id,
+                            data.transaction.authorization_code
+                          );
+                        }else{
+                          this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
+                          this.router.navigate([""]);
+                        }
+                      }
+                    )
+                  }else{
+                    this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
+                    this.router.navigate([""]);
+                  }
+                }
+              )
+            }, 6000);
+            
+
+            
+
+          } else if (data.transaction.status == "pending" && data.transaction.status_detail == 36){
+            let datos = {
+              user: {
+                id: this.id + ""
+              },
+              transaction: {
+                id: data.transaction.id
+              },
+              term_url : "https://cabutoshop.pythonanywhere.com/movil/threeds",
+              device_type: "browser",
+              type: "BY_CRES",
+              value: "U3VjY2VzcyBBdXRoZW50aWNhdGlvbg=="
+            };
+            console.log("COSAS ASASAS: "+ datos)
+            console.log(datos)
+            this.tarjetaService.autentificar(datos)
+            .subscribe(
+              (respFinal) => {
+                console.log("Aca imprime el resultado de pagar:")
+                console.log(respFinal) 
+                if (respFinal.status_detail == 3 ){
+                  this.guardarPedido(
+                    form,
+                    data.transaction.id,
+                    data.transaction.authorization_code
+                  );
+                }else{
+                  this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
+                  this.router.navigate([""]);
+                }
+              }
+            )
+          }
+          else {
             this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
             this.router.navigate([""]);
           }
@@ -237,6 +379,17 @@ export class EfectivoPage implements OnInit {
           this.router.navigate([""]);
         }
       );
+  }
+
+  async agregar() {
+    let modal = await this.modalController.create({
+      component: TresDsPage,
+      cssClass: 'modal-tarjeta'
+    });
+    modal.onDidDismiss().then((data) => {
+      console.log("AAAAAAAAAAAAAAAAAAAAAAA")
+    });
+    return await modal.present();
   }
 
   async recoger(val) {
@@ -404,7 +557,7 @@ export class EfectivoPage implements OnInit {
       .subscribe(
         (data) => {
           if (data.valid == "ok") {
-            console.log("AAAAAAAAA", data.enviarnotificacion);
+            console.log("Envia notificacion: ", data.enviarnotificacion);
             if (this.tipoPago == "Tarjeta") {
               this.pagado(data.pedido, transaccion, autorizacion);
             }
@@ -428,6 +581,50 @@ export class EfectivoPage implements OnInit {
           } else {
             this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
             this.router.navigate([""]);
+          }
+        },
+        (err) => {
+          this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión");
+        }
+      );
+  }
+
+  async guardarPedido2(form, transaccion, autorizacion) {
+    await this.showLoading2();
+    form.nombreTarjeta= this.nombreTarjeta,
+    form.numeroTarjeta= this.numeroTarjeta
+    this.pedidoService
+      .nuevoPedido(form)
+      .pipe(
+        finalize(async () => {
+          await this.loading.dismiss();
+        })
+      )
+      .subscribe(
+        (data) => {
+          if (data.valid == "ok") {
+            console.log("Envia notificacion: ", data.enviarnotificacion);
+            if (this.tipoPago == "Tarjeta") {
+              this.pagado(data.pedido, transaccion, autorizacion);
+            }
+            if (this.tipoPago == "Efectivo"){
+              this.pagado(data.pedido, null, null)
+            }
+            this.storage.set("tarjetaRegaloMonto",'no')
+            this.storage.set("tarjetaRegaloproducto",'no')
+            this.storage.get("tipoEntrega").then((val) => {
+              if (val != null) {
+                if (this.tarjetaRegalo=='si') {
+                  this.mensajeCorrecto("Su regalo se ha enviado", "");
+                } else if (val === "Local" ){
+                  this.mensajeCorrecto("Estaremos esperando por Usted", "");
+                }else {
+                  this.mensajeCorrecto("Su pedido será enviado en breve", "");
+                }
+              }
+            });
+          } else {
+            this.mensajeIncorrecto("Error", "No se ha enviado el pedido");
           }
         },
         (err) => {

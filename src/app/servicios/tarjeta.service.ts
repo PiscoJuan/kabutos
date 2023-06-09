@@ -9,21 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class TarjetaService {
 
+  // baseUrl :string= "https://ccapi-stg.paymentez.com/v2/";
+
   baseUrl :string= "https://ccapi.paymentez.com/v2/";
+  
   baseUrl2 :string= "https://cabutoshop.pythonanywhere.com/movil/";
 
   constructor(
     private http: HttpClient
   ) { }
   
-  nuevaTarjeta(tarjeta):Observable<any>{
-    const headers = {
-      'Content-Type': 'application/json',
-      'Auth-Token': this.authToken(paymentez.app_code_client,paymentez.app_key_client)
-    }
-    const body = JSON.stringify(tarjeta);
-    return this.http.post(this.baseUrl+'card/add/',body,{'headers':headers})
-  }
+    
 
 
   eliminarTarjeta(tarjeta):Observable<any>{
@@ -34,6 +30,16 @@ export class TarjetaService {
     const body = JSON.stringify(tarjeta);
     return this.http.post(this.baseUrl+'card/delete/',body,{'headers':headers})
   }
+
+  autentificar(cosas):Observable<any>{
+    const headers = {
+      'Content-Type': 'application/json',
+      'Auth-Token': this.authToken(paymentez.app_code_server,paymentez.app_key_server)
+    }
+    const body = JSON.stringify(cosas);
+    return this.http.post('https://ccapi-stg.paymentez.com/v2/transaction/verify/',body,{'headers':headers})
+  }
+  
 
   pagar(tarjeta):Observable<any>{
     const headers = {

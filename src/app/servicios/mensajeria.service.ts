@@ -12,8 +12,8 @@ export class MensajeriaService {
   @ViewChild(IonContent) content: IonContent;
 
   url_base :string= "https://cabutoshop.pythonanywhere.com/movil/";
-  //url_base :string= "http://127.0.0.1:8000/movil/";
-  //url_base_admins:string="http://127.0.0.1:8000/obtenerAdmin";
+  //url_base :string= "https://cabutoshop.pythonanywhere.com/movil//";
+  //url_base_admins:string="https://cabutoshop.pythonanywhere.com/obtenerAdmin";
   
   usuarios_admin:any=[]
   usuario_cliente:string

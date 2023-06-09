@@ -221,6 +221,7 @@ export class DetalleHistorialPage implements OnInit {
   }
 
   async pagar(id){
+    console.log("info que se manda al pagar o algo asi la verdad no se Dx");
     await this.showLoading2();
     let info = {
       "card": {
@@ -235,6 +236,13 @@ export class DetalleHistorialPage implements OnInit {
         "description": "Approved transaction",
         "dev_reference": this.historial.id_pedido + "",
         "vat": Number(this.historial.iva.toFixed(2)) 
+      },
+      "extra_params": {
+        "threeDS2_data": {
+          "term_url" : "https://cabutoshop.pythonanywhere.com/movil/threeds/",
+          "device_type": "browser",
+          "process_anyway": false
+        }
       }
     }
     console.log(info);

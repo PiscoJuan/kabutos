@@ -37,7 +37,8 @@ export class NuevaTarjetaPage implements OnInit {
     public router: Router,
     public perfiltarjeta: PerfilService
   ) {
-    Payment.init('prod', paymentez.app_code_client,paymentez.app_key_client);
+    Payment.init('stg', paymentez.app_code_client,paymentez.app_key_client);
+    //Payment.init('prod', paymentez.app_code_client,paymentez.app_key_client);
     setTimeout(() => {
       this.card = new PaymentForm(this.cardForm.nativeElement);
     }, 400);
@@ -84,6 +85,7 @@ export class NuevaTarjetaPage implements OnInit {
       )
       .subscribe(
         data => {
+          console.log("La funcion es esta")
           this.responseNumTarj= data["estado"]
           if(this.responseNumTarj == "OK"){
             let checkCard = this.card.getCard()
@@ -92,20 +94,20 @@ export class NuevaTarjetaPage implements OnInit {
                 if (id != null) {
                   this.storage.get('correo').then((val) => {
                     if (val != null) {
-                      
                       var $this = this;
                       let button = <HTMLButtonElement> document.getElementById('guardarTarjeta');
                       let texto=button.innerText
                       button.disabled = true;
                       button.innerText = "Procesando...";
-
                       let successHandler = function (cardResponse) {
-                        //console.log(cardResponse.card);
+                        console.log("successHandler");
                         if (cardResponse.card.status === 'valid') {
+                          console.log("validddddd")
                           const info = {
                             "token": cardResponse.card.token,
                             "cvc": checkCard.card.cvc
                           }
+                          console.log("aca llega creo")
 
                           $this.perfiltarjeta.addCredencial(info)
                           .subscribe(
@@ -125,13 +127,14 @@ export class NuevaTarjetaPage implements OnInit {
                           );
 
                         } else if (cardResponse.card.status === 'review') {
+                          console.log("osssvalidddddd")
                           $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
                         } else {
+                          console.log("INvalidddddd")
                           $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
                         }
                         $this.dismiss();
                       };
-
                       let errorHandler = function (err) {
                         $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos")
                         button.disabled = false;
