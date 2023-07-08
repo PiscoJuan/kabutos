@@ -46,6 +46,8 @@ export class EfectivoPage implements OnInit {
   tarjetaRegalo= "no";
   colorBack:any = "var(--ion-color-naranja-oscuro)";
   butAtras:any = "../assets/img/atras_naranja.png";
+  isVisible=true
+  render=""
   constructor(
     private storage: Storage,
     public perfilService: PerfilService,
@@ -334,37 +336,42 @@ export class EfectivoPage implements OnInit {
             
 
           } else if (data.transaction.status == "pending" && data.transaction.status_detail == 36){
-            let datos = {
-              user: {
-                id: this.id + ""
-              },
-              transaction: {
-                id: data.transaction.id
-              },
-              term_url : "https://cabutoshop.pythonanywhere.com/movil/threeds",
-              device_type: "browser",
-              type: "BY_CRES",
-              value: "U3VjY2VzcyBBdXRoZW50aWNhdGlvbg=="
-            };
-            console.log("COSAS ASASAS: "+ datos)
-            console.log(datos)
-            this.tarjetaService.autentificar(datos)
-            .subscribe(
-              (respFinal) => {
-                console.log("Aca imprime el resultado de pagar:")
-                console.log(respFinal) 
-                if (respFinal.status_detail == 3 ){
-                  this.guardarPedido(
-                    form,
-                    data.transaction.id,
-                    data.transaction.authorization_code
-                  );
-                }else{
-                  this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
-                  this.router.navigate([""]);
+            //renderizar
+            this.isVisible=false;
+            this.render= data["3ds"].browser_response.challenge_request;
+            setTimeout(() => {
+              let datos = {
+                user: {
+                  id: this.id + ""
+                },
+                transaction: {
+                  id: data.transaction.id
+                },
+                // term_url : "https://cabutoshop.pythonanywhere.com/movil/threeds",
+                // device_type: "browser",
+                type: "BY_CRES",
+                value: "U3VjY2VzcyBBdXRoZW50aWNhdGlvbg=="
+              };
+              console.log("COSAS ASASAS: "+ datos)
+              console.log(datos)
+              this.tarjetaService.autentificar(datos)
+              .subscribe(
+                (respFinal) => {
+                  console.log("Aca imprime el resultado de pagar:")
+                  console.log(respFinal) 
+                  if (respFinal.status_detail == 3 ){
+                    this.guardarPedido(
+                      form,
+                      data.transaction.id,
+                      data.transaction.authorization_code
+                    );
+                  }else{
+                    this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);
+                    this.router.navigate([""]);
+                  }
                 }
-              }
-            )
+              )
+            }, 6000000);
           }
           else {
             this.mensajeIncorrecto("Algo Salio mal", data.transaction.message);

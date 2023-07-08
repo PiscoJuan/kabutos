@@ -37,7 +37,8 @@ export class TarjetaService {
       'Auth-Token': this.authToken(paymentez.app_code_server,paymentez.app_key_server)
     }
     const body = JSON.stringify(cosas);
-    return this.http.post('https://ccapi-stg.paymentez.com/v2/transaction/verify/',body,{'headers':headers})
+    return this.http.post('https://ccapi.paymentez.com/v2/transaction/verify/',body,{'headers':headers})
+    // return this.http.post('https://ccapi-stg.paymentez.com/v2/transaction/verify/',body,{'headers':headers})
   }
   
 

@@ -615,7 +615,7 @@ export class ShoppingCartPage implements OnInit {
             else {
               if (this.oferLen + this.prodLen + this.comLen > 0) {
                 //console.log(this.open);
-                if (this.open) {
+                if (1) {
                   this.storage.set('total', this.total);
                   if (this.tarMontLen>0){
                     this.storage.set('usaTarMont', 'si');
@@ -643,7 +643,7 @@ export class ShoppingCartPage implements OnInit {
         //console.log(this.open);
         else if (this.oferLen + this.prodLen + this.comLen > 0) {
           //console.log(this.open);
-          if (this.open) {
+          if (1) {
             this.storage.set('total', this.total);
             if (this.tarMontLen>0){
               this.storage.set('usaTarMont', 'si');
