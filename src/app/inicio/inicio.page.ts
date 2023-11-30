@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CorrectoPage } from '../aviso/correcto/correcto.page';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, NavController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ProductoService } from '../servicios/producto.service';
 import { PublicidadService } from '../servicios/publicidad.service';
@@ -37,6 +37,7 @@ export class InicioPage implements OnInit {
     private alert: AlertController,
     public loadingCtrl: LoadingController,
     private storage: Storage,
+    private navCtrlr: NavController,
     public modalCtrl: ModalController,
     private baneoService: BaneoService,
   ) { }
@@ -143,22 +144,25 @@ export class InicioPage implements OnInit {
 
   async buscar(){
     console.log(this.textInput)
-    await this.showLoading2();
-    this.productoService.getInicioBuscar(this.textInput,this.elegirEstab)
-    .pipe(
-      finalize(async () => {
-        await this.loading.dismiss();
-      })
-    )
-    .subscribe(data => {
-      this.producto = data['productos'];
-      this.categorias = data['categorias'];
-      this.ofertas = data['ofertas'];
+    // await this.showLoading2();
+    //this.navCtrlr.navigateForward("/footer/producto", { state: this.textInput });
+    this.router.navigate(["/footer/producto", {state: this.textInput}]);
 
-    },
-    err => {
-      this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
-    });
+    // this.productoService.getInicioBuscar(this.textInput,this.elegirEstab)
+    // .pipe(
+    //   finalize(async () => {
+    //     await this.loading.dismiss();
+    //   })
+    // )
+    // .subscribe(data => {
+    //   this.producto = data['productos'];
+    //   this.categorias = data['categorias'];
+    //   this.ofertas = data['ofertas'];
+
+    // },
+    // err => {
+    //   this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
+    // });
   }
 
   async showLoading2() {

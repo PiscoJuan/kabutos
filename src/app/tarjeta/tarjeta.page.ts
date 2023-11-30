@@ -81,7 +81,23 @@ export class TarjetaPage implements OnInit {
     this.storage.set('nombreTarjeta', name); 
     this.storage.set('numeroTarjeta', tarjeta); 
     this.storage.set('tokenTarjeta', token);
-    this.router.navigate(['/footer/efectivo']);
+    const aValidar = {
+      id: this.id,
+      numVal: 0,
+      token: token
+    }
+    this.tarjetaService.checkEstaVal(aValidar).subscribe(
+      async (data) => {
+        console.log(data)
+        console.log(data['valid'])
+        if(data['valid']== "OK"){
+          this.router.navigate(['/footer/efectivo']);
+        }else{
+          this.mensajeIncorrecto("Esta tarjeta NO esta validada", "Validela antes de seguir.")
+          this.router.navigate(['/footer/info-tarjeta']);
+        }
+      }
+    )
   }
 
   async datos() {

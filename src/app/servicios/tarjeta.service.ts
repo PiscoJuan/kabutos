@@ -77,6 +77,22 @@ export class TarjetaService {
     const body = JSON.stringify(aValidar);
     return this.http.post(this.baseUrl2+'checkNumValidacion/', body, {'headers':headers})
   }
+  checkEstaVal(aValidar){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(aValidar);
+    return this.http.post(this.baseUrl2+'checkEstaVal/', body, {'headers':headers})
+  }
+  checkFaltaVal(aValidar){
+    const headers = {
+      'Accept': 'application/json, text/plain',
+      'Content-Type': 'application/json'
+    }
+    const body = JSON.stringify(aValidar);
+    return this.http.post(this.baseUrl2+'checkFaltaVal/', body, {'headers':headers})
+  }
 
   authToken(application_code,application_key){
     const unix_timestamp=Math.round(new Date().getTime() / 1000);;

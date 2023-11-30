@@ -8,6 +8,7 @@ import { PerfilService } from '../servicios/perfil.service';
 import { finalize } from 'rxjs/operators';
 import { IncorrectoPage } from '../aviso/incorrecto/incorrecto.page';
 import { CorrectoPage } from '../aviso/correcto/correcto.page';
+import { ConfirmacionPage } from '../tarjeta/confirmacion/confirmacion.page';
 
 @Component({
   selector: 'app-info-tarjeta',
@@ -20,6 +21,8 @@ export class InfoTarjetaPage implements OnInit {
   loading: any;
   tarjetas: any;
   numTarjetas:any;
+  tarjetaVal;
+  numval=0;
   imgAdd:any = "../assets/img/agregar_2.png";
   constructor(
     private alertCtrl: AlertController,
@@ -51,14 +54,27 @@ export class InfoTarjetaPage implements OnInit {
   }
 
   async agregar() {
-    let modal = await this.modalController.create({
-      component: NuevaTarjetaPage,
-      cssClass: 'modal-tarjeta'
-    });
-    modal.onDidDismiss().then((data) => {
-      this.datos();
-    });
-    return await modal.present();
+    const aValidar = {
+      id: this.id,
+    }
+    this.tarjetaService.checkFaltaVal(aValidar).subscribe(
+      async (data) => {
+        console.log(data)
+        console.log(data['valid'])
+        if(data['valid']== "OK"){
+          let modal = await this.modalController.create({
+            component: NuevaTarjetaPage,
+            cssClass: 'modal-tarjeta'
+          });
+          modal.onDidDismiss().then((data) => {
+            this.datos();
+          });
+          return await modal.present();
+        }else{
+          this.mensajeIncorrecto("Atención", "Valide sus otras tarjetas antes de agregar más.")
+        }
+      }
+    )
   }
 
   async agregarNegado() {
@@ -179,13 +195,9 @@ export class InfoTarjetaPage implements OnInit {
   async datos() {
     await this.showLoading2();
     this.tarjetaService.getTarjetas(this.id)
-      .pipe(
-        finalize(async () => {
-          await this.loading.dismiss();
-        })
-      )
+
       .subscribe(
-        data => {
+        async data => {
           console.log(data);
           console.log(data["cards"].length);
           this.tarjetas = data["cards"];
@@ -193,10 +205,77 @@ export class InfoTarjetaPage implements OnInit {
           if (Object.keys(this.tarjetas).length === 0) {
             this.mensajeIncorrecto("No tiene tarjetas", "No cuenta con tarjetas guardadas")
           }
+          var c = 0
+          for (var tarjeta of this.tarjetas){
+            
+            const aValidar = {
+              token: tarjeta.token
+            }
+            await this.tarjetaService.checkEstaVal(aValidar)
+            .pipe(
+              finalize(async () => {
+                await this.loading.dismiss();
+              })
+            )
+            .subscribe(
+              async (data) => {
+                console.log("data")
+                console.log(data)
+                console.log(data['valid'])
+                if(data['valid']== "OK"){
+                  tarjeta.color='green'
+                }else{
+                  tarjeta.color='red'
+                }
+              }
+            )
+            c=c+1
+          }
         },
         err => {
           this.mensajeIncorrecto("Algo Salio mal", "Fallo en la conexión")
         }
       );
+  }
+  async validar(token){
+    const aValidar = {
+      id: this.id,
+      numVal: this.numval,
+      token: token
+    }
+    this.storage.set("token",token)
+    this.tarjetaService.checkEstaVal(aValidar).subscribe(
+      async (data) => {
+        console.log(data)
+        console.log(data['valid'])
+        if(data['valid']== "OK"){
+          return new Promise(async (resolve) => {
+            const alert = await this.alertCtrl.create({
+              message: 'Esta tarjeta ya esta validada.',
+              cssClass: 'alertClass',
+              buttons: [
+                {
+                  text: "Ok",
+                  handler: (ok) => {
+                    resolve('ok');
+                  }
+                },
+              ]
+            });
+            alert.present();
+          });
+        }else{
+          let modal = await this.modalController.create({
+            component: ConfirmacionPage,
+            cssClass: 'modal-tarjeta'
+          });
+          modal.onDidDismiss().then((data) => {
+            this.datos();
+          });
+          return await modal.present();
+        }
+      }
+    );
+    
   }
 }
