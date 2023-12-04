@@ -118,13 +118,21 @@ export class NuevaTarjetaPage implements OnInit {
                                 $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito");
                                 $this.dismiss();
                               }else{
-                                $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos1");
+                                $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.1");
+                                const aValidar = {
+                                  id: this.id
+                                }
+                                $this.tarjetaService.resetNumValidacion(aValidar)
                                 $this.router.navigate(['']);
                                 $this.dismiss();
                               }
                             },
                             err => {
-                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos2");
+                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.2");
+                              const aValidar = {
+                                id: id
+                              }
+                              $this.tarjetaService.resetNumValidacion(aValidar)
                               $this.router.navigate(['']);
                               $this.dismiss();
                             }
@@ -134,13 +142,21 @@ export class NuevaTarjetaPage implements OnInit {
                           $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
                           $this.dismiss();
                         } else {
-                          $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos3");
+                          $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.3");
+                          const aValidar = {
+                            id: id
+                          }
+                          this.tarjetaService.resetNumValidacion(aValidar)
                           $this.dismiss();
                         }
                       };
 
                       let errorHandler = function (err) {
-                        $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos4")
+                        $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.4")
+                        const aValidar = {
+                          id: id
+                        }
+                        $this.tarjetaService.resetNumValidacion(aValidar)
                         button.disabled = false;
                         button.innerText = texto;
                       };

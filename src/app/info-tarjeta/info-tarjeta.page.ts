@@ -23,6 +23,7 @@ export class InfoTarjetaPage implements OnInit {
   numTarjetas:any;
   tarjetaVal;
   numval=0;
+  arrColores=[]
   imgAdd:any = "../assets/img/agregar_2.png";
   constructor(
     private alertCtrl: AlertController,
@@ -108,6 +109,24 @@ export class InfoTarjetaPage implements OnInit {
   async eliminar(token){
     this.presentConfirm('¿Desea eliminar esta tarjeta?','No','Si') .then(res => {
       if (res === 'ok') {
+        //if tarjeta no es cosa
+        const aValidar = {
+          id: this.id,
+          token: token
+        }
+        this.tarjetaService.checkEstaVal(aValidar)
+        .subscribe(
+          async (data) => {
+            console.log("data")
+            console.log(data)
+            console.log(data['valid'])
+            if(data['valid']== "OK"){
+              
+            }else{
+              this.tarjetaService.resetNumValidacion(aValidar).subscribe()
+            }
+          }
+        )
         this.borrar(token);
       }
     });
@@ -145,7 +164,6 @@ export class InfoTarjetaPage implements OnInit {
     const info = {
       "token": token
     }
-      
     this.perfiltarjeta.delCredencial(info)
       .subscribe(
         data => {
@@ -195,7 +213,12 @@ export class InfoTarjetaPage implements OnInit {
   async datos() {
     await this.showLoading2();
     this.tarjetaService.getTarjetas(this.id)
-
+    .pipe(
+      finalize(async () => {
+        await new Promise(f => setTimeout(f, 500));
+        await this.loading.dismiss();
+      })
+    )
       .subscribe(
         async data => {
           console.log(data);
@@ -207,16 +230,11 @@ export class InfoTarjetaPage implements OnInit {
           }
           var c = 0
           for (var tarjeta of this.tarjetas){
-            
+            tarjeta.color='red'
             const aValidar = {
               token: tarjeta.token
             }
-            await this.tarjetaService.checkEstaVal(aValidar)
-            .pipe(
-              finalize(async () => {
-                await this.loading.dismiss();
-              })
-            )
+            this.tarjetaService.checkEstaVal(aValidar)
             .subscribe(
               async (data) => {
                 console.log("data")
@@ -230,6 +248,7 @@ export class InfoTarjetaPage implements OnInit {
               }
             )
             c=c+1
+            await new Promise(f => setTimeout(f, 500));
           }
         },
         err => {
@@ -237,6 +256,12 @@ export class InfoTarjetaPage implements OnInit {
         }
       );
   }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
+
   async validar(token){
     const aValidar = {
       id: this.id,
