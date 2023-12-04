@@ -118,7 +118,7 @@ export class NuevaTarjetaPage implements OnInit {
                                 $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito");
                                 $this.dismiss();
                               }else{
-                                $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.1");
+                                $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
                                 const aValidar = {
                                   id: this.id
                                 }
@@ -128,7 +128,7 @@ export class NuevaTarjetaPage implements OnInit {
                               }
                             },
                             err => {
-                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.2");
+                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
                               const aValidar = {
                                 id: id
                               }
@@ -142,7 +142,7 @@ export class NuevaTarjetaPage implements OnInit {
                           $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
                           $this.dismiss();
                         } else {
-                          $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.3");
+                          $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
                           const aValidar = {
                             id: id
                           }
@@ -152,7 +152,7 @@ export class NuevaTarjetaPage implements OnInit {
                       };
 
                       let errorHandler = function (err) {
-                        $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos erno.4")
+                        $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos")
                         const aValidar = {
                           id: id
                         }

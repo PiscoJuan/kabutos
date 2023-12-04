@@ -276,7 +276,7 @@ export class InfoTarjetaPage implements OnInit {
         if(data['valid']== "OK"){
           return new Promise(async (resolve) => {
             const alert = await this.alertCtrl.create({
-              message: 'Esta tarjeta ya esta validada.',
+              message: 'Esta tarjeta ya está validada.',
               cssClass: 'alertClass',
               buttons: [
                 {

@@ -1,19 +1,25 @@
-<ion-content>
-  <div class="tituloDIv">
-    <ion-label class="titulo">Verificar Tarjeta</ion-label>
+<ion-buttons slot="end">
+  <ion-button (click)="dismiss()">
+    <ion-icon slot="icon-only" name="close" style="color: grey;"></ion-icon>
+  </ion-button>
+</ion-buttons>
+<ion-label class="titulo">Verificar Tarjeta</ion-label>
+<ion-content >
+  <div class="contenedor-page" >
+    <div class="contenedor" >
+      <div>
+        Código de Verificación:
+      </div>
+      <div class="contenedor-searchbar">
+        <ion-input placeholder="    1.23" type="number" id="numeroComprobar"></ion-input>
+      </div>
+      <ion-button class="btn-registro" id="guardarTarjeta" size="large" (click)="comprobar()" style="--background:{{colorBack}}">
+        <p class="registro">Aceptar</p>
+      </ion-button>
+      <div class="descripcion">
+        Ingrese el código de verificación que fue enviado vía sms o correo electrónico por los canales de su banco.
+      </div>
+    </div>
   </div>
-  <div  class="contenedor" >
-    <div>
-      Código de Verificación:
-    </div>
-    <div class="contenedor-searchbar">
-      <ion-input placeholder="    1.23" type="number" id="numeroComprobar"></ion-input>
-    </div>
-    <ion-button class="btn-registro" id="guardarTarjeta" size="large" (click)="comprobar()" style="--background:{{colorBack}}">
-      <p class="registro">Aceptar</p>
-    </ion-button>
-    <div class="descripcion">
-      Ingrese el código de verificación que fue enviado vía sms o correo electrónico por los canales de su banco.
-    </div>
-  </div>
+  
 </ion-content>

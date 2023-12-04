@@ -85,4 +85,8 @@ export class ConfirmacionPage implements OnInit {
     });
     return await modal.present();
   }
+  dismiss() {
+    this.modalController.dismiss();
+  }
 }
+
