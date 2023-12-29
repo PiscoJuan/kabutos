@@ -2,39 +2,55 @@
   <div class="contenedor-page">
     <ion-label class="titulo">Tarjetas</ion-label>
     <div class="contener-tarjeta" *ngFor="let tarjeta of tarjetas">
-      <div class="div-tarjeta" >
-        <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
-          (click)="eliminar(tarjeta.token)"></div>
-        <div class="contener-columnaI">
-          <img *ngIf="tarjeta.type === 'vi'" src="../assets/img/visa.png">
-          <img *ngIf="tarjeta.type === 'mc'" src="../assets/img/mastercard.svg">
-          <img *ngIf="tarjeta.type === 'ax'" src="../assets/img/amex.svg">
-          <img *ngIf="tarjeta.type === 'di'" src="../assets/img/diners.svg">
-          <img *ngIf="tarjeta.type === 'dc'" src="../assets/img/discover.svg">
-          <img *ngIf="tarjeta.type === 'ms'" src="../assets/img/maestro.svg">
-          <img *ngIf="tarjeta.type === 'cs'" src="../assets/img/credisensa.png">
-          <img *ngIf="tarjeta.type === 'so'" src="../assets/img/alia.svg">
-          <img *ngIf="tarjeta.type === 'up'" src="../assets/img/unionpay.png">
-        </div>
-        <div class="contener-columna">
-          <h6 class="nombre-tarjeta">
-            {{tarjeta.holder_name}}
-          </h6>
-          <h6 class="nombre-tarjeta">
-            <span *ngIf="tarjeta.type === 'vi'"> Visa</span>
-            <span *ngIf="tarjeta.type === 'mc'">Mastercard</span>
-            <span *ngIf="tarjeta.type === 'ax'">American Express</span>
-            <span *ngIf="tarjeta.type === 'di'">Diners</span>
-            <span *ngIf="tarjeta.type === 'dc'">Discover</span>
-            <span *ngIf="tarjeta.type === 'ms'">Maestro</span>
-            <span *ngIf="tarjeta.type === 'cs'">Credisensa</span>
-            <span *ngIf="tarjeta.type === 'so'">Solidario</span>
-            <span *ngIf="tarjeta.type === 'up'">Union Pay</span>
-            ****{{tarjeta.number}}
-          </h6>
-          <p class="direccion-tarjeta">Expira {{tarjeta.expiry_month | number: '2.0-0'}}/{{tarjeta.expiry_year}}</p>
-        </div>
-      </div>
+        <ion-row>
+          <ion-col size="auto">
+            <div class="button-Validarr" (click)="validar(tarjeta.token)">
+              <img src="../assets/img/dots/{{tarjeta.color}}.png" width="100%" >
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class="div-tarjeta" >
+              <div class="borrar_content"><img src="../assets/img/borrar.png" class="borrar"
+                (click)="eliminar(tarjeta.token)"></div>
+              <div class="contener-columnaI">
+                <img *ngIf="tarjeta.type === 'vi'" src="../assets/img/visa.png">
+                <img *ngIf="tarjeta.type === 'mc'" src="../assets/img/mastercard.svg">
+                <img *ngIf="tarjeta.type === 'ax'" src="../assets/img/amex.svg">
+                <img *ngIf="tarjeta.type === 'di'" src="../assets/img/diners.svg">
+                <img *ngIf="tarjeta.type === 'dc'" src="../assets/img/discover.svg">
+                <img *ngIf="tarjeta.type === 'ms'" src="../assets/img/maestro.svg">
+                <img *ngIf="tarjeta.type === 'cs'" src="../assets/img/credisensa.png">
+                <img *ngIf="tarjeta.type === 'so'" src="../assets/img/alia.svg">
+                <img *ngIf="tarjeta.type === 'up'" src="../assets/img/unionpay.png">
+              </div>
+              <div class="contener-columna">
+                <h6 class="nombre-tarjeta">
+                  {{tarjeta.holder_name}}
+                </h6>
+                <h6 class="nombre-tarjeta">
+                  <span *ngIf="tarjeta.type === 'vi'"> Visa</span>
+                  <span *ngIf="tarjeta.type === 'mc'">Mastercard</span>
+                  <span *ngIf="tarjeta.type === 'ax'">American Express</span>
+                  <span *ngIf="tarjeta.type === 'di'">Diners</span>
+                  <span *ngIf="tarjeta.type === 'dc'">Discover</span>
+                  <span *ngIf="tarjeta.type === 'ms'">Maestro</span>
+                  <span *ngIf="tarjeta.type === 'cs'">Credisensa</span>
+                  <span *ngIf="tarjeta.type === 'so'">Solidario</span>
+                  <span *ngIf="tarjeta.type === 'up'">Union Pay</span>
+                  ****{{tarjeta.number}}
+                </h6>
+                <p class="direccion-tarjeta">Expira {{tarjeta.expiry_month | number: '2.0-0'}}/{{tarjeta.expiry_year}}</p>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+    </div>
+    <div class="button-content-Text">
+      <p>Presione el punto rojo para validar su tarjeta.
+      Ingrese el valor que fue descontado de su tarjeta y le llegó vía sms o mail.
+      En caso de no haber recibido el mensaje o mail, comuníquese con su banco y consulte el valor.</p>
     </div>
     <div class="button-content" *ngIf="id != null && numTarjetas<2" >
       <div class="btn_regresar"> <img src={{imgAdd}} class="atras" (click)="agregar()"> </div>
