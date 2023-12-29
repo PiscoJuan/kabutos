@@ -5,8 +5,8 @@ import { Producto_Carrito } from '../modelo/producto_carrito';
 import { Observable, Subject } from 'rxjs';
 import { login } from './../global'
 import 'rxjs/add/operator/map';
-import { ChildActivationStart, Router } from '@angular/router';
-import { AlertController, IonToggle, LoadingController, ModalController, NumericValueAccessor } from '@ionic/angular';
+import { ChildActivationStart, Router, ActivatedRoute, Route } from '@angular/router';
+import { AlertController, IonToggle, LoadingController, ModalController, NumericValueAccessor, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { DetallesProductosPage } from '../detalles-productos/detalles-productos.page';
 import { ShoppingCartService } from '../servicios/shopping-cart.service';
@@ -30,7 +30,7 @@ export class ProductoPage implements OnInit {
   productoParcialMayor: Array<Producto> = [];
   productoParcialMenor: Array<Producto> = [];
   productoParcial: Array<Producto> = [];
-
+  v1="";
   verSeleccion: string = '';
   dataFromCart: {};
   n = 0;
@@ -57,7 +57,13 @@ export class ProductoPage implements OnInit {
     public modalCtrl: ModalController,
     private shoppingCart: ShoppingCartService,
     private navParamsService: NavParamsService,
-  ) { }
+    private activatedRoute: ActivatedRoute,
+  ) { 
+    // if (router.getCurrentNavigation().extras.state) {
+      // const pageName = this.router.getCurrentNavigation().extras.state;
+
+    // }
+  }
 
   ngOnInit() {
     this.storage.get("elegirEstab").then((val) => {
@@ -73,11 +79,18 @@ export class ProductoPage implements OnInit {
 
 
   ionViewWillEnter() {
-    
-
-    console.log("refresh");
-    this.datos(null, this.filtro);
-    this.loadData();
+    this.v1 = this.activatedRoute.snapshot.paramMap.get('state');
+    console.log("pageName") 
+    console.log(this.v1) 
+    if (this.v1 != "" && this.v1){
+      this.textInput=this.v1
+      this.v1=""
+      this.showLoading2()
+    }else{
+      console.log("refresh");
+      this.datos(null, this.filtro);
+      this.loadData();
+    }
   }
 
   datos(event, filtro) {
