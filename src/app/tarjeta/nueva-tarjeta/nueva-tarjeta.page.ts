@@ -8,6 +8,7 @@ import { CorrectoPage } from 'src/app/aviso/correcto/correcto.page';
 import { PerfilService } from 'src/app/servicios/perfil.service';
 import { Router } from '@angular/router'
 import { finalize } from 'rxjs/operators';
+import { ConfirmacionPage } from '../../tarjeta/confirmacion/confirmacion.page';
 
 declare var Payment: any;
 declare var PaymentForm: any;
@@ -28,6 +29,7 @@ export class NuevaTarjetaPage implements OnInit {
   imgAdd:any = "../assets/img/agregar_2.png";
   colorBack:any = "var(--ion-color-naranja-oscuro)";
   @ViewChild('myCard', { static: true }) cardForm;
+  formGuardar: any;
 
   constructor(
     public modalController: ModalController,
@@ -110,30 +112,51 @@ export class NuevaTarjetaPage implements OnInit {
                           $this.perfiltarjeta.addCredencial(info)
                           .subscribe(
                             data => {
+                              console.log("daaaaaaaaaaataaaaaaaaaaaaaaaaaaaaaaa");
                               console.log(data);
                               if(data.valid=="OK"){
                                 $this.mensajeCorrecto("Tarjeta agregada","Su tarjeta ha sido añadida con éxito");
+                                $this.dismiss();
                               }else{
-                              $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
-                              $this.router.navigate(['']);
+                                $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                                const aValidar = {
+                                  id: this.id
+                                }
+                                $this.tarjetaService.resetNumValidacion(aValidar)
+                                $this.router.navigate(['']);
+                                $this.dismiss();
                               }
                             },
                             err => {
                               $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                              const aValidar = {
+                                id: id
+                              }
+                              $this.tarjetaService.resetNumValidacion(aValidar)
                               $this.router.navigate(['']);
+                              $this.dismiss();
                             }
                           );
 
                         } else if (cardResponse.card.status === 'review') {
                           $this.mensajeCorrecto("Tarjeta en revisión","Su tarjeta será revisada");
+                          $this.dismiss();
                         } else {
                           $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos");
+                          const aValidar = {
+                            id: id
+                          }
+                          this.tarjetaService.resetNumValidacion(aValidar)
+                          $this.dismiss();
                         }
-                        $this.dismiss();
                       };
 
                       let errorHandler = function (err) {
                         $this.mensajeIncorrecto("Tarjeta no agregada","Intente ingresar nuevamente sus datos")
+                        const aValidar = {
+                          id: id
+                        }
+                        $this.tarjetaService.resetNumValidacion(aValidar)
                         button.disabled = false;
                         button.innerText = texto;
                       };
@@ -195,4 +218,31 @@ export class NuevaTarjetaPage implements OnInit {
 
   }
 
+  async comprobar(){
+    console.log("Entra en Comprobar")
+    const numeroAcomprobar: any = document.getElementById('numeroComprobar')
+    console.log(numeroAcomprobar.value)
+    this.storage.get('id').then(
+      (val) => {
+        console.log(val)
+        const aValidar = {
+          id: val,
+          numVal: Number(numeroAcomprobar.value)
+        }
+    
+        this.tarjetaService.checkNumValidacion(aValidar).subscribe(
+          (data) => {
+            console.log(data)
+            console.log(data['valid'])
+            if(data['valid']== "OK"){
+              console.log("SI SIRVE")
+            }else{
+              console.log("NO SIRVE")
+            }
+          }
+        );
+      }
+    )
+
+  }
 }

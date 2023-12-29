@@ -7,8 +7,8 @@
 <ion-content>
   <div class="contenedor-page">
 
-    <div class="contenedor">
-      <form #form="ngForm" id="guardar" (ngSubmit)="save(form)">
+    <div class="contenedor" id="contenedor1">
+      <form #form="ngForm" id="guardar" (ngSubmit)="save(form,1)">
 
         <div class="payment-form" #myCard id="my-card" data-capture-name="true">         
         </div>
