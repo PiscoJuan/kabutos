@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'nueva-tarjeta',
     loadChildren: () => import('./nueva-tarjeta/nueva-tarjeta.module').then( m => m.NuevaTarjetaPageModule)
+  },
+  {
+    path: 'confirmacion',
+    loadChildren: () => import('./confirmacion/confirmacion.module').then( m => m.ConfirmacionPageModule)
   }
 ];
 
